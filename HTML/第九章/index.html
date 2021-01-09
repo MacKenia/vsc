@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>音乐播放界面</title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+				/* border: 1px solid red; */
+			}
+			
+			@keyframes xz{
+				from{transform: rotatez(0deg);}
+				to{transform: rotateZ(360deg);}
+			}
+			
+			html,body{
+				width: 100%;
+				height: 100%;
+				
+			}
+			
+			div.contianer{
+				position: relative;
+				height: 100%;
+				overflow: hidden;
+			}
+			
+			video{
+				
+				position: absolute;
+				width: 1560px;
+				z-index: 1;
+				filter: blur(3px);
+			}
+			
+			div.video{
+				/* background-color: rgba(225,225,225,1); */
+				width: 1300px;
+				/* height: 100%; */
+				/* border: 1px solid red; */
+				position: absolute;
+				color: white;
+				top: 150px;
+				left: 120px;
+				z-index: 2;
+			}
+			
+			.left{
+				float: left;
+				animation-name: xz;
+				animation-duration: 60s;
+				animation-iteration-count: infinite;
+			}
+			
+			.right{
+				margin-right: 30px;
+				height: 505px;
+				float: right;
+				overflow: hidden;
+				background-color: rgba(255,255,255,.1);
+				padding: 10px;
+			}
+			
+			.j{
+				width: 505px;
+				height: 505px;
+				background: url(img/ys.jpg) no-repeat;
+				border-radius: 50%;
+			}
+			
+			p{
+				white-space: pre;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="contianer">
+			<video src="img/James Blunt - Cold [Acoustic] [Live From The Pool]_3.mkv" autoplay="autoplay"></video>
+			<div class="video">
+
+				<div class="left">
+					<div class="j">
+						
+					</div>
+				</div>
+				<div class="right">
+					<h1>Cold</h1>
+					<p>作词：James Blunt    作曲：James Blunt
+
+It’s been lonely, trying get your attention from a thousand miles away
+And you know me, always overthinking the worst possibilities
+Yeah, we both know, in between you and me, there’s an ocean
+Castaway in a sea and it’s frozen
+I’m exposed, can’t you see, all I need is a little warmth
+
+Without your arms around me
+Without you on my skin
+Without you on my body, I’m sorry, I’m sorry
+I don’t mean to be desperate, or pretend that I’m not torn
+But I don’t want to let go of the things that keep me warm
+Without you I’m just cold
+
+I built a little boat with a sail from the memories I’ve been collecting
+And I’ll hold out for the wind to blow me, take me home the whole way, in your direction
+Yeah, we both know, in between you and me there’s an ocean
+And I’m just trying to get a little closer
+Pull me in, cause I’m here and all I need is little warmth
+
+Without your arms around me
+Without you on my skin
+Without you on my body, I’m sorry, I’m sorry
+I don’t mean to be desperate, or pretend that I’m not torn
+But I don’t want to let go of the things that keep me warm
+Without you I’m just cold
+Without you I’m just cold
+
+And I need a little fire and you’re my gasoline
+Light me up, I’m burning, with all these things I feel
+I’ll always hold this flame for you, but it’s naked on the breeze
+So let me in, don’t lock me out or cast me out to sea
+
+Without your arms around me
+Without you on my skin
+Without you on my body, I’m sorry, I’m sorry
+I don’t mean to be desperate, or pretend that I’m not torn
+But I don’t want to let go of the things that keep me warm
+Without you I’m just cold
+Without you I’m just cold
+Without you I’m just cold
+Without you I’m just cold</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>NEXT</title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+				/* border: 1px solid red; */
+			}
+			
+			body,html{
+				height: 100%;
+			}
+			
+			body{
+				background-color: #000000;
+			}
+			
+			div#qq{
+				height: 100%;
+				width: 100%;
+				position: absolute;
+				z-index: -2;
+			}
+			
+			div#pp{
+				height: 100%;
+				width: 100%;
+				transition: all 0.5s ease-in-out 0s;
+				transform-style: preserve-3d;
+				position: relative;
+			}
+			
+			div#ww{
+				height: 100%;
+				width: 100%;
+				background-color: black;
+				transform: translateZ(320px);
+				position: absolute;
+				z-index: -1;
+			}
+			
+			div#ee{
+				height: 100%;
+				width: 100%;
+				transform: rotateX(90deg) translateZ(390px);
+				position: absolute;
+				z-index: -1;
+			}
+			
+			div#aa{
+				height: 100%;
+				width: 100%;
+				background-image: url(img/picture.jpg);
+				position: absolute;
+			}
+			
+			div#pp:hover{
+				transform: rotateX(-90deg);
+			}
+			
+			div#ww p{
+				font-size: 300px;
+				position: absolute;
+				top: 160px;
+				left: 380px;
+				color: white;
+			}
+			
+			div#ss{
+				height: 480px;
+				width: 900px;
+				position: absolute;
+				top: 19%;
+				left: 23%;
+				border-radius: 20px;
+				box-shadow: 0px 0px 5px white;
+			}
+			
+			div#pic{
+				height: 480px;
+				width: 900px;
+				background: url(img/picture.jpg) fixed;
+				filter: blur(6px);
+				position: absolute;
+				z-index: 0;
+			}
+			
+			div#tbb{
+				position: absolute;
+				top: 30px;
+				left: 50px;
+				z-index: 2;
+			}
+			
+			table td{
+				height: 85px;
+				width: 420px;
+				color: white;
+				font-size: 30px;
+				/* background-color: #FFFFFF; */
+			}
+			
+			table .H{
+				width: 100px;
+				text-align: right;
+				padding-right: 5px;
+			}
+			
+			table #head{
+				width: 260px;
+				background: url(img/head.jpeg) no-repeat center;
+				border-radius: 50%;
+				transition-property: transform,border-radius;
+				transition-duration: 500ms;
+			}
+			
+			table #head:hover{
+					transform: scale(1.1,1.1);
+					border-radius: 8%;
+					transition-property: transform,border-radius;
+					transition-duration: 500ms;
+			}
+			
+			div#music{
+				width: 900px;
+				position: absolute;
+				z-index: 2;
+				bottom: -80px;
+				
+			}
+			
+			div#music audio{
+				width: 800px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="qq">
+		</div>
+		<div id="pp">
+		<div id="ww">
+			<p>欢迎！</p>
+		</div>
+		<div id="ee">
+			<div id="aa">
+			</div>
+			<div id="ss">
+				<div id="pic">
+					
+				</div>
+				<div id="tbb">
+					<table border="0" cellspacing="" cellpadding="">
+						<tr>
+							<td id="head" rowspan="3"></td><td class="H">姓名:</td><td>杨鸿强</td>
+						</tr>
+						<tr>
+							<td class="H">学号:</td><td>2020051615308</td>
+						</tr>
+						<tr>
+							<td class="H">QQ:</td><td>2278743541</td>
+						</tr>
+						<tr>
+							<td class="H">留言:</td><td colspan="2">网页到这里就结束了，谢谢老师的查看</td>
+						</tr>
+					</table>
+					
+					<div id="music">
+						<audio src="img/AniFace.mp3" controls="controls" autoplay="autoplay">
+							当前浏览器不支持audio
+						</audio>
+					</div>
+				</div>
+				
+				
+			</div>
+		</div>
+		
+		<div id="aa">
+		</div>
+		
+		</div>	
+		
+
+		
+		
+		
+	</body>
+</html>

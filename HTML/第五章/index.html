@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>第五章</title>
+		<style type="text/css">
+			body{
+				background-color: #272822;
+				color: white;
+			}
+			
+			/* 边框属性 */
+			
+			div#wo{
+				width: 200px;
+				border-top: 10px double #0c7868;
+				border-left: 2px solid aqua;
+				border-right: 3px dashed cyan;
+				border-bottom: 4px dotted darkgreen;
+			}
+			
+			/* 内外边距属性 */
+			div#wdn{
+				border: 2px solid #FFFFFF;
+				padding: 50px;
+				padding-bottom: 2px;
+				margin-top: 30px;
+			}
+			
+			/* 背景属性 */
+			div#wdnm{
+				height: 300px;
+				width: 447px;
+				background-image: url(img/720517476.jpeg);
+				background-position: -50px -20px;
+				background-repeat: no-repeat;
+				background-attachment: fixed;
+			}
+			
+			/* rgba属性 */
+			div#wdnmd{
+				/* background-image: url(img/哈.jpg); */
+				background-color: rgba(255,25,25,0.2);
+			}
+			
+			/* opacity 属性 */
+			div#wdnmdw{
+				color: #5192d8;
+				background-image: url(img/哈.jpg);
+				opacity: 0.5;
+			}
+			
+			/* 圆角属性 */
+			div#wdnmdwd{
+				height: 500px;
+				width: 447px;
+				background-position: -165px;
+				background-attachment: fixed;
+				background-image: url(img/726655918.jpeg);
+				border-radius: 100px 100px 100px 100px/190px 190px 190px 190px;
+			}
+			
+			/* 图片边框 */
+			div#wdnmdwdn{
+				height: 500px;
+				width: 447px;
+				border-style: solid;
+				border-image-source: url(img/726655918.jpeg);
+				border-image-slice: 10%;
+				border-image-width: 20px;
+				border-image-outset: 0;
+				border-image-repeat: repeat;
+			}
+			
+			/* 渐变 */
+			div#wdnmdwdnm{
+				height: 200px;
+				background-image: linear-gradient(to right, #e24f7d, #c12bc1);
+			}
+			
+			div#wdnmdwdnmd{
+				height: 200px;
+				background-image: radial-gradient(circle at 20px 2px,#0f0, #fff);
+			}
+			
+			div#wdnmdwdnmdw{
+				height: 200px;
+				background-image: repeating-linear-gradient(to right, #e24f7d, #c12bc1 50%, #3788ce);
+			}
+			
+			div#wdnmdwdnmdwd{
+				height: 400px;
+				background-image: repeating-radial-gradient(circle at 20px 2px,#8b25ff, #dadada 30%);
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wo">
+			边框属性
+		</div>
+		<div id="wdn">
+			内外边距属性
+		</div>
+		<div id="wdnm">
+			背景属性
+		</div>
+		<div id="wdnmd">
+			rgba属性
+		</div>
+		<div id="wdnmdw">
+			opacity 属性
+		</div>
+		<div id="wdnmdwd">
+			圆角属性
+		</div>
+		<div id="wdnmdwdn">
+			图片边框
+		</div>
+		<div id="wdnmdwdnm">
+			线性渐变
+		</div>
+		<div id="wdnmdwdnmd">
+			径向渐变
+		</div>
+		<div id="wdnmdwdnmdw">
+			线性重复渐变
+		</div>
+		<div id="wdnmdwdnmdwd">
+			径向重复渐变
+		</div>
+	</body>
+</html>

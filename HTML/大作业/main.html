@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>GG</title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+				/* border: 1px solid red; */
+			}
+			
+			body,html{
+				height: 100%;
+			}
+			
+			@font-face {
+				font-family: my;
+				src: url(img/zit.ttf);
+			}
+			
+			
+			body{
+				position: relative;
+			}
+			
+			div#q{
+				height: 100%;
+				width: 100%;
+				background: url(img/night.jpeg) fixed;
+				filter: blur(1px);
+				position: absolute;
+				z-index: -1;
+			}
+			
+			div#e{
+				height: 100%;
+				width: 100%;
+				background: url(img/dawn.jpeg) fixed;
+				filter: blur(1px);
+				position: absolute;
+				z-index: -1;
+			}
+			
+			div#r{
+				font-size: 20px;
+				position: absolute;
+				top: 38%;
+				left: 43%;
+				z-index: 3;
+				font-family: my;
+				color: #FFFFFF;
+			}
+			
+			div.serchbox{
+				width: 700px;
+				height: 45px;
+				position: absolute;
+				top: 50%;
+				left: 27%;
+				border-radius: 15px;
+			}
+			
+			div.serchbox input{
+				width: 700px;
+				height: 45px;
+				border-radius: 15px;
+				background-color: rgba(255,255,255,0.8);
+				font-family: "microsoft sans serif";
+				font-size: 20px;
+				line-height: 45px;
+				padding-left: 20px;
+				padding-right: 58px;
+				position: absolute;
+				border-width: 0;
+				border: 2px solid white;
+				
+			}
+			
+			div.serchbox img{
+				position: absolute;
+				right: 20px;
+				top: 6px;
+				z-index: 3;
+			}
+			
+			div#t{
+				position: absolute;
+				bottom: 20px;
+				left: 47%;
+				color: white;
+				font-size: 20px;
+			}
+			
+			div#w{
+				height: 100%;
+			}
+			
+			div#a{
+				width: 1200px;
+				margin: 0 auto;
+				margin-top: 100px;
+			}
+			
+			div#a table td{
+				position: relative;
+				text-align: center;
+				width: 253px;
+				padding: 45px;
+			}
+			
+			td div{
+				background-color: rgba(255,255,255,0.8);
+				border-radius: 20px;
+				position: absolute;
+				top: 4px;
+				width: 250px;
+				height: 100px;
+			}
+			
+			div#x img{
+				margin-top: 8px;
+			}
+			
+			div#a p{
+				font-size: 78px;
+				color: black;
+			}
+			
+			div#z:hover{
+				content: "查看作者";
+			}
+			
+			
+		</style>
+	</head>
+	<body>
+		<div id="q">
+		</div>
+		<div id="r">
+			<h1>MY搜索引擎</h1>
+		</div>
+			<div id="w">
+				
+				<div class="serchbox">
+					<input type="search" id="keyword" autofocus="autofocus" placeholder="按下左边的搜索图标来进行必应搜索">
+					<img id="SSE" src="img/ser.png" title="开始搜索">
+				</div>
+				<div id="t">
+					<p>向下滚动遇见跟多</p>
+				</div>
+			</div>
+			<div id="e">
+			</div>
+			<div id="a">
+				<table border="0" cellspacing="40">
+					<tr>
+						<td><a href="next.html">
+							<div id="z">
+								<p>NEXT</p>
+							</div>
+						</a></td>
+						<td><a href="https://www.bilibili.com/">
+							<div id="x">
+								<img src="img/download%20(1)-1.png">
+							</div>
+						</a></td>
+						<td>
+							<div id="c">
+								<img src="img/unnamed.png" >
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		<script type="text/javascript">
+			var a = document.getElementById('keyword');
+			document.getElementById('SSE').onclick = function() {
+				var b = "https://cn.bing.com/search?q=" + a.value;
+				open(b);
+			}
+			
+			document.getElementById('c').onclick = function() {
+				alert('开发中！');
+			}
+		</script>
+	</body>
+</html>

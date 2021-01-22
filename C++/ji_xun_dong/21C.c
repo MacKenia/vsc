@@ -2,7 +2,7 @@
 
 int main()
 {
-    int judge(int *array , int l);
+    int judge(long long int *array , int l);
     int a, i, j, k;
     long long int arr[10000];
     scanf("%d", &a);
@@ -21,7 +21,7 @@ int main()
     return 0;
 }
 
-int judge(int *p , int l)
+int judge(long long int *p , int l)
 {
     int i;
     for (i = 0; i < l; i++)

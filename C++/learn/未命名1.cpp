@@ -1,7 +1,13 @@
-﻿#include<stdio.h>
+#include<stdio.h>
 
 int main()
 {
-	printf("Hello world！");
+	int fuck();
+	printf("%d", fuck());
 	return 0;
+}
+
+int fuck()
+{
+	return 100;
 }

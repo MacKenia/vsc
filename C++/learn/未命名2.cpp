@@ -1,35 +1,55 @@
+
 #include<stdio.h>
-
-const int MAX_N = 50;
-
-
-int main()
+#include<string.h>
+#define N 105
+ 
+int x[N], y[N];
+int n;
+ 
+void find()
 {
-	int n, m, k[MAX_N];
-
-	scanf("%d %d", &n, &m);
-	for (int i = 0; i < n; i++) {
-		scanf("%d",&k[i]);
-	}
-
-	bool f = false;
-	 
-		for (int a = 0; a < n; a++) {
-			for (int b = 0; b < n; b++) {
-				for (int c = 0; c < n; c++) {
-					for (int d = 0; d < n; d++) {
-						if (k[a] + k[b] + k[c] + k[d] == m) {
-							f = true;
-						}
-					}
+	int p, q;
+ 
+	for(int a = -500; a <= 500 ; a++)
+	{
+		for(int b = -500; b <= 500; b++)
+		{	p = 0;
+			q = 0;
+ 
+			for(int i = 0; i < 2 * n; i++)
+			{
+				int k = x[i] * a + y[i] * b;
+ 
+				if(k > 0)		p++;
+				else if(k < 0)	q++;
+				else		break;
+ 
+				if(p > n) break;
+				if(q > n) break;
+			
+				if(i == 2 * n - 1 && p == q)	
+				{
+					printf("%d %d\n", a, b);
+					return;
 				}
 			}
 		}
-
-
-		if (f) puts("yes");
-	else puts("no");
-	return 0;
-
+	}
+}
+ 
+int main( )
+{
+	while(scanf("%d", &n), n)
+	{
+		// Init.
+		memset(x, 0, sizeof(x));
+		memset(y, 0, sizeof(y));
+ 
+		// Read.	
+		for(int i = 0; i < 2 * n; i++)
+			scanf("%d%d", &x[i], &y[i]);
+ 
+		find();
+	}
 }
 

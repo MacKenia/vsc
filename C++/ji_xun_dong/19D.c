@@ -1,4 +1,5 @@
-#include<stdio.h>
+﻿#include<stdio.h>
+#include<stdlib.h>
 
 struct word
 {
@@ -11,30 +12,34 @@ int main()
     void front(struct word *p, struct word *ah);
     void behind(struct word *p, struct word *l);
     void (*en)(struct word*, struct word*);
-    struct word *p, *q, head;
+    struct word *p, *q, head, *last;
     char t;
     p = &head;
-    while (~scanf("%d", &t))
+    en = behind;
+    while (~scanf("%c", &t))
     {
-        q = (struct word *) malloc(sizeof(struct word));
-        en = behind;
         if (t == '[')
         {
             en = front;
+            last = p;
             p = &head;
+            continue;
         }
         else if (t == ']')
         {
             en = behind;
-            p = q;
+            p = last;
+            continue;
         }
         else
         {
-            q -> w = t;
-            void (*en)(p, q);
+            q = (struct word *) malloc(sizeof(struct word));
+            q->w = t;
+            (*en)(p, q);
         }
+        p = q;
     }
-    
+    for(p = &head; (p-1)->next != NULL; p = p->next) printf("%c", p->w);
     return 0;
 }
 

@@ -16,6 +16,7 @@ int main()
         }
         magersort(0, n);
         printf("*%d\n", sum);
+        for (i = 0; i < n; i++) printf("%d", arr[i]);
         sum = 0;
     }
     return 0;

@@ -12,7 +12,7 @@ int main()
     for (int i = 0; i < 12; i++)
     {
         cin >> record[i];
-        if(record[i] < 0) cout << "输入的数包含负数请重新输入", i = 0, cin.clear();
+        if(record[i] < 0) cout << "输入的数包含负数请重新输入" << endl, i = 0, cin.clear();
         mas = record[i]==max(record[mas],record[i])?record[i]==record[mas]?mas:i:mas;
         mis = record[i]==min(record[mis],record[i])?record[i]==record[mis]?mis:i:mis;
         total += record[i];

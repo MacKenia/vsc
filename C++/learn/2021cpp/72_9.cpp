@@ -78,12 +78,12 @@ int eraseRecord()
     }
     return 1;
 }
-
+//主函数
 int main()
 {
     int choice, count = 0;
     bool flag = false;
-    stu tmp;
+    stu tmp = {"",0,"","",""};
     fstream file("a.dat",ios::in|ios::out|ios::binary);
     if(file.fail()) cout << "打开失败!" << endl;
     else cout << "正在载入dat文件" << endl;

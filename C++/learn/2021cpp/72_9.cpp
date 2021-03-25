@@ -139,7 +139,7 @@ int main()
         stud.push_back(tmp);
         cout << "正在载入第" << ++count << "条数据" << endl;
     }
-    cout << "一共载入 " << count << " 条数据";
+    cout << "一共载入 " << count << " 条数据" << endl;
     file.close();
     while(true)
     {

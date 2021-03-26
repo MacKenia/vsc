@@ -16,6 +16,7 @@ int main()
         cout << line << endl;
         if(count++ == 9) break;
     }
+    if(count < 10) cout << "全部显示完毕";
     file.close();
     return 0;
 }

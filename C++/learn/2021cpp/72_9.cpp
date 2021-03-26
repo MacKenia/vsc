@@ -30,6 +30,7 @@ int addRecord(vector<stu>::iterator sp)
     cin >> example.name;
     cout << "请输入学生年龄: ";
     cin >> example.age;
+    cin.ignore(100,'\n');
     cout << "请输入学生地址: ";
     cin >> example.address;
     cout << "请输入学生电话: ";
@@ -127,19 +128,25 @@ int main()
     int choice, count = 0;
     bool flag = false;
     stu tmp = {"",0,"","",""};
-    fstream file("a.dat",ios::in|ios::out|ios::binary);
-    if(file.fail()) cout << "打开失败!" << endl;
+    fstream file("a.dat",ios::in|ios::binary);
+    if(file.fail())
+    {
+        cout << "打开失败!" << endl;
+        exit(0);
+    }
     else cout << "正在载入dat文件" << endl;
-    file.clear();
-    file.flush();
-    file.seekg(0L,ios::beg);
+    // file.clear(); 
+    // file.flush();
+    // file.seekg(0L,ios::beg);
     while(!file.eof())
     {
         file.read((char *)&tmp,sizeof(tmp));
+        if(file.fail()) break;
         stud.push_back(tmp);
         cout << "正在载入第" << ++count << "条数据" << endl;
+        
     }
-    cout << "一共载入 " << count << " 条数据" << endl;
+    cout << "*** 一共载入 " << count << " 条数据 ***" << endl;
     file.close();
     while(true)
     {
@@ -174,6 +181,7 @@ int main()
     cin.get();
     }
     file.open("a.dat",ios::binary|ios::out);
+    // file.seekp(1L, ios::beg);
     for(p = stud.begin();p != stud.end(); p++)
     {
         strcpy(tmp.name, p->name);

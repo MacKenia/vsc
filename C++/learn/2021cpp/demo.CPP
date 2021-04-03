@@ -7,12 +7,11 @@ struct info{
     char address[51];
     char phone[14];
     char Email[51];
-}buf = {"SBSBSBS",5,"alsdfj","808089","-07670"},
-buf1= {"SSDS",34,"alsdfj","80dfghj","-0dfg@080"},
-buf2 = {"1234",908,"ertefgsdf","kha"};
+}buf = {"1",5,"alsdfj","808089","-07670"},
+buf1= {"2",34,"alsdfj","80dfghj","-0dfg@080"},
+buf2 = {"3",908,"ertefgsdf","kha"};
 
 vector<info> stu;
-
 
 int main()
 {

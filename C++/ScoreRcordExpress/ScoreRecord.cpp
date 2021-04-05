@@ -120,6 +120,7 @@ int main()
 		strcpy(example.Ename, pTemp1);
 		// if((int)pTemp[2]==-97&&(int)pTemp[3]==-112) example.Ename[1] = 'H';
 		if((int)pTemp[4]==-103&&(int)pTemp[5]==72) example.Ename[2] = 'T';
+		if(!(int)pTemp[0]) continue;
 		scores.push_back(example);
 	}
 	file.close();

@@ -5,13 +5,13 @@ using namespace std;
 int main()
 {
     Date i;
-    char ha[] = "哦"; 
-    i.set(2021,6,9,8,ha);
-    cout << i.day() << endl;
-    cout << i.month() << endl;
-    cout << i.year() << endl;
-    cout << i.century() << endl;
-    cout << i.sxx() << endl;
-    system("pause");
+    i.set(2021,6,9);
+    i.shownum();
+    i.showmon();
+    i.showday();
+    i.set();
+    i.shownum();
+    i.showmon();
+    i.showday();
     return 0;
 }

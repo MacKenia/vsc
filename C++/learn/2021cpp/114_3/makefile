@@ -1,10 +1,8 @@
 way = g++
-name = 114_1
-head = Date.h
-cpp = Date.cpp 114_1.cpp
-
-
+name = 114_3
+head = *.h
+cpp = *.cpp
 $(name): $(cpp) $(head)
 	$(way) -fexec-charset=GBK -o $(name) $(cpp) $(head)
-rm:
+rm: 
 	rm -rf %.o

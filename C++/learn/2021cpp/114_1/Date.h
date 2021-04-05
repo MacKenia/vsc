@@ -6,15 +6,13 @@ class Date
         int iday;
         int imonth; 
         int iyear;
-        int icentury;
-        char *sx;
+        void e(int, char *);
     public:
-        void set(int year,int month,int day,int century, char *sx);
-        int day(){return iday;}
-        int month(){return imonth;}
-        int year(){return iyear;}
-        int century(){return icentury;}
-        char *sxx(){return sx;}
+        void set(int year,int month,int day);
+        void set();
+        void shownum();
+        void showmon();
+        void showday();
         protected:
 
 };

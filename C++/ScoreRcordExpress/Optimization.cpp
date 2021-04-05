@@ -15,16 +15,13 @@ int main()
 	for(int i = 0; i < str.size(); i+=2)
 	{
 		char tmp[3] = {str[i],str[i+1],'\0'};
-		// tmp[0] = str[i];
-		// tmp[1] = str[i+1];
-		// tmp[3] = '\0';
 		cout << "请输入\"" << tmp <<"\"的首拼: ";
 		cin >> pTemp1;
 		pTemp1 = toupper(pTemp1);
 		cha[pTemp1-'A'].push_back(((str[i] & 0xFF) - 0xa0) * 100 + ((str[i+1] & 0xFF) - 0xa0));
 		cin.ignore();
 	}
-	cout << endl;
+	cout << "请复制一下代码：" << endl << endl;
     for(int i = 0; i < 26; i++)
 	{
 		if(cha[i].size())

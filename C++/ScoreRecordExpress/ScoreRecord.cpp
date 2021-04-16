@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <windows.h>
+#include <cmath>
 
 using namespace std;
 struct score{
@@ -18,6 +19,29 @@ struct score{
 vector<score> scores;
 vector<score>::iterator p;
 
+int getn()
+{
+	int r, len;
+	bool f = true;
+	char tmp[10];
+	cin >> tmp;
+	len = strlen(tmp);
+	for(int i = 0; i < len; i++)
+	{
+		if(!(tmp[i]>='0' && tmp[i] <= '9'))
+		{
+			cout << "输入有误请重新输入: " ;
+			r = getn();
+			f = false;
+			break;
+		}
+	}
+	if(f) for(int i = 0; i < len; i++)
+	{
+		r += (int)(tmp[i]-'0')*pow(10,len-i-1);
+	}
+	return r;
+}
 
 int show(score stut)
 { 
@@ -49,14 +73,13 @@ void GetFirstLetter(char* strName, char* strFirstLetter, int nLen)
 	{
 		ucHigh = (int)(strName[i + 0] & 0xFF);
 		ucLow = (int)(strName[i + 1] & 0xFF);
+		nCode = (ucHigh - 0xa0) * 100 + ucLow - 0xa0;
 		// if(ucHigh < 0xa1 || ucLow < 0xa1)
 		// {
 		// 	continue;
 		// }
 		// else
-		{
-			nCode = (ucHigh - 0xa0) * 100 + ucLow - 0xa0;
-		}
+		if(nCode <= 1600) continue;	
 		FirstLetter(nCode, strRet);
 		strFirstLetter[len] = strRet;
 		len ++;  
@@ -89,7 +112,7 @@ void FirstLetter(int nCode, char& strLetter)
 	else if(nCode >= 4925 && nCode < 5249) strLetter = 'Y';
 	else if(nCode >= 5249 && nCode < 5590) strLetter = 'Z';
 	else{
-		//粘贴优化代码处
+		//insert code here...
 		if(nCode == 7427||nCode==-116) strLetter = 'H';
 		else if(nCode == 6051) strLetter = 'Y';
 		else if(nCode == 7956) strLetter = 'J';
@@ -148,7 +171,7 @@ int main()
 		}
 		cout << "该同学的名字为: " << p->Cname << endl;
 		cout << "请输入成绩: ";
-		cin >> S;
+		S = getn();
 		p -> Score = S;
 		file.open("score.txt",ios::out);
 		for(p = scores.begin(); p != scores.end(); p++)

@@ -11,6 +11,6 @@ using namespace std;
 
 payroll::payroll()
 {
-    cout << "";
-    cin >> 
+    cout << "请输入时薪：";
+    cin >> hSalary;
 }

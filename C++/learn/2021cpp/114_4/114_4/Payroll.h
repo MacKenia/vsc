@@ -10,7 +10,7 @@
 class payroll
 {
 private:
-    float hsalary;
+    float hSalary;
     float moneyph;
     float wtime;
     float wwage;

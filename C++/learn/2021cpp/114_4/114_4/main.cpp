@@ -6,9 +6,19 @@
 //
 
 #include <iostream>
+#include "Payroll.h"
+using namespace std;
 
-int main(int argc, const char * argv[]) {
+int main() {
     // insert code here...
-    std::cout << "Hello, World!\n";
+    char t;
+    cout << "大家的时薪一样吗？(Y/N): ";
+    cin >> t;
+    if(t=='N'||t=='n') payroll::flag = false;
+    if(payroll::flag) payroll::setM();
+    payroll employee[10];
+    for (int i = 0; i < 10; i++) {
+        cout << "第一个的工资是：" << employee[i].pay() << endl;
+    }
     return 0;
 }

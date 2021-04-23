@@ -10,12 +10,14 @@
 class payroll
 {
 private:
-    float hSalary;
-    float moneyph;
-    float wtime;
-    float wwage;
+    static float hSalary;
+    float salary = 0;
+    float wTime = 0;
+    float wWage = 0;
 public:
+    static bool flag;
     payroll();
+    static void setM();
     float pay();
 };
 

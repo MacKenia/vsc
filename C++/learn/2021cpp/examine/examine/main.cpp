@@ -6,10 +6,12 @@
 //
 
 #include <iostream>
+#include "student.h"
 using namespace std;
 
-int main() {
+int main()
+{
     // insert code here...
-    
+    student st[4];
     return 0;
 }

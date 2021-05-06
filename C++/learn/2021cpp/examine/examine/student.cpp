@@ -12,6 +12,8 @@ using namespace std;
 
 float student::avg1=0, student::avg2=0, student::avg3=0;
 int student::total = 0;
+int rank[5]={0};
+
 
 student::student()
 {
@@ -41,6 +43,18 @@ student::student()
     avg1 = (avg1+theory)/total;
     avg2 = (avg2+operate)/total;
     avg3 = (avg3+qa)/total;
+    num = total;
+    for(int i = 0; i < 5; i++)
+    {
+        if(rank[0][i] < (theory+operate+qa))
+        {
+            for(int j = 5; j > i;j--)
+            {
+                int t = rank[0][j-1];
+                rank[0][j] = t;
+            }
+        }
+    }
 }
 
 void printrank()

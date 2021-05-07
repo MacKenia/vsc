@@ -4,7 +4,7 @@
 //
 //  Created by MacKenia on 2021/5/5.
 //
-/****
+/**
  * 题目：四个同学参加某个考核，考核分为理论，操作和问答三个环节，每个环节结束后给出分数，最后根据每个同学总分排名。
  * 要求：
  *      1、设计一个学生类，每门课程录入时要求进行有效性检验，录入成绩必须在0~100之间；
@@ -27,6 +27,7 @@ private:
     float qa;
 public:
     friend void printrank();
+    friend void printavg();
     student();
 };
 

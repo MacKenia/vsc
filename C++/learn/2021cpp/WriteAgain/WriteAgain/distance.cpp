@@ -5,6 +5,7 @@
 //  Created by MacKenia on 2021/4/23.
 //
 #include <iostream>
+#include <cmath>
 #include "distance.h"
 using namespace std;
 

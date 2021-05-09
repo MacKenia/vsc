@@ -11,7 +11,7 @@ using namespace std;
 
 float student::avg1=0, student::avg2=0, student::avg3=0;
 int student::total = 0;
-int student::rank[2][5]={0};
+int student::rank[2][4]={0};
 
 
 student::student()

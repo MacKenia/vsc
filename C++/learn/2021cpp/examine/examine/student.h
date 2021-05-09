@@ -21,7 +21,6 @@ private:
     static float avg1, avg2, avg3;
     static int total;
     static int rank[2][4];//0成绩 1序号
-    int num;
     float theory;
     float operate;
     float qa;

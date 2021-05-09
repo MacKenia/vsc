@@ -43,9 +43,14 @@ student::student()
     avg1 += theory;
     avg2 += operate;
     avg3 += qa;
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < total; i++)
     {
-        if(rank[0][i] <= (theory+operate+qa))
+        if(!(total-1))
+        {
+            rank[0][0] = theory+operate+qa;
+            rank[1][0] = total;
+        }
+        else if(rank[0][i] <= (theory+operate+qa))
         {
             for(int j = 3; j > i;j--)
             {
@@ -63,8 +68,8 @@ student::student()
                 rank[1][j] = rank[1][j-1];
                 rank[0][j] = rank[0][j-1];
             }
-            rank[0][i] = theory+operate+qa;
-            rank[1][i] = total;
+            rank[0][i+1] = theory+operate+qa;
+            rank[1][i+1] = total;
             break;
         }
     }

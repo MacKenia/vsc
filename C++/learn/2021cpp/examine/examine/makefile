@@ -6,4 +6,4 @@ icon =
 $(name): $(cpp) $(head)
 	$(way) -fexec-charset=GBK -o $(name) $(cpp) $(head)
 rm:
-	del /s *.o
+	del /s *.o *.exe

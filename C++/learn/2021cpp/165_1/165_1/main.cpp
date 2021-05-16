@@ -11,9 +11,6 @@ using namespace std;
 int main() {
     // insert code here...
     numday a, b;
-    cin >> b;
-    a++;
-    b--;
 //    cin >> a >> b;
     cout << a << b;
     return 0;

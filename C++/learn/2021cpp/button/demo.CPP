@@ -57,11 +57,6 @@ bool Preserve(Button A){
 }
 
 
-
-
-
-#include<cursor.h>
-
 int main(){
     Button A=NewButton(10,10,7,"这是一个普通的按钮");
     while(1){
@@ -72,7 +67,4 @@ int main(){
         Sleep(100);//不写这个会很闪
     }
 }
-————————————————
-版权声明：本文为CSDN博主「ixRic」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/C20190102/article/details/79301667
 

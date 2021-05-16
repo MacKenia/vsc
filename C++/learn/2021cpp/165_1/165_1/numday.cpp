@@ -58,8 +58,10 @@ ostream& operator<<(ostream &strm, numday &a)
 
 istream& operator>>(istream &strm, numday &a)
 {
+    float t;
     cout << "输入天数：";
-    cin >> a.day;
+    cin >> t;
+    a.day += t;
     return strm;
 }
 

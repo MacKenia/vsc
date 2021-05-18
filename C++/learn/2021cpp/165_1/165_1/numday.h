@@ -1,23 +1,23 @@
 #include <iostream>
-#ifndef numday_h
-#define numday_h
-class numday
+#ifndef numdays_h
+#define numdays_h
+class numdays
 {
 private:
     float hour;
     float day;
 public:
-    numday();
+    numdays();
     void converse();
-    numday& operator+(numday&);
-    numday& operator-(numday&);
-    numday& operator+(int);
-    numday& operator-(int);
+    numdays& operator+(numdays&);
+    numdays& operator-(numdays&);
+    numdays& operator+(int);
+    numdays& operator-(int);
     float operator++(int);
     float operator--(int);
     float operator++();
     float operator--();
-    friend std::ostream& operator<<(std::ostream&, numday&);
-    friend std::istream& operator>>(std::istream&, numday&);
+    friend std::ostream& operator<<(std::ostream&, numdays&);
+    friend std::istream& operator>>(std::istream&, numdays&);
 };
 #endif

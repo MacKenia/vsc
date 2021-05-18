@@ -10,7 +10,7 @@ using namespace std;
 
 int main() {
     // insert code here...
-    numday a, b;
+    numdays a, b;
     //    cin >> a >> b;
     a = a + b + 1;
     cout << a << b;

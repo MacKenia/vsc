@@ -36,18 +36,48 @@ numday& numday::operator-(numday &a)
     return *this;
 }
 
-numday& numday::operator++(int)
+numday& numday::operator+(int a)
 {
-    hour += 1;
+    hour += a;
     converse();
     return *this;
 }
 
-numday& numday::operator--(int)
+numday& numday::operator-(int a)
+{
+    hour -= a;
+    converse();
+    return *this;
+}
+
+float numday::operator++()
+{
+    hour += 1;
+    converse();
+    return hour;
+}
+
+float numday::operator--()
 {
     hour -= 1;
     converse();
-    return *this;
+    return hour;
+}
+
+float numday::operator--(int)
+{
+    float t = hour;
+    hour -= 1;
+    converse();
+    return t;
+}
+
+float numday::operator++(int)
+{
+    float t = hour;
+    hour += 1;
+    converse();
+    return t;
 }
 
 ostream& operator<<(ostream &strm, numday &a)

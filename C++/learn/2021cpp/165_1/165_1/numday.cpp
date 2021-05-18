@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-void numday::converse()
+void numdays::converse()
 {
     if(day > 0 && hour < 0)
     {
@@ -13,7 +13,7 @@ void numday::converse()
     hour = 0;
 }
 
-numday::numday()
+numdays::numdays()
 {
     day = 0;
     hour = 0;
@@ -22,7 +22,7 @@ numday::numday()
     converse();
 }
 
-numday& numday::operator+(numday &a)
+numdays& numdays::operator+(numdays &a)
 {
     day += a.day;
     hour += a.hour;
@@ -30,41 +30,41 @@ numday& numday::operator+(numday &a)
     return *this;
 }
 
-numday& numday::operator-(numday &a)
+numdays& numdays::operator-(numdays &a)
 {
     day -= a.day;
     return *this;
 }
 
-numday& numday::operator+(int a)
+numdays& numdays::operator+(int a)
 {
     hour += a;
     converse();
     return *this;
 }
 
-numday& numday::operator-(int a)
+numdays& numdays::operator-(int a)
 {
     hour -= a;
     converse();
     return *this;
 }
 
-float numday::operator++()
+float numdays::operator++()
 {
     hour += 1;
     converse();
     return hour;
 }
 
-float numday::operator--()
+float numdays::operator--()
 {
     hour -= 1;
     converse();
     return hour;
 }
 
-float numday::operator--(int)
+float numdays::operator--(int)
 {
     float t = hour;
     hour -= 1;
@@ -72,7 +72,7 @@ float numday::operator--(int)
     return t;
 }
 
-float numday::operator++(int)
+float numdays::operator++(int)
 {
     float t = hour;
     hour += 1;
@@ -80,13 +80,13 @@ float numday::operator++(int)
     return t;
 }
 
-ostream& operator<<(ostream &strm, numday &a)
+ostream& operator<<(ostream &strm, numdays &a)
 {
     cout << a.day << "天 " << a.hour << "小时" << endl;
     return strm;
 }
 
-istream& operator>>(istream &strm, numday &a)
+istream& operator>>(istream &strm, numdays &a)
 {
     float t;
     cout << "输入天数：";

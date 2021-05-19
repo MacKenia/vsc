@@ -2,66 +2,105 @@
 #include <iostream>
 using namespace std;
 
-void numday::converse()
+void numdays::converse(const bool &f)
 {
-    if(day > 0 && hour < 0)
-    {
-        day--;
-        hour+=8;
-    }
-    day += hour/8;
-    hour = 0;
+    if(f) day = hour/8;
+    else hour = day * 8;
 }
 
-numday::numday()
+numdays::numdays()
 {
     day = 0;
     hour = 0;
-    cout << "请输入工作小时：";
+    cout << "请输入小时：";
     cin >> hour;
-    converse();
+    converse(true);
 }
 
-numday& numday::operator+(numday &a)
+float numdays::da()
+{
+    return day;
+}
+
+int numdays::hou()
+{
+    return hour;
+}
+
+numdays& numdays::operator+(numdays &a)
 {
     day += a.day;
     hour += a.hour;
-    converse();
     return *this;
 }
 
-numday& numday::operator-(numday &a)
+numdays& numdays::operator-(numdays &a)
 {
     day -= a.day;
+    hour -= a.hour;
     return *this;
 }
 
-numday& numday::operator++(int)
+bool numdays::operator==(const float a)
+{
+    return day == a;
+}
+
+numdays& numdays::operator+(int a)
+{
+    hour += a;
+    converse(true);
+    return *this;
+}
+
+numdays& numdays::operator-(int a)
+{
+    hour -= a;
+    converse(true);
+    return *this;
+}
+
+float numdays::operator++()
 {
     hour += 1;
-    converse();
-    return *this;
+    converse(true);
+    return hour;
 }
 
-numday& numday::operator--(int)
+float numdays::operator--()
 {
     hour -= 1;
-    converse();
-    return *this;
+    converse(true);
+    return hour;
 }
 
-ostream& operator<<(ostream &strm, numday &a)
+float numdays::operator--(int)
 {
-    cout << a.day << "天 " << a.hour << "小时" << endl;
+    float t = hour;
+    hour -= 1;
+    converse(true);
+    return t;
+}
+
+float numdays::operator++(int)
+{
+    float t = hour;
+    hour += 1;
+    converse(true);
+    return t;
+}
+
+ostream& operator<<(ostream &strm, numdays &a)
+{
+    cout << a.day << "天 或 " << a.hour << "小时" << endl;
     return strm;
 }
 
-istream& operator>>(istream &strm, numday &a)
+istream& operator>>(istream &strm, numdays &a)
 {
-    float t;
-    cout << "输入天数：";
-    cin >> t;
-    a.day += t;
+    cout << "目前工作小时数为：" << a.hour << "，输入新工作小时数：";
+    cin >> a.day;
+    a.converse(false);
     return strm;
 }
 

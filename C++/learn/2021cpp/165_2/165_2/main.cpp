@@ -7,11 +7,13 @@
 
 #include <iostream>
 #include "numday.h"
+#include "timeoff.h"
+using namespace std;
 
-int main(int argc, const char * argv[]) {
+int main()
+{
     // insert code here...
-    std::cout << "Hello, World!\n";
-    numday a;
-    a.a();
+    timeoff one;
+    cout << one.s();
     return 0;
 }

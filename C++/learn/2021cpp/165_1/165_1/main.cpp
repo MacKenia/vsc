@@ -8,10 +8,11 @@
 #include "numday.h"
 using namespace std;
 
-int main() {
+int main()
+{
     // insert code here...
-    numday a, b;
-//    cin >> a >> b;
+    numdays a, b;
+    a + 1;
     cout << a << b;
     return 0;
 }

@@ -5,7 +5,7 @@ using namespace std;
 void numdays::converse(const bool &f)
 {
     if(f) day = hour/8;
-    else hour = day*8;
+    else hour = day * 8;
 }
 
 numdays::numdays()
@@ -49,28 +49,28 @@ bool numdays::operator==(const float a)
 numdays& numdays::operator+(int a)
 {
     hour += a;
-    converse(false);
+    converse(true);
     return *this;
 }
 
 numdays& numdays::operator-(int a)
 {
     hour -= a;
-    converse(false);
+    converse(true);
     return *this;
 }
 
 float numdays::operator++()
 {
     hour += 1;
-    converse(false);
+    converse(true);
     return hour;
 }
 
 float numdays::operator--()
 {
     hour -= 1;
-    converse(false);
+    converse(true);
     return hour;
 }
 
@@ -78,7 +78,7 @@ float numdays::operator--(int)
 {
     float t = hour;
     hour -= 1;
-    converse(false);
+    converse(true);
     return t;
 }
 
@@ -86,7 +86,7 @@ float numdays::operator++(int)
 {
     float t = hour;
     hour += 1;
-    converse(false);
+    converse(true);
     return t;
 }
 
@@ -99,10 +99,10 @@ ostream& operator<<(ostream &strm, numdays &a)
 istream& operator>>(istream &strm, numdays &a)
 {
     float t;
-    cout << "输入天数：";
+    cout << "目前工作小时数为：" << a.hour << "，输入新工作小时数：";
     cin >> t;
     a.day += t;
-    a.converse(true);
+    a.converse(false);
     return strm;
 }
 

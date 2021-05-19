@@ -9,4 +9,10 @@
 #include "employee.h"
 using namespace std;
 
+employee::employee()
+{
+    name = new char[8];
+    cin >> name;
+    cin >> num.s;
+}
 

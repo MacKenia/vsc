@@ -21,7 +21,7 @@ class employee
 {
 private:
     char *name;
-    struct number;
+    struct number num;
     int hire[8];
 public:
     employee();

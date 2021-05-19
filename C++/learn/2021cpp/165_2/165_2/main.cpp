@@ -14,6 +14,6 @@ int main()
 {
     // insert code here...
     timeoff one;
-    cout << one.s();
+    one.showAll();
     return 0;
 }

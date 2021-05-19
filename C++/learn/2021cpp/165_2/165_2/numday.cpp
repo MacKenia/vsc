@@ -13,7 +13,7 @@ numdays::numdays()
     day = 0;
     hour = 0;
     cin >> day;
-    converse(true);
+    converse(false);
 }
 
 float numdays::da()
@@ -91,15 +91,15 @@ float numdays::operator++(int)
 
 ostream& operator<<(ostream &strm, numdays &a)
 {
-    cout << a.day << "天 或 " << a.hour << "小时" << endl;
+    cout << a.day << "天" << endl;
     return strm;
 }
 
 istream& operator>>(istream &strm, numdays &a)
 {
     cout << "目前工作小时数为：" << a.hour << "，输入工作小时数：";
-    cin >> a.day;
-    a.converse(false);
+    cin >> a.hour;
+    a.converse(true);
     return strm;
 }
 

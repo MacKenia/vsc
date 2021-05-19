@@ -18,10 +18,13 @@ private:
     numdays *vacTaken;
     numdays *maxUnpaid;
     numdays *unpaidTaken;
-    void check();
 public:
     timeoff();
-    int s();
+    ~timeoff();
+    int maxSick();
+    void showAll();
+    bool operator==(const char*);
+    bool operator==(const int);
 };
 
 #endif /* numday_h */

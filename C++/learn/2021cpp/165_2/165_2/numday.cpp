@@ -12,8 +12,7 @@ numdays::numdays()
 {
     day = 0;
     hour = 0;
-    cout << "请输入小时：";
-    cin >> hour;
+    cin >> day;
     converse(true);
 }
 
@@ -98,7 +97,7 @@ ostream& operator<<(ostream &strm, numdays &a)
 
 istream& operator>>(istream &strm, numdays &a)
 {
-    cout << "目前工作小时数为：" << a.hour << "，输入新工作小时数：";
+    cout << "目前工作小时数为：" << a.hour << "，输入工作小时数：";
     cin >> a.day;
     a.converse(false);
     return strm;

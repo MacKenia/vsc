@@ -12,16 +12,16 @@ class timeoff
 private:
     char name[10];
     int number;
-    numdays maxSickDays;
-    numdays sickTaken;
-    numdays maxVacation;
-    numdays vacTaken;
-    numdays maxUnpaid;
-    numdays unpaidTaken;
+    numdays *maxSickDays;
+    numdays *sickTaken;
+    numdays *maxVacation;
+    numdays *vacTaken;
+    numdays *maxUnpaid;
+    numdays *unpaidTaken;
     void check();
 public:
     timeoff();
-    
+    int s();
 };
 
 #endif /* numday_h */

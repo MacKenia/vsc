@@ -1,7 +1,7 @@
 way = g++
 name = timeoff
-head = timeoff.h
-cpp = mian.cpp timeoff.cpp 
+head = timeoff.h numday.h
+cpp = main.cpp timeoff.cpp numday.cpp 
 icon = 
 $(name): $(cpp) $(head) $(icon)
 	$(way) -fexec-charset=GBK -o $(name) $(cpp) $(head) $(icon)

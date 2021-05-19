@@ -12,7 +12,6 @@ int main()
 {
     // insert code here...
     numdays a, b;
-    //    cin >> a >> b;
     a + 1;
     cout << a << b;
     return 0;

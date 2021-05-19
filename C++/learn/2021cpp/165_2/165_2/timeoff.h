@@ -20,6 +20,7 @@ private:
     numdays unpaidTaken;
 public:
     
+    void a();
 };
 
 #endif /* numday_h */

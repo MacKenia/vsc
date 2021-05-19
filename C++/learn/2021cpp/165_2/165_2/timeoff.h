@@ -19,8 +19,8 @@ private:
     numdays maxUnpaid;
     numdays unpaidTaken;
 public:
+    timeoff();
     
-    void a();
 };
 
 #endif /* numday_h */

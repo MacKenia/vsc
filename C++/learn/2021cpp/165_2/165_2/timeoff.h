@@ -18,6 +18,7 @@ private:
     numdays vacTaken;
     numdays maxUnpaid;
     numdays unpaidTaken;
+    void check();
 public:
     timeoff();
     

@@ -5,4 +5,8 @@
 //  Created by MacKenia on 2021/5/14.
 //
 
-#include <stdio.h>
+#include <iostream>
+#include "employee.h"
+using namespace std;
+
+

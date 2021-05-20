@@ -16,3 +16,8 @@ employee::employee()
     cin >> num.s;
 }
 
+bool employee::find(char *p)
+{
+    
+}
+

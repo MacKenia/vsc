@@ -9,7 +9,7 @@
 #define employee_h
 struct number
 {
-    char s[4];
+    char s[5];
     bool operator==(const char *n)
     {
         if(s[0]-n[0]&&s[1]-n[1]&&s[2]-n[2]&&s[3]-n[3]&&s[4]-n[4]) return true;
@@ -27,6 +27,7 @@ public:
     employee();
     employee(employee &a);
     ~employee();
+    bool find(char *);
 };
 
 #endif /* employee_h */

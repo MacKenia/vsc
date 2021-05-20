@@ -12,7 +12,7 @@ struct number
     char s[5];
     bool operator==(const char *n)
     {
-        if(s[0]-n[0]&&s[1]-n[1]&&s[2]-n[2]&&s[3]-n[3]&&s[4]-n[4]) return true;
+        if(!(s[0]-n[0]&&s[1]-n[1]&&s[2]-n[2]&&s[3]-n[3]&&s[4]-n[4])) return true;
         else return false;
     }
 };
@@ -27,7 +27,8 @@ public:
     employee();
     employee(employee &a);
     ~employee();
-    bool find(char *);
+    bool findname(const char *);
+    bool findnum(const char *);
 };
 
 #endif /* employee_h */

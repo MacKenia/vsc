@@ -12,12 +12,24 @@ using namespace std;
 employee::employee()
 {
     name = new char[8];
+    cout << "请输入姓名：";
     cin >> name;
+    cout << "请输入编号：";
     cin >> num.s;
 }
 
-bool employee::find(char *p)
+employee::~employee()
 {
-    
+    delete []name;
+}
+
+bool employee::findname(const char *p)
+{
+    return name == p;
+}
+
+bool employee::findnum(const char *p)
+{
+    return num == p;
 }
 

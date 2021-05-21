@@ -22,13 +22,28 @@ class employee
 private:
     char *name;
     struct number num;
-    int hire[8];
+    int hire;
 public:
     employee();
     employee(employee &a);
     ~employee();
     bool findname(const char *);
     bool findnum(const char *);
+    char *gname();
+    char *gnum();
+    int ghire();
+    friend std::ostream& operator<<(std::ostream&, employee&);
+};
+
+class employeepay:public employee
+{
+private:
+    float wage;
+    int dept;
+public:
+    employeepay();
+    friend std::ostream& operator<<(std::ostream&,employeepay&);
+    
 };
 
 #endif /* employee_h */

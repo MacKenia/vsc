@@ -1,18 +1,30 @@
-#include <stdio.h>
+#include<stdio.h>
 
-void transfer();
+void constring(char s[], char t[], char q[]); //函数声明
 
-int main()
+int main(void)
 {
-    transfer(37);
-    return 0;
+    char s[100];
+    char q[100];
+    char t[200];
+    printf("Input a string:");//提示输入字符串
+    gets(s); //输入字符串
+    printf("Input another string:");
+    gets(q);
+    constring(s, q, t);//调用函数
+    printf("Concatenate results:%s\n", t);
 }
 
-void transfer(int a)
+void constring(char s[], char t[], char q[])
 {
-    char buf[17];
-    int i;
-    for (i = 0; i < 15; i++) buf[i] = '0';
-    for(i = 1; i < 16 && a != 0; i++, a/= 2) buf[16-i] = '0'+a%2;
-    printf("%s",buf);
+    int i, j;
+    for (i = 0; s[i] != '\0'; i++)
+    {
+        q[i] = s[i];
+    }
+    for (j = 0; t[j] != '\0'; j++)
+    {
+        q[i + j] = t[j];
+    }
+    q[i + j] = '\0';
 }

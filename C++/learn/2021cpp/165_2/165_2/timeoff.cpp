@@ -173,3 +173,30 @@ bool timeoff::operator==(const int a)
 {
     return number == a;
 }
+
+float timeoff::check(int a)
+{
+    switch (a) {
+        case 1:
+            return maxSickDays->da();
+            break;
+        case 2:
+            return sickTaken->da();
+            break;
+        case 3:
+            return maxVacation->da();
+            break;
+        case 4:
+            return vacTaken->da();
+            break;
+        case 5:
+            return maxUnpaid->da();
+            break;
+        case 6:
+            return unpaidTaken->da();
+            break;
+        default:
+            break;
+    }
+    return -1;
+}

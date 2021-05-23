@@ -50,6 +50,7 @@ public:
     void showAll();
     bool operator==(const char*);
     bool operator==(const int);
+    float check(int);
 };
 
 #endif /* numday_h */

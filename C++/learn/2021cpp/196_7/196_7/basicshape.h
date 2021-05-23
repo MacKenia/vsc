@@ -36,6 +36,7 @@ private:
     long int width;
     long int length;
 public:
+    rectangle();
     long int getwidth(){return width;};
     long int getlength(){return length;};
     double calcarea(){return getarea()=1.0*width*length;}

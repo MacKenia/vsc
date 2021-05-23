@@ -6,9 +6,13 @@
 //
 
 #include <iostream>
+#include "basicshape.h"
+using namespace std;
 
-int main(int argc, const char * argv[]) {
+int main() {
     // insert code here...
-    std::cout << "Hello, World!\n";
+    circle cc;
+    rectangle rt;
+    cout << endl << cc.getarea() << endl << rt.getarea() << endl;
     return 0;
 }

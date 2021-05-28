@@ -11,7 +11,7 @@ void process()
 	const char *dynamic = "-\\|/";   //指示标志
 	for (int i = 0; i < NUM; i++)
     {
-		printf("[%-100s][%d%%][%c]\r", bar, i, dynamic[i%4]);
+		printf("[%-100s][%d%%][%c]\r ", bar, i, dynamic[i%4]);
 		bar[i] = '#';
 		fflush(stdout);  //强制刷新缓冲区
 		Sleep(100);    //动态假象
@@ -21,6 +21,7 @@ void process()
 
 int main() 
 {
+	system("cls");
 	system("@echo off");
     printf("\n");
 	process();

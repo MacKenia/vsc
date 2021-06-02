@@ -13,8 +13,14 @@
 class  time
 {
 private:
-    
+    int milHours;
+    int milSeconds;
+    int hours;
+    int min;
+    int sec;
 public:
+    time();
+    
     
 };
 

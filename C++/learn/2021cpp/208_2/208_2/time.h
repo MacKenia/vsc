@@ -20,7 +20,7 @@ private:
     int sec;
 public:
     time();
-    
+    void con();
     
 };
 

@@ -8,4 +8,8 @@
 #include "time.h"
 using namespace std;
 
+time::time()
+{
+    cin >> 
+}
 

@@ -17,7 +17,7 @@ private:
     int min;
     int sec;
 public:
-    time(int h, int m, int s){hour = h;min = m; sec = s;};
+    time(int h, int m, int s){hour = h;min = m; sec = s;}
     int gethour(){return hour;};
     int getmin(){return min;};
     int getsec(){return sec;};

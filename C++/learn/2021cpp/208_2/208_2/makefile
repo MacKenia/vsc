@@ -9,4 +9,4 @@ $(name): $(cpp) $(head) $(icono)
 $(icono): $(iconr)
 	windres -i $(iconr) -o $(icono)
 rm:
-	rm /s *.o $(name)
+	rm -r *.o $(name)

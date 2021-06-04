@@ -12,6 +12,14 @@ using namespace std;
 
 int main() {
     // insert code here...
-    
+    try{
+        mlitime(6666,66);
+    }catch(mlitime::overflowhour)
+    {
+        cout << "输入小时超出2359！" << endl;
+    }catch(mlitime::overflowsec)
+    {
+        cout << "输入秒超出59！" << endl;
+    }
     return 0;
 }

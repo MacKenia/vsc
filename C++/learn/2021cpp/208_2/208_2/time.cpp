@@ -8,9 +8,9 @@
 #include "time.h"
 using namespace std;
 
-mlitime::mlitime(int a, int c):time(a/100,a%100,c)
+mlitime::mlitime(int a, int b):time(a/100,a%100,b)
 {
-    if(a > 2359) throw overflowhour();
-    if(c >59) throw overflowsec();
+    if(a > 2359|| a < 0) throw overflowhour();
+    if(b >59 || b < 0) throw overflowsec();
 }
 

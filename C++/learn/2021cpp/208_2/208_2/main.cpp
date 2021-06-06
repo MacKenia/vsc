@@ -9,7 +9,6 @@
 
 #include "time.h"
 using namespace std;
-
 int main() {
     // insert code here...
     try{

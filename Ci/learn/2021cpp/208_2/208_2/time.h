@@ -17,10 +17,16 @@ private:
     int min;
     int sec;
 public:
+<<<<<<< Updated upstream
     time(int h, int m, int s){hour = h;min = m; sec = s;}
     int gethour(){return hour;};
     int getmin(){return min;};
     int getsec(){return sec;};
+=======
+    time();
+    void con();
+    void showAll();
+>>>>>>> Stashed changes
 };
 
 class mlitime:public time

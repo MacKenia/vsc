@@ -1,0 +1,14 @@
+
+                         ┌──────────────────┤ VNC COMMANDS ├───────────────────┐
+                         │                                                     │
+                         │ You can type startvnc to start vncserver,type       │
+                         │ stopvnc to stop it.                                 │
+                         │ 您可以使用以下任意一条命令来启动vnc或x:               │
+                         │ startvnc,tightvnc,tigervnc,startx11vnc,startxsdl,no │
+                         │ vnc,输入stopvnc停止                                  │
+                         │                                                     │
+                         │                                                     │
+                         │                       <确定>                        │
+                         │                                                     │
+                         └─────────────────────────────────────────────────────┘
+

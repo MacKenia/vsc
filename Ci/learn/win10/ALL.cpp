@@ -1,5 +1,9 @@
 #include<windows.h>
 #include<stdio.h>
+#include<bits/stdc++.h>
+
+using namespace std;
+void color(int a){SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),a);}
 
 int sk()
 {
@@ -9,6 +13,11 @@ int sk()
     printf("%s\n",t);
     SetConsoleTitleA("kkkkk");
     printf("This is a subwindow.\n");
+    for (int i = 0; i < 256; i++) 
+    {
+        color(i);
+        cout << i << " " << endl;
+    }
     getchar();
     FreeConsole();
     AttachConsole(-1);

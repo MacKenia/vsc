@@ -92,7 +92,7 @@ int ScrollByRelativeCoord(int iRows)
 int main( void )
 {
     int i;
-    system("mode con cols=30 lines=5");
+    system("mode con cols=40 lines=5");
     printf("\nPrinting twenty lines, then scrolling up five lines.\n");
     printf("Press any key to scroll up ten lines; ");
     printf("then press another key to stop the demo.\n");

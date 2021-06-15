@@ -4,7 +4,9 @@
  
 HANDLE hout; 
 bool f = true;
- 
+
+void color(int a){SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),a);} //修改文字输出的颜色
+
 //获得输入
 char getInput()
 {
@@ -86,10 +88,11 @@ int main()
     //从键盘获取输入，如果是方向键则执行方向功能，如果是回车键则换行，如果是字符则输出
     while(f)
     {
+        color((int)ch%10);
         ch=getInput();
         printf("%c",ch);
     }
-    printf("\rPlease press a key to exit.");
+    printf("\rPlease press any key to exit.");
  
     getch();
      

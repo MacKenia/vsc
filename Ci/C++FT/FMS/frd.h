@@ -1,6 +1,8 @@
 #include <iostream>
+#include <cstring>
 #include <fstream>
 #include <vector>
+#include "sc.h"
 #ifndef frd_h
 #define frd_h
 
@@ -16,6 +18,9 @@ struct peo //结构体用于储存个人信息
     bool operator==(int a){
         return num == a;
     }
+    bool operator==(const char *a){
+        return strcmp(name,a);
+    }
 };
 
 class frd
@@ -27,6 +32,13 @@ private:
 public:
     frd();
     ~frd();
-
+    void addf();
+    void rmvf(const char *);
+    void rmvf(int);
+    void shwf();
+    void modf(const char *);
+    void modf(int);
+    void secf(const char *);
+    void secf(int);
 };
 #endif

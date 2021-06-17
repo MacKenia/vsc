@@ -2,27 +2,30 @@
 #include "sc.h"
 using namespace std;
 
+
+sc mw("好友管理系统");
+
 bool login()
 {
-    system("mode con cols=56 lines=13");
-    sc lo("登录");
+    char name;
+    mw.setT("登录");
+    mw.setW(56, 13);
     Sleep(100);
-    cout << "┌──────────────────────┤ LOGIN IN ├───────────────────┐" << endl;
+    mw.setbc("E0");
+    cout << "┌─────────────────────┤ LOGIN IN ├────────────────────┐" << endl;
     cout << "│                                                     │" << endl;
-    cout << "│ You can type startvnc to start vncserver,type       │" << endl;
-    cout << "│ stopvnc to stop it.                                 │" << endl;
-    cout << "│ 您可以使用以下任意一条命令来启动vnc或x:             │" << endl;
-    cout << "│ startvnc,tightvnc,tigervnc,startx11vnc,startxsdl,no │" << endl;
-    cout << "│ vnc,输入stopvnc停止                                 │" << endl;
+    cout << "│                        请登录                       │" << endl;
+    cout << "│                                                     │" << endl;
+    cout << "│         用户名：__________________________          │" << endl;
+    cout << "│                                                     │" << endl;
+    cout << "│           密码：__________________________          │" << endl;
     cout << "│                                                     │" << endl;
     cout << "│                                                     │" << endl;
-    cout << "│                       <确定>                        │" << endl;
+    cout << "│               <登录>             <注册>             │" << endl;
     cout << "│                                                     │" << endl;
     cout << "└─────────────────────────────────────────────────────┘" << endl;
-    getchar();
-    lo.ccp(10,10);
-    lo.color(6);
-    cout << "josasldfjlkasdf";
+    mw.ccp(18,4);
+    cin >> name;
     getchar();
     system("pause");
     return true;
@@ -30,11 +33,5 @@ bool login()
 
 int main()
 {
-    system("cls");
-    sc mw("好友管理系统");
-    mw.color(13);
-    mw.ccp(10,10);
-    cout << "请在弹出窗口中登录";
-    mw.newD();
     login();
 }

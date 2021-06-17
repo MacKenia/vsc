@@ -10,7 +10,7 @@ frd::frd()
 
 frd::~frd()
 {
-
+    sc lo;
 }
 
 

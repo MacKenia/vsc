@@ -25,8 +25,8 @@ int sk()
     }
     cin.ignore();
     getchar();
-    FreeConsole();
-    AttachConsole(-1);
+    // FreeConsole();
+    // AttachConsole(-1);
     printf("so\n");
     return 0;
 }
@@ -34,11 +34,18 @@ int sk()
 int main()
 {
 
-    Sleep(3000);
+    // Sleep(3000);
     getchar();
-    FreeConsole();
-    AllocConsole();
-    sk();
+    for(int i = 0; i < 16; i++)
+    {
+        char t[] = "color 00";
+        t[6] = '0' + i;
+        system(t);
+        getchar();
+    }
+    // FreeConsole();
+    // AllocConsole();
+    // sk();
     //FreeConsole();
     //AllocConsole();
     printf("ok");

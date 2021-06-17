@@ -4,18 +4,18 @@ using namespace std;
 
 int main()
 {
-    cout << "           ┌──────────────────┤ VNC COMMANDS ├───────────────────┐" << endl;
-    cout << "           │                                                     │" << endl;
-    cout << "           │ You can type startvnc to start vncserver,type       │" << endl;
-    cout << "           │ stopvnc to stop it.                                 │" << endl;
-    cout << "           │ 您可以使用以下任意一条命令来启动vnc或x:             │" << endl;
-    cout << "           │ startvnc,tightvnc,tigervnc,startx11vnc,startxsdl,no │" << endl;
-    cout << "           │ vnc,输入stopvnc停止                                 │" << endl;
-    cout << "           │                                                     │" << endl;
-    cout << "           │                                                     │" << endl;
-    cout << "           │                       <确定>                        │" << endl;
-    cout << "           │                                                     │" << endl;
-    cout << "           └─────────────────────────────────────────────────────┘" << endl;
+    cout << "┌─────────────────────┤ LOGIN IN ├────────────────────┐" << endl;
+    cout << "│                                                     │" << endl;
+    cout << "│                        请登录                       │" << endl;
+    cout << "│                                                     │" << endl;
+    cout << "│         用户名：__________________________          │" << endl;
+    cout << "│                                                     │" << endl;
+    cout << "│           密码：__________________________          │" << endl;
+    cout << "│                                                     │" << endl;
+    cout << "│                                                     │" << endl;
+    cout << "│               <登录>             <注册>             │" << endl;
+    cout << "│                                                     │" << endl;
+    cout << "└─────────────────────────────────────────────────────┘" << endl;
     return 0;
 }
 

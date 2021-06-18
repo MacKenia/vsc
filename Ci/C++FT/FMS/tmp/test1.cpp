@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <windows.h>
 
 using namespace std;
 
@@ -12,11 +13,17 @@ char* intTochar(char *s,int a)
     return s;
 }
 
+int p()
+{
+    if(AllocConsole())
+    cout << "mother fucker";
+    getchar();
+    return 0;
+}
+
+
 int main()
 {
-    int a;
-    char s[4];
-    cin >> a;
-    cout << intTochar(s,a) << endl;
+    p();
     return 0;
 }

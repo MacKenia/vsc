@@ -3,8 +3,6 @@
 
 using namespace std;
 
-
-
 char* intTochar(char *s,int a)
 {
     for(int i = 0; i < 3; i++, a/=10)

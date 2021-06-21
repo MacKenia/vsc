@@ -7,7 +7,7 @@
 class sc //ScreenControl 窗口控制
 {
 private:
-    static HANDLE had;
+    static HANDLE had;   
     COORD cr;
     static CONSOLE_SCREEN_BUFFER_INFO csbi;
 public:

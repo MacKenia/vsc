@@ -26,6 +26,8 @@ bool login()
     cout << "└─────────────────────────────────────────────────────┘" << endl;
     mw.ccp(18,4);
     cin >> name;
+    mw.setW(100,80);
+    mw.ccp(50,10);
     getchar();
     system("pause");
     return true;

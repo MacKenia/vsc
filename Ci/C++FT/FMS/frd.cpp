@@ -1,11 +1,21 @@
 #include "frd.h"
 using namespace std;
  
-fstream frd::frdFile("friends.dat", ios::binary | ios::in | ios::out);
 
-frd::frd()
+frd::frd(const char *filename)
 {
-    frdFile.read((char *)&fri, sizeof(fri));
+    frdFile.open(filename, ios::binary);
+    if(frdFile.fail())
+    {
+        cout << "文件打开失败！" << endl;
+        exit(0);
+    }
+    while(frdFile.eof())
+    {
+        
+        frdFile.read((char *)&fri, sizeof(fri));
+        
+    }
 }
 
 frd::~frd()

@@ -7,9 +7,9 @@ using namespace std;
 class login
 {
 private:
-    static fstream pasFile;
+    fstream pasFile;
 public:
-    login(); //构造函数
+    login(const char *); //构造函数
     bool log(); //登录界面
 };
 

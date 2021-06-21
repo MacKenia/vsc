@@ -28,12 +28,12 @@ struct peo //结构体用于储存个人信息
 class frd
 {
 private:
-    static fstream frdFile; //所有对象共用同一个文件
+    fstream frdFile; //所有对象共用同一个文件
     vector<peo> vec; //用于存放好友的容器
     struct peo fri; //用于读取和缓存的中间变量
     struct peo me; //账号主人的身份信息
 public:
-    frd(); //构造函数
+    frd(const char *); //构造函数
     ~frd(); //析构函数
     void addf(); //添加好友
     void rmvf(const char *); //删除好友（名字方式）

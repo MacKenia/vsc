@@ -51,6 +51,6 @@ public:
     void secf(const char *); //查找好友（姓名方式查找）
     void secf(int); //查找好友（编号方式）
     void createme(); //创建个人信息
-    
+    friend func(struct peo);
 };
 #endif

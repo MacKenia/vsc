@@ -1,6 +1,16 @@
 #include "frd.h"
 using namespace std;
  
+func(struct pre t)
+{
+    cout << "姓名：" << t.name << sc::endline();
+    cout << "性别：" ;
+    if(t.gander) cout << "男" << sc::endline();
+    else cout << "" << sc::endline();
+    cout << "年龄：" << t.age << endline();
+    cout << "电话：" << t.tel << endline();
+    cout << "爱好：" << t.hobby << endline();
+}
 
 frd::frd(const char *filename)
 {
@@ -31,7 +41,8 @@ frd::frd(const char *filename)
 
 void frd::addf()
 {
-
+    cout << "姓名：";
+    cin.getline(fri.name);
 }
 
 void frd::rmvf(const char *s)
@@ -68,6 +79,26 @@ void frd::shwf()
 {
     cout << sc::ccp() << "选择展示方式："
     << sc::cpp()
+}
+
+void frd::showall()
+{
+    for_each(vec.begin(),vec.end(),func())
+}
+
+void frd::genders()
+{
+
+}
+
+void frd::ages()
+{
+
+}
+
+void mod()
+{
+
 }
 
 void frd::modf(const char *s)

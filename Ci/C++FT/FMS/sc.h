@@ -4,21 +4,37 @@
 #ifndef sc_h
 #define sc_h
 
+struct frame // 方框框架
+{
+    char lt[4] = "┌";
+    char rt[4] = "┐";
+    char ml[4] = "┤";
+    char mr[4] = "├";
+    char lb[4] = "└";
+    char rb[4] = "┘";
+    char row[4] = "─";
+    char col[4] = "│";
+};
+
 class sc //ScreenControl 窗口控制
 {
 private:
     static HANDLE had;   
-    COORD cr; 
+    COORD cr;
     static CONSOLE_SCREEN_BUFFER_INFO csbi;
+    char title[30];
+    struct frame fr;
 public:
     sc(const char*); //构造函数
     void setT(const char*); //设置窗口标题
-    void color(int a); //修改文字输出的颜色
-    void ccp(int, int); //ConsoleCursorPosition 控制台指针位置
+    char color(int a); //修改文字输出的颜色
+    char ccp(int, int); //ConsoleCursorPosition 控制台指针位置
     void setW(int, int); //设置窗口大小
     void setbc(const char *); //SetBackGroundColor 设置窗口背景颜色
     void cls(); //清空控制台
-    friend char *intTochar(char*, int); //将整转换为字符型
+    void bw(int, int); //输出一个空的方框
+    friend char *intTochar(char*, int); //整转换为字符型
+    friend char endline(); //换行
 };
 
 #endif

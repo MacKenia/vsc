@@ -8,9 +8,10 @@ class login
 {
 private:
     fstream pasFile;
+    char username[255];
 public:
     login(const char *); //构造函数
-    bool log(); //登录界面
+    char log(); //登录界面
 };
 
 #endif

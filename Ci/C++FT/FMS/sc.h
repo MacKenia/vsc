@@ -8,7 +8,7 @@ class sc //ScreenControl 窗口控制
 {
 private:
     static HANDLE had;   
-    COORD cr;
+    COORD cr; 
     static CONSOLE_SCREEN_BUFFER_INFO csbi;
 public:
     sc(const char*); //构造函数

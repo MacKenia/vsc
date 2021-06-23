@@ -10,6 +10,7 @@ login::login()
         getchar();
         exit(0);
     }
+    pasFile.close();
 }
 
 char* login::log()
@@ -30,6 +31,8 @@ char* login::log()
         lo.setbc("e0");
         lo.ccp(50,30);
         lo.bw(50);
+        cin.getline(Username,20);
+        cin.getline(Password,20);
     }
     while(!pasFile.eof())
     {
@@ -45,7 +48,7 @@ char* login::log()
             else
             {
                 cout << "密码错误，请重试";
-                if(data[i] != Password[i]) return log();
+                if(data[i] != Password[i-20]) return log();
             }
         }
     }
@@ -55,7 +58,7 @@ char* login::log()
 
 void login::sign()
 { 
-    pasFile.open(filename, ios::binary | ios::in | ios::out);
+    if(pasFile.fail()) pasFile.open(filename, ios::binary | ios::in | ios::out);
     if(pasFile.fail())
     {
         cout << "初始化，请重试！" << endl;
@@ -64,15 +67,14 @@ void login::sign()
     }
     char Username[20];
     char Password[20];
+    char Data[40];
     //注册界面
     {
-
-    }
-    if(pasFile.fail()) 
-    {
-        
+        cin.getline(Data,20);
+        cin.getline(Data[20],20);
     }
     pasFile.seekg(0L, ios::end);
+    pasFile.write((char*)&Data,sizeof(Data));
     pasFile.close();
 }
 

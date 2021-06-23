@@ -65,15 +65,14 @@ void sc::setW(int w, int h)
     GetConsoleScreenBufferInfo(had, &csbi);
 }
 
-char sc::endline(int a)
+char sc::endline()
 {
     COORD crt;
     had = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleScreenBufferInfo(had, &csbi);
-    crt.X  = csbi.dwCursorPosition.X;
     crt.Y = csbi.dwCursorPosition.Y;
     crt.Y++;
-    crt.X = a;
+    crt.X = top.X;
     SetConsoleCursorPosition(had,crt);
     return 0;
 }

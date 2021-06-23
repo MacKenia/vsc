@@ -20,12 +20,12 @@ class sc //ScreenControl 窗口控制
 {
 private:
     static HANDLE had;   
-    COORD cr;
+    COORD cr, top;
     static CONSOLE_SCREEN_BUFFER_INFO csbi;
     char tit[25];
     struct frame fr;
 public:
-    sc();
+    sc(); //无标题窗口的构造函数
     sc(const char*); //构造函数
     void flush(); //刷新屏幕缓冲区
     void setT(const char*); //设置窗口标题
@@ -38,6 +38,7 @@ public:
     char title(const char *); //设置标题
     friend char *intTochar(char*, int); //整转换为字符型
     char endline(int); //换行
+    void settop(int,int);
 };
 
 #endif

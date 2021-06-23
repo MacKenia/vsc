@@ -1,10 +1,10 @@
 way = g++
-name = main
-head = sc.h
-cpp = main.cpp sc.cpp
+name = frdtest
+head = frd.h
+cpp = main.cpp frd.cpp
 icon = 
 $(name): $(cpp) $(head) $(icon)
-	$(way) -fexec-charset=GBK -o $(name) $(cpp) $(head) $(icon)
+	$(way) -o $(name) $(cpp) $(head) $(icon)
 $(icon): $(icon)
 	windres -i $(icon) -o $(icon)
 rm:

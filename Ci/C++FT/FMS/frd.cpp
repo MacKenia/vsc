@@ -1,12 +1,13 @@
 #include "frd.h"
 using namespace std;
- 
-func(struct pre t)
+
+
+void func(struct peo t)
 {
-    cout << "姓名：" << t.name << sc::endline();
+    cout << "姓名：" << t.name << endline();
     cout << "性别：" ;
-    if(t.gander) cout << "男" << sc::endline();
-    else cout << "" << sc::endline();
+    if(t.gander) cout << "男" << endline();
+    else cout << "" << endline();
     cout << "年龄：" << t.age << endline();
     cout << "电话：" << t.tel << endline();
     cout << "爱好：" << t.hobby << endline();
@@ -36,7 +37,7 @@ frd::frd(const char *filename)
         vec.push_back(fri);
         cout << "正在加载第" << vec.size() << "人的信息\r";
     }
-    file.close();
+    frdFile.close();
 }
 
 void frd::addf()

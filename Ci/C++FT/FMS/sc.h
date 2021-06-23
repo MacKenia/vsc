@@ -19,11 +19,10 @@ struct frame // 方框框架
 class sc //ScreenControl 窗口控制
 {
 private:
-    static HANDLE had;   
-    COORD cr, top;
-    static CONSOLE_SCREEN_BUFFER_INFO csbi;
-    char tit[25];
-    struct frame fr;
+    static HANDLE had; //窗口句柄
+    COORD cr, top; //坐标
+    static CONSOLE_SCREEN_BUFFER_INFO csbi; //控制台缓冲区信息
+    struct frame fr; //界面框架
 public:
     sc(); //无标题窗口的构造函数
     sc(const char*); //构造函数
@@ -35,10 +34,10 @@ public:
     void setbc(const char *); //SetBackGroundColor 设置窗口背景颜色
     void cls(); //清空控制台
     void bw(int=0,int=55, int=11); //输出一个空的方框
-    char title(const char *); //设置标题
+    char title(const char *); //设置界面标题
     friend char *intTochar(char*, int); //整转换为字符型
     char endline(int); //换行
-    void settop(int,int);
+    void settop(int,int); //设置界面的左上角的坐标
 };
 
 #endif

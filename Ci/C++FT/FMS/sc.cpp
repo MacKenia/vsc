@@ -112,7 +112,7 @@ char sc::title(const char *s)
 
 void sc::bw(int x,int w, int h)
 {
-    
+    ccp(top.X,top.Y);
     for(int i = 0; i < h; i++)
     {
         for(int j = 0; j < w; j++)

@@ -1,7 +1,9 @@
 #include <iostream>
+#include <algorithm>
 #include <cstring>
 #include <fstream>
 #include <vector>
+#include <cmath>
 #include "sc.h"
 #ifndef frd_h
 #define frd_h
@@ -11,8 +13,8 @@ using namespace std;
 struct peo //结构体用于储存个人信息
 { 
     int num;
-    char name[255];
-    bool gander;
+    char name[25];
+    char gender[5];
     int age;
     int grader;
     char tel[12];
@@ -28,6 +30,7 @@ struct peo //结构体用于储存个人信息
 class frd
 {
 private:
+    sc frd(); //sc的对象
     fstream frdFile; //所有对象共用同一个文件
     vector<peo> vec; //用于存放好友的容器
     vector<peo>::iterator vp; //指向容器的指针
@@ -48,9 +51,11 @@ public:
     void modf(const char *); //修改好友信息（姓名方式查找）
     void modf(int); //修改好友信息（编号方式）
     void secf(); //查找好友
-    void secf(const char *); //查找好友（姓名方式查找）
-    void secf(int); //查找好友（编号方式）
+    vector<peo>::iterator secf(const char *); //查找好友（姓名方式查找）
+    vector<peo>::iterator secf(int); //查找好友（编号方式）
     void createme(); //创建个人信息
-    friend void func(struct peo);
+    void funa(struct peo); //无条件输出信息
+    void funb(struct peo); //按性别输出
+    void func(struct peo); //按年龄输出
 };
 #endif

@@ -1,39 +1,11 @@
 #include <iostream>
-#include "sc.h"
+#include "frd.h"
 using namespace std;
-
-
-sc mw("好友管理系统");
-
-bool login()
-{
-    char name;
-    mw.setT("登录");
-    mw.setW(56, 13);
-    Sleep(100);
-    mw.setbc("E0");
-    cout << "┌─────────────────────┤ LOGIN IN ├────────────────────┐" << endl;
-    cout << "│                                                     │" << endl;
-    cout << "│                        请登录                       │" << endl;
-    cout << "│                                                     │" << endl;
-    cout << "│         用户名：__________________________          │" << endl;
-    cout << "│                                                     │" << endl;
-    cout << "│           密码：__________________________          │" << endl;
-    cout << "│                                                     │" << endl;
-    cout << "│                                                     │" << endl;
-    cout << "│               <登录>             <注册>             │" << endl;
-    cout << "│                                                     │" << endl;
-    cout << "└─────────────────────────────────────────────────────┘" << endl;
-    mw.ccp(18,4);
-    cin >> name;
-    mw.setW(100,80);
-    mw.ccp(50,10);
-    getchar();
-    system("pause");
-    return true;
-}
 
 int main()
 {
-    login();
+    frd me("mackenia");
+    me.addf();
+    me.rmvf();
+    me.showall();
 }

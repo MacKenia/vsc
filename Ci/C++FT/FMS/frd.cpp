@@ -1,25 +1,32 @@
 #include "frd.h"
 using namespace std;
 
+void each(vector<peo>::iterator b, vector<peo>::iterator e,void (*funca)(struct peo))
+{
+    for(; b < e; b++)
+    {
+        funca(*b);
+    }
+}
 
 void frd::funa(struct peo t)
 {
-    cout << "姓名：" << t.name << frd.endline();
-    cout << "性别：" << t.gender << frd.endline();
-    cout << "年龄：" << t.age << frd.endline();
-    cout << "电话：" << t.tel << frd.endline();
-    cout << "爱好：" << t.hobby << frd.endline();
+    cout << "姓名：" << t.name << endl;
+    cout << "性别：" << t.gender << endl;
+    cout << "年龄：" << t.age << endl;
+    cout << "电话：" << t.tel << endl;
+    cout << "爱好：" << t.hobby << endl;
 }
 
 void frd::funb(struct peo t)
 {
     if(!strcmp(t.gender,me.gender))
     {
-        cout << "姓名：" << t.name << frd.endline();
-        cout << "性别：" << t.gender << frd.endline();
-        cout << "年龄：" << t.age << frd.endline();
-        cout << "电话：" << t.tel << frd.endline();
-        cout << "爱好：" << t.hobby << frd.endline();
+        cout << "姓名：" << t.name << endl;
+        cout << "性别：" << t.gender << endl;
+        cout << "年龄：" << t.age << endl;
+        cout << "电话：" << t.tel << endl;
+        cout << "爱好：" << t.hobby << endl;
     }
 }
 
@@ -27,18 +34,18 @@ void frd::func(struct peo t)
 {
     if(t.age == me.age)
     {
-        cout << "姓名：" << t.name << frd.endline();
-        cout << "性别：" << t.gender << frd.endline();
-        cout << "年龄：" << t.age << frd.endline();
-        cout << "电话：" << t.tel << frd.endline();
-        cout << "爱好：" << t.hobby << frd.endline();
+        cout << "姓名：" << t.name << endl;
+        cout << "性别：" << t.gender << endl;
+        cout << "年龄：" << t.age << endl;
+        cout << "电话：" << t.tel << endl;
+        cout << "爱好：" << t.hobby << endl;
     }
 }
 
 frd::frd(const char *filename)
 {
     int i = 0;
-    frdFile.open(filename, ios::binary | ios::out | ios::in);
+    frdFile.open(filename, ios::binary | ios::out | ios::in | ios::app);
     if(frdFile.fail())
     {
         cout << "文件打开失败，请重试！" << endl;
@@ -59,6 +66,7 @@ frd::frd(const char *filename)
         vec.push_back(fri);
         cout << "正在加载第" << vec.size() << "人的信息\r";
     }
+    if(!frdFile.eof()) createme();
     frdFile.close();
 }
 
@@ -70,26 +78,35 @@ void frd::addf()
     cin.getline(fri.gender,5);
     cout << "年龄：";
     cin >> fri.age;
+    cin.ignore();
     cout << "电话：";
     cin.getline(fri.tel,12);
     cout << "爱好：";
     cin.getline(fri.hobby,255);
     fri.grader = 0;
     fri.num = (((int)fri.name[0])+(((int)fri.tel[0])*10)+(((int)fri.name[0])*100)+(rand() % 100000));
-    cout << "确认你输入的信息，回车来确认：" << frd.endline();
+    cout << "确认你输入的信息，回车来确认：" << endl;
     funa(fri);
     getchar();
     vec.push_back(fri);
     cout << "成功！";
 }
 
+
+void frd::rmvf()
+{
+    char a[24] = "1.按姓名方式删除";
+    char b[24] = "2.按编号方式删除";
+    cout << "请选则删除好友的方式：";
+}
+
 void frd::rmvf(const char *s)
 {
     char t;
-    vp = find(vec.begin(),vec.end(),s);
-    cout << "确定移除：" << frd.color() << vp->name << frd.color() <<"吗？" << endl
+    vp = secf(s);
+    cout << "确定移除：" <<  vp->name  <<"吗？" << endl
     << "回车确认，输入n放弃：";
-    getchar(t);
+    t = getchar();
     cin.ignore();
     if(t == '\n')
     {
@@ -101,10 +118,10 @@ void frd::rmvf(const char *s)
 void frd::rmvf(int a)
 {
     char t;
-    vp = find(vec.begin(),vec.end(),a);
-    cout << "确定移除：" << frd.color() << vp->name << frd.color() <<"吗？" << endl
+    vp = secf(a);
+    cout << "确定移除："  << vp->name  <<"吗？" << endl
     << "回车确认，输入n放弃：";
-    getchar(t);
+    t = getchar();
     cin.ignore();
     if(t == '\n')
     {
@@ -127,17 +144,26 @@ void frd::shwf()
 
 void frd::showall()
 {
-    for_each(vec.begin(),vec.end(),funa);
+    for(vp = vec.begin(); vp < vec.end(); vp++)
+    {
+        funa(*vp);
+    }
 }
 
 void frd::genders()
 {
-    for_each(vec.begin(),vec.end(),funb);
+    for(vp = vec.begin(); vp < vec.end(); vp++)
+    {
+        funb(*vp);
+    }
 }
 
 void frd::ages()
 {
-    for_each(vec.begin(),vec.end(),func);
+    for(vp = vec.begin(); vp < vec.end(); vp++)
+    {
+        func(*vp);
+    }
 }
 
 void mod()
@@ -191,6 +217,7 @@ void frd::createme()
 
 frd::~frd()
 {
+    cout << "ix";
     if(frdFile.fail()) frdFile.open(me.name, ios::out);
     frdFile.write((char*)&me,sizeof(me));
     for(vp = vec.begin(); vp != vec.end(); vp++)

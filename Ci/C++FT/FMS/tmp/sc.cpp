@@ -103,12 +103,13 @@ void sc::setbc(const char *b)
     system(hd);
 }
 
-char sc::title(const char *s)
+char* sc::title(const char *s)
 {
-    cout << fr.lm ;
-    cout << ' ' << color(116) << s << color(114);
-    cout << fr.rm;
-    return 0;
+    strcat(tit, fr.lm);
+    strcat(tit, " ");
+    strcat(tit, s);
+    strcat(tit, fr.rm);
+    return tit;
 }
 
 void sc::bw(int x,int w, int h)

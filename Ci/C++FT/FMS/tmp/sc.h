@@ -35,7 +35,7 @@ public:
     void setbc(const char *); //SetBackGroundColor 设置窗口背景颜色
     void cls(); //清空控制台
     void bw(int=0,int=55, int=11); //输出一个空的方框
-    char title(const char *); //设置标题
+    char* title(const char *); //设置标题
     friend char *intTochar(char*, int); //整转换为字符型
     char endline(int); //换行
 };

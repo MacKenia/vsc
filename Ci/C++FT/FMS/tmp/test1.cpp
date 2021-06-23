@@ -26,6 +26,8 @@ int p()
 
 int main()
 {
-    p();
+    char s[10];
+    cin.getline(s,10);
+    cout << s << endl;
     return 0;
 }

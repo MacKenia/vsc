@@ -37,7 +37,7 @@ public:
     frd(const char *); //构造函数
     ~frd(); //析构函数
     void addf(); //添加好友
-    void rmvf() //删除好友
+    void rmvf(); //删除好友
     void rmvf(const char *); //删除好友（名字方式）
     void rmvf(int); //删除好友（编号方式）
     void shwf(); //展示所有好友
@@ -51,6 +51,6 @@ public:
     void secf(const char *); //查找好友（姓名方式查找）
     void secf(int); //查找好友（编号方式）
     void createme(); //创建个人信息
-    friend func(struct peo);
+    friend void func(struct peo);
 };
 #endif

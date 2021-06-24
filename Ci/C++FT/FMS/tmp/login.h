@@ -9,10 +9,12 @@ class login
 private:
     sc lo;
     fstream pasFile;
-    char username[255];
+    char filename[9] = "data.dat";
+    char username[20];
 public:
-    login(const char *); //构造函数
+    login(); //构造函数
     char* log(); //登录界面
+    void sign(); //注册界面
 };
 
 #endif

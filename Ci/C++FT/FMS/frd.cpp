@@ -12,6 +12,7 @@ void each(vector<peo>::iterator b, vector<peo>::iterator e,void (*funca)(struct 
 void frd::funa(struct peo t)
 {
     cout << "姓名：" << t.name << endl;
+    cout << "好友编号：" << t.num << endl;
     cout << "性别：" << t.gender << endl;
     cout << "年龄：" << t.age << endl;
     cout << "电话：" << t.tel << endl;
@@ -23,6 +24,7 @@ void frd::funb(struct peo t)
     if(!strcmp(t.gender,me.gender))
     {
         cout << "姓名：" << t.name << endl;
+        cout << "好友编号：" << t.num << endl;
         cout << "性别：" << t.gender << endl;
         cout << "年龄：" << t.age << endl;
         cout << "电话：" << t.tel << endl;
@@ -35,6 +37,7 @@ void frd::func(struct peo t)
     if(t.age == me.age)
     {
         cout << "姓名：" << t.name << endl;
+        cout << "好友编号：" << t.num << endl;
         cout << "性别：" << t.gender << endl;
         cout << "年龄：" << t.age << endl;
         cout << "电话：" << t.tel << endl;

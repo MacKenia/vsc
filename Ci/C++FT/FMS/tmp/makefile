@@ -1,5 +1,5 @@
 way = g++
-name = t
+name = loginframe
 head = sc.h login.h
 cpp = sc.cpp login.cpp cl.cpp
 icono = 

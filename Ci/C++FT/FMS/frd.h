@@ -1,10 +1,11 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <cstring>
 #include <fstream>
 #include <vector>
 #include <cmath>
-// #include "sc.h"
+#include "login.h"
+#include "sc.h"
 #ifndef frd_h
 #define frd_h
 
@@ -30,7 +31,7 @@ struct peo //结构体用于储存个人信息
 class frd
 {
 private:
-    // sc frd(); //sc的对象
+    sc scr; //sc的对象
     fstream frdFile; //所有对象共用同一个文件
     vector<peo> vec; //用于存放好友的容器
     vector<peo>::iterator vp; //指向容器的指针
@@ -57,6 +58,6 @@ public:
     void funa(struct peo); //无条件输出信息
     void funb(struct peo); //按性别输出
     void func(struct peo); //按年龄输出
-    void each(vector<peo>::iterator, vector<peo>::iterator,void (frd::*funca)(struct peo)); //类for_each重载
+    void each(vector<peo>::iterator, vector<peo>::iterator,void (*funca)(struct peo)); //类for_each重载
 };
 #endif

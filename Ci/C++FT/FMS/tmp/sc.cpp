@@ -65,16 +65,14 @@ void sc::setW(int w, int h)
     GetConsoleScreenBufferInfo(had, &csbi);
 }
 
-char sc::endline(int a)
+char sc::endline()
 {
-    COORD crt;
     had = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleScreenBufferInfo(had, &csbi);
-    crt.X  = csbi.dwCursorPosition.X;
-    crt.Y = csbi.dwCursorPosition.Y;
-    crt.Y++;
-    crt.X = a;
-    SetConsoleCursorPosition(had,crt);
+    cr.Y = csbi.dwCursorPosition.Y;
+    cr.Y++;
+    cr.X = top.X;
+    SetConsoleCursorPosition(had,cr);
     return 0;
 }
 
@@ -103,18 +101,18 @@ void sc::setbc(const char *b)
     system(hd);
 }
 
-char* sc::title(const char *s)
+char sc::title(const char *s)
 {
-    strcat(tit, fr.lm);
-    strcat(tit, " ");
-    strcat(tit, s);
-    strcat(tit, fr.rm);
-    return tit;
+    ccp(top.X+3,top.Y);
+    cout << color(112) << fr.lm ;
+    cout << ' ' << color(116) << s << color(112);
+    cout << fr.rm;
+    return 0;
 }
 
-void sc::bw(int x,int w, int h)
+void sc::bw(int w, int h)
 {
-    
+    ccp(top.X,top.Y);
     for(int i = 0; i < h; i++)
     {
         for(int j = 0; j < w; j++)
@@ -163,7 +161,7 @@ void sc::bw(int x,int w, int h)
             }
             if(flag) cout << ' ';
         }
-        cout << endline(x);
+        cout << endline();
     }
     cout << color(224) << ' ';
     for(int i = 0; i <= w; i++) cout << color(7) << ' ';

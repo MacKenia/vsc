@@ -6,7 +6,7 @@ using namespace std;
 
 int main()
 {
-    login log("password.dat");
+    login log;
     cout << log.log();
     getchar();
     return 0;

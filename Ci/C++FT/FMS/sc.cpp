@@ -30,6 +30,12 @@ void sc::flush()
     cr.Y = csbi.dwCursorPosition.Y;
 }
 
+void sc::settop(int x, int y)
+{
+    top.X = x;
+    top.Y = y;
+}
+
 void sc::setT(const char *s)
 {
     SetConsoleTitleA(s);
@@ -51,6 +57,13 @@ char sc::ccp(int x, int y)
     return 0;
 }
 
+void sc::ccp(COORD a)
+{
+    had = GetStdHandle(STD_OUTPUT_HANDLE);
+    GetConsoleScreenBufferInfo(had, &csbi);
+    SetConsoleCursorPosition(had,a);
+}
+
 void sc::setW(int w, int h)
 {
     char hd[26] = "mode con cols=";
@@ -67,13 +80,12 @@ void sc::setW(int w, int h)
 
 char sc::endline()
 {
-    COORD crt;
     had = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleScreenBufferInfo(had, &csbi);
-    crt.Y = csbi.dwCursorPosition.Y;
-    crt.Y++;
-    crt.X = top.X;
-    SetConsoleCursorPosition(had,crt);
+    cr.Y = csbi.dwCursorPosition.Y;
+    cr.Y++;
+    cr.X = top.X;
+    SetConsoleCursorPosition(had,cr);
     return 0;
 }
 
@@ -104,15 +116,40 @@ void sc::setbc(const char *b)
 
 char sc::title(const char *s)
 {
-    cout << fr.lm ;
-    cout << ' ' << color(116) << s << color(114);
+    ccp(top.X+3,top.Y);
+    cout << color(112) << fr.lm ;
+    cout << ' ' << color(124) << s << color(112);
     cout << fr.rm;
     return 0;
 }
 
-void sc::bw(int x,int w, int h)
+char sc::text(int x, int y, const char *s)
 {
-    ccp(top.X,top.Y);
+    ccp(x, y);
+    color(112);
+    cout << s;
+    return 0;
+}
+
+char sc::texta(int x, int y, const char *s)
+{
+    ccp(x, y);
+    color(207);
+    cout << s;
+    return 0;
+}
+
+char sc::input(int x, int y, int n)
+{
+    ccp(x, y);
+    color(240);
+    for(int i = 0; i < n; i++) cout << '_';
+    return 0;
+}
+
+void sc::bw(int w, int h)
+{
+    ccp(top);
     for(int i = 0; i < h; i++)
     {
         for(int j = 0; j < w; j++)
@@ -161,7 +198,7 @@ void sc::bw(int x,int w, int h)
             }
             if(flag) cout << ' ';
         }
-        cout << endline(x);
+        cout << endline();
     }
     cout << color(224) << ' ';
     for(int i = 0; i <= w; i++) cout << color(7) << ' ';

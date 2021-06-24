@@ -3,7 +3,7 @@ using namespace std;
 
 login::login()
 {
-    pasFile.open(filename, ios::binary | ios::in | ios::out);
+    pasFile.open(filename, ios::binary | ios::in | ios::out | ios::app);
     if(pasFile.fail())
     {
         cout << "初始化，请重试！" << endl;
@@ -27,14 +27,20 @@ char* login::log()
     }
     {
         // 登陆界面
-        lo.setW(120,60);
+        lo.setW(110,32);
         lo.setbc("e0");
-        lo.ccp(50,30);
-        lo.bw(50);
-        cin.getline(Username,20);
-        cin.getline(Password,20);
+        lo.settop(32,8);
+        lo.bw(40,12);
+        cout << lo.title("登录");
+        cout << lo.text(50,9,"请登录");
+        cout << lo.text(40,12,"用户：") << lo.input(47,12);
+        cout << lo.text(40,14,"密码：") << lo.input(47,14);
+        cout << lo.text(43,17,"登录") << lo.text(58,17,"注册");
+        lo.ccp(0,0);
+        //cin.getline(Username,20);
+        //cin.getline(Password,20);
     }
-    while(!pasFile.eof())
+    while(0)
     {
         if(pasFile.fail()) break;
         pasFile.read((char*)&data, sizeof(data));
@@ -71,7 +77,7 @@ void login::sign()
     //注册界面
     {
         cin.getline(Data,20);
-        cin.getline(Data[20],20);
+        cin.getline(&Data[20],20);
     }
     pasFile.seekg(0L, ios::end);
     pasFile.write((char*)&Data,sizeof(Data));

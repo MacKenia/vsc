@@ -37,7 +37,7 @@ char* login::log()
                 else if(c%3==1) return signUp();
                 else if(c%3==2) exit(1);
             }
-            switch(abs(c)%3)
+            switch(c%3)
             {
                 case 0:
                     cout << lo.texta(38,13,"1.登录");
@@ -142,7 +142,7 @@ char* login::signUp()
         lo.setbc("af");
         lo.settop(32,8);
         lo.bw(40,12);
-        cout << lo.text(43,11,"注册成功，返回主页!") << lo.textc(49,15,"<确定>");
+        cout << lo.textb(43,11,"注册成功，返回主页!") << lo.textc(49,15,"<确定>");
         lo.get();
     }
     pasFile.close();

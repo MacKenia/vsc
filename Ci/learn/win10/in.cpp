@@ -78,7 +78,7 @@ char getInput()
     return ch;
  
  
-    }
+}
  
  
 int main()

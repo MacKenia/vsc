@@ -85,7 +85,11 @@ char sc::endline()
     cr.Y = csbi.dwCursorPosition.Y;
     cr.Y++;
     cr.X = top.X;
-    if(cr.Y == csbi.dwSize.Y) cls();
+    if(cr.Y == csbi.dwSize.Y)
+    {
+        cr.X += 20;
+        cr.Y = 0;
+    }
     SetConsoleCursorPosition(had,cr);
     return 0;
 }
@@ -125,40 +129,44 @@ char sc::title(const char *s)
 }
 
 
-char sc::text(int x, int y, const char *s)
+char sc::text(int x, int y, const char *s,int c)
 {
     ccp(x, y);
-    color(112);
+    color(c);
     cout << s;
     for(int i = 0; i < 28-strlen(s); i++) cout << ' ';
     ccp(x, y);
+    color(240);
     return 0;
 }
 
-char sc::texta(int x, int y, const char *s)
+char sc::texta(int x, int y, const char *s,int c)
 {
     ccp(x, y);
-    color(207);
+    color(c);
     cout << s;
     for(int i = 0; i < 28-strlen(s); i++) cout << ' ';
     ccp(x, y);
+    color(240);
     return 0;
 }
 
-char sc::textb(int x, int y, const char *s)
+char sc::textb(int x, int y, const char *s,int c)
 {
     ccp(x, y);
-    color(112);
+    color(c);
     cout << s;
     ccp(x, y);
+    color(240);
     return 0;
 }
-char sc::textc(int x, int y, const char *s)
+char sc::textc(int x, int y, const char *s,int c)
 {
     ccp(x, y);
-    color(207);
+    color(c);
     cout << s;
     ccp(x, y);
+    color(240);
     return 0;
 }
 
@@ -224,7 +232,6 @@ void sc::bw(int w, int h)
         }
         cout << endline();
     }
-    // cout << color(224) << ' ';
     ccp(top.X+1,top.Y+h);
     for(int i = 0; i <= w; i++) cout << color(7) << ' ';
 }

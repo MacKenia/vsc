@@ -9,7 +9,7 @@ void frd::funa(struct peo t)
     cout << "等级：" << t.grader <<scr.endline();
     cout << "年龄：" << t.age << scr.endline();
     cout << "电话：" << t.tel << scr.endline();
-    cout << "爱好：" << t.hobby << scr.endline();
+    cout << "爱好：" << t.hobby << scr.endline() << scr.endline();
 }
 
 void frd::funb(struct peo t)
@@ -49,33 +49,109 @@ frd::frd(const char *filename)
 
 void frd::addf()
 {
-    scr.settop(22,4);
-    scr.bw(65,22);
-    scr.title("好友管理系统");
-    cout << "姓名：";
+    int c = 200;
+    scr.setbc("e0");
+    scr.settop(28,4);
+    scr.bw(50,20);
+    scr.title("添加好友");
+    cout << scr.textb(36,6,"请输入好友信息后回车确认！") << scr.textb(52,6,"回车",114);
+    cout << scr.textb(36,9,"姓名：") << scr.input(42,9,30);
+    cout << scr.textb(36,11,"性别：") << scr.input(42,11,30);
+    cout << scr.textb(36,13,"年龄：") << scr.input(42,13,30);
+    cout << scr.textb(36,15,"电话：") << scr.input(42,15,30);
+    cout << scr.textb(36,17,"爱好：") << scr.input(42,17,30);
+    cout << scr.textb(40,20,"<确定>") << scr.textb(60,20,"<取消>");
+    scr.color(240);
+    scr.ccp(42,9);
     cin.getline(fri.name,25);
-    cout << "性别：";
+    scr.ccp(42,11);
     cin.getline(fri.gender,5);
-    cout << "年龄：";
+    scr.ccp(42,13);
     cin.getline(fri.age,3);
-    cout << "电话：";
+    scr.ccp(42,15);
     cin.getline(fri.tel,12);
-    cout << "爱好：";
+    scr.ccp(42,17);
     cin.getline(fri.hobby,255);
     fri.grader = 0;
     fri.num = (((int)fri.name[0])+(((int)fri.tel[0])*10)+(((int)fri.name[0])*100)+(rand() % 100000));
-    cout << "确认你输入的信息，回车来确认：" << scr.endline();
-    funa(fri);
-    getchar();
+    cout << scr.textc(40,20,"<确定>") << scr.textb(60,20,"<取消>");
+    while(true)
+    {
+        scr.get();
+        if(scr.button() == 3) c--;
+        else if(scr.button() == 4) c++;
+        else if(scr.button() == 0)
+        {
+            if(!(c%2)) break;
+            else
+            {
+                addf();
+                return;
+            }
+        }
+        switch(c%2)
+        {
+            case 0:
+                cout << scr.textc(40,20,"<确定>") << scr.textb(60,20,"<取消>");
+                break;
+            case 1:
+                cout << scr.textb(40,20,"<确定>") << scr.textc(60,20,"<取消>");
+                break;
+        } 
+    }
     vec.push_back(fri);
-    cout << "成功！";
+    scr.setbc("af");
+    scr.settop(32,8);
+    scr.bw(40,12);
+    scr.title("添加好友");
+    cout << scr.textb(50,11,"成功!") << scr.textc(49,15,"<确定>");
+    scr.get();
 }
 
 void frd::rmvf()
 {
+    int c = 200;
     char a[24] = "1.按姓名方式删除";
     char b[24] = "2.按编号方式删除";
-    cout << "请选则删除好友的方式：";
+    scr.setbc("e0");
+    scr.settop(35,9);
+    scr.bw(38,10);
+    scr.title("删除好友");
+    scr.textb(41,11,"请选则删除好友的方式：");
+    scr.texta(41,13,a);
+    scr.text(41,15,b);
+    while(true)
+    {
+        scr.get();
+        if(scr.button() == 1) c--;
+        else if(scr.button() == 2) c++;
+        else if(scr.button() == 0)
+        {
+            if(c%2)
+            {
+                //编号
+                
+                break;
+            } 
+            else
+            {
+                //姓名
+                break;
+            }
+        }
+        switch(!(c%2))
+        {
+            case 0:
+                scr.texta(41,13,a);
+                scr.text(41,15,b);
+                break;
+            case 1:
+                scr.text(41,13,a);
+                scr.texta(41,15,b);
+                break;
+        }
+    }
+    
 }
 
 void frd::rmvf(const char *s)
@@ -122,6 +198,9 @@ void frd::shwf()
 
 void frd::showall()
 {
+    scr.cls();
+    scr.setbc("e0");
+    scr.settop(0,0);
     for(vp = vec.begin(); vp < vec.end(); vp++)
     {
         funa(*vp);

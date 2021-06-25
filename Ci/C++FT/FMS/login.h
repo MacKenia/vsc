@@ -13,8 +13,9 @@ private:
     char username[20];
 public:
     login(); //构造函数
-    char* log(); //登录界面
-    void sign(); //注册界面
+    char* log(); //主界面
+    char* signUp(); //注册界面
+    char* signIn(); //登录界面
 };
 
 #endif

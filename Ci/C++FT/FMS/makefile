@@ -1,7 +1,7 @@
 way = g++
-name = loginframe
-head = sc.h login.h
-cpp = main.cpp sc.cpp login.cpp
+name = frdtest
+head = sc.h pos.h frd.h
+cpp = main.cpp sc.cpp pos.cpp frd.cpp
 icon = 
 $(name): $(cpp) $(head) $(icon)
 	$(way) -fexec-charset=GBK -o $(name) $(cpp) $(head) $(icon)

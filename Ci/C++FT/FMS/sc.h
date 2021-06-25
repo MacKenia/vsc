@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <conio.h>
 #include <cstring>
 #include <iostream>
 #ifndef sc_h
@@ -23,6 +24,7 @@ private:
     COORD cr; //坐标
     static CONSOLE_SCREEN_BUFFER_INFO csbi; //控制台缓冲区信息
     struct frame fr; //界面框架
+    int ch; //键盘按键
 public:
     COORD top; //界面坐上坐标
     sc(); //无标题窗口的构造函数
@@ -40,9 +42,13 @@ public:
     friend char *intTochar(char*, int); //整转换为字符型
     char endline(); //换行
     void settop(int,int); //设置界面的左上角的坐标
-    char text(int, int, const char *); //界面文本
+    char text(int, int, const char *); //作为选项的文本
     char input(int, int, int=20); //输入框
-    char texta(int, int, const char *); //另一个颜色的文本
+    char texta(int, int, const char *); //选项激活的文本的文本
+    char textb(int, int, const char *); //作为按钮的文本
+    char textc(int, int, const char *); //激活的按钮
+    void get(){ch = getch();} //获取按钮
+    int button(); //返回键盘的按键 0回车 1↑ 2↓ 3← 4→
 };
 
 #endif

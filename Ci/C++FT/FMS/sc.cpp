@@ -85,6 +85,7 @@ char sc::endline()
     cr.Y = csbi.dwCursorPosition.Y;
     cr.Y++;
     cr.X = top.X;
+    if(cr.Y == csbi.dwSize.Y) cls();
     SetConsoleCursorPosition(had,cr);
     return 0;
 }
@@ -123,11 +124,14 @@ char sc::title(const char *s)
     return 0;
 }
 
+
 char sc::text(int x, int y, const char *s)
 {
     ccp(x, y);
     color(112);
     cout << s;
+    for(int i = 0; i < 28-strlen(s); i++) cout << ' ';
+    ccp(x, y);
     return 0;
 }
 
@@ -136,6 +140,25 @@ char sc::texta(int x, int y, const char *s)
     ccp(x, y);
     color(207);
     cout << s;
+    for(int i = 0; i < 28-strlen(s); i++) cout << ' ';
+    ccp(x, y);
+    return 0;
+}
+
+char sc::textb(int x, int y, const char *s)
+{
+    ccp(x, y);
+    color(112);
+    cout << s;
+    ccp(x, y);
+    return 0;
+}
+char sc::textc(int x, int y, const char *s)
+{
+    ccp(x, y);
+    color(207);
+    cout << s;
+    ccp(x, y);
     return 0;
 }
 
@@ -149,6 +172,7 @@ char sc::input(int x, int y, int n)
 
 void sc::bw(int w, int h)
 {
+    cls();
     ccp(top);
     for(int i = 0; i < h; i++)
     {
@@ -200,7 +224,41 @@ void sc::bw(int w, int h)
         }
         cout << endline();
     }
-    cout << color(224) << ' ';
+    // cout << color(224) << ' ';
+    ccp(top.X+1,top.Y+h);
     for(int i = 0; i <= w; i++) cout << color(7) << ' ';
+}
+
+int sc::button()
+{
+    //回车
+    if(ch==0x0d)
+    {
+        return 0;
+    }
+    //上
+    else if(ch==0x48)
+    {
+        return 1;
+    }
+ 
+    //下
+    else if(ch==0x50)
+    {
+        return 2;
+    }
+ 
+    //左
+    else if(ch==0x4b)
+    {
+        return 3;
+    }
+ 
+    //右
+    else if(ch==0x4d)
+    {
+        return 4;
+    }
+    else return 5;
 }
 

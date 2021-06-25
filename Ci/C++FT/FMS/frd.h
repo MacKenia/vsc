@@ -6,6 +6,7 @@
 #include <cmath>
 #include "login.h"
 #include "sc.h"
+#include "pos.h"
 #ifndef frd_h
 #define frd_h
 
@@ -16,8 +17,8 @@ struct peo //结构体用于储存个人信息
     int num;
     char name[25];
     char gender[5];
-    int age;
-    int grader;
+    char age[3];
+    char grader;
     char tel[12];
     char hobby[255];
     bool operator==(int a){ //重载运算符用于查找
@@ -31,6 +32,7 @@ struct peo //结构体用于储存个人信息
 class frd
 {
 private:
+    char* Tmpdata; //用于调起析构函数
     sc scr; //sc的对象
     fstream frdFile; //所有对象共用同一个文件
     vector<peo> vec; //用于存放好友的容器

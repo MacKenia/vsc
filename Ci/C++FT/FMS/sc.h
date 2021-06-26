@@ -27,13 +27,14 @@ private:
     int ch; //键盘按键
 public:
     COORD top; //界面坐上坐标
+    COORD point();//返回当前光标坐标
     sc(); //无标题窗口的构造函数
     sc(const char*); //构造函数
     void flush(); //刷新屏幕缓冲区
     void setT(const char*); //设置窗口标题
     char color(int a); //修改文字输出的颜色
-    char ccp(int, int); //ConsoleCursorPosition 控制台指针位置
-    void ccp(COORD); //ConsoleCursorPosition 控制台指针位置
+    char ccp(int, int); //ConsoleCursorPosition 设置控制台指针位置
+    void ccp(COORD); //ConsoleCursorPosition 设置控制台指针位置
     void setW(int, int); //设置窗口大小
     void setbc(const char *); //SetBackGroundColor 设置窗口背景颜色
     void cls(); //清空控制台

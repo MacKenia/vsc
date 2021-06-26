@@ -23,9 +23,9 @@ char* login::log()
         lo.bw(40,12);
         cout << lo.title("好友管理系统");
         cout << lo.textb(38,10,"使用上下键选择，回车确认");
-        cout << lo.texta(38,13,"1.登录");
         cout << lo.text(38,15,"2.注册");
         cout << lo.text(38,17,"3.退出");
+        cout << lo.texta(38,13,"1.登录");
         while(true)
         {
             lo.get();
@@ -99,7 +99,6 @@ char* login::signIn()
             cout << lo.text(42,11,"用户名或错误，请重试!") << lo.textc(49,15,"<确定>");
             pasFile.close();
             lo.get();
-            // pos po;
             return signIn();
         }
         else break;

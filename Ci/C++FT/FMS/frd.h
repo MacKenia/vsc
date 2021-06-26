@@ -58,6 +58,5 @@ public:
     void funa(struct peo); //无条件输出信息
     void funb(struct peo); //按性别输出
     void func(struct peo); //按年龄输出
-    void each(vector<peo>::iterator, vector<peo>::iterator,void (*funca)(struct peo)); //类for_each重载
 };
 #endif

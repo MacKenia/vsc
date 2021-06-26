@@ -20,6 +20,16 @@ sc::sc()
     cr.Y = csbi.dwCursorPosition.Y;
 }
 
+COORD sc::point()
+{
+    had = GetStdHandle(STD_OUTPUT_HANDLE);
+    GetConsoleScreenBufferInfo(had, &csbi);
+    COORD tmp;
+    tmp.X = csbi.dwCursorPosition.X;
+    tmp.Y = csbi.dwCursorPosition.Y;
+    return tmp;
+}
+
 void sc::flush()
 {
     had = GetStdHandle(STD_OUTPUT_HANDLE);

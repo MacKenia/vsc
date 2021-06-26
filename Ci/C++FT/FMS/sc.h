@@ -39,7 +39,7 @@ public:
     void cls(); //清空控制台
     void bw(int=55, int=11); //输出一个空的方框
     char title(const char *); //设置界面标题
-    friend char *intTochar(char*, int); //整转换为字符型
+    char *intTochar(char*, int); //整转换为字符型
     char endline(); //换行
     void settop(int,int); //设置界面的左上角的坐标
     char text(int, int, const char *,int=112); //作为选项的文本

@@ -8,10 +8,11 @@ int main()
     mw.setW(110,32);
     
     frd user("mackenia");
+    user.addf();
     // for(int i = 0; i < 5; i++) user.addf();
     // user.shwf();
     // user.rmvf(user.secf("test"));
-    user.show();
+    user.modf();
     getchar();
     
 }

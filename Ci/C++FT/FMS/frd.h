@@ -50,8 +50,7 @@ public:
     void genders(); //同性好友
     void ages(); //同龄好友
     void modf(); //主界面修改好友
-    void modf(const char *); //修改好友信息（姓名方式查找）
-    void modf(int); //修改好友信息（编号方式）
+    void modf(vector<peo>::iterator); //修改好友信息
     void secf(); //查找好友
     vector<peo>::iterator secf(const char *); //查找好友（姓名方式查找）
     vector<peo>::iterator secf(int); //查找好友（编号方式）

@@ -55,6 +55,7 @@ public:
     vector<peo>::iterator secf(const char *); //查找好友（姓名方式查找）
     vector<peo>::iterator secf(int); //查找好友（编号方式）
     void createme(); //创建个人信息
+    void showme(); //显示个人信息
     void funa(struct peo); //无条件输出信息
     void funb(struct peo); //按性别输出
     void func(struct peo); //按年龄输出

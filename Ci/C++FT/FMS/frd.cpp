@@ -19,7 +19,7 @@ void frd::funb(struct peo t)
 
 void frd::func(struct peo t)
 {
-    if(t.age == me.age) funa(t);
+    if(!strcmp(t.age,me.age)) funa(t);
 }
 
 frd::frd(const char *filename)
@@ -36,6 +36,7 @@ frd::frd(const char *filename)
     }
     frdFile.read((char*)&me,sizeof(me));
     if(strcmp(me.name,filename)) createme();
+    scr.ccp(0,15);
     while(!frdFile.eof())
     {
         frdFile.read((char*)&fri, sizeof(fri));
@@ -46,6 +47,19 @@ frd::frd(const char *filename)
         i++;
     }
     frdFile.close();
+}
+
+void frd::showme()
+{
+    scr.setbc("e0");
+    scr.settop(39,9);
+    scr.bw(30,13);
+    scr.title("你的个人信息");
+    scr.ccp(46,11);
+    scr.settop(46,11);
+    funa(me);
+    scr.textc(50,19,"<确认>");
+    scr.get();
 }
 
 void frd::addf()
@@ -116,9 +130,9 @@ void frd::rmvf()
     scr.bw(38,12);
     scr.title("删除好友");
     scr.textb(41,11,"请选则删除好友的方式：");
-    scr.texta(41,13,a);
     scr.text(41,15,b);
     scr.text(41,17,c);
+    scr.texta(41,13,a);
     while(true)
     {
         scr.get();
@@ -265,10 +279,10 @@ void frd::shwf()
     scr.bw(38,14);
     scr.title("查看好友");
     scr.textb(41,11,"选择展示方式：");
-    scr.texta(41,13,all);
     scr.text(41,15,gen);
     scr.text(41,17,ag);
     scr.text(41,19,cn);
+    scr.texta(41,13,all);
     while(true)
     {
         scr.get();
@@ -426,11 +440,20 @@ void frd::show(int w)
                 break;
             case 1:
                 //同性好友
-                for(vp = vec.begin(); vp != vec.end();)
+                scr.settop(1,1);
+                scr.title("同性好友");
+                scr.settop(5,3);
+                scr.ccp(5,3);
+                for(vp = vec.begin(); vp != vec.end(); vp++)
                 {
                     if(strcmp(vp->gender,me.gender) == 0) sum++;
                 }
-                if(sum <= 15) for(vp = vec.begin(); vp != vec.end(); vp++) funb(*vp);
+                if(sum <= 15)
+                {
+                    for(vp = vec.begin(); vp != vec.end(); vp++) funb(*vp);
+                    cout << scr.textc(50,27,"<退出>");
+                    scr.get();
+                }
                 else
                 {   //翻页解决方案
                     while(true)
@@ -498,11 +521,20 @@ void frd::show(int w)
                 break;
             case 2:
                 //同龄好友
-                for(vp = vec.begin(); vp != vec.end();)
+                scr.settop(1,1);
+                scr.title("同龄好友");
+                scr.settop(5,3);
+                scr.ccp(5,3);
+                for(vp = vec.begin(); vp != vec.end(); vp++)
                 {
                     if(strcmp(vp->age,me.age) == 0) sum++;
                 }
-                if(sum <= 15) for(vp = vec.begin(); vp != vec.end(); vp++) func(*vp);
+                if(sum <= 15)
+                {
+                    for(vp = vec.begin(); vp != vec.end(); vp++) func(*vp);
+                    cout << scr.textc(50,27,"<退出>");
+                    scr.get();
+                }
                 else
                 {   //翻页解决方案
                     while(true)
@@ -583,9 +615,9 @@ void frd::modf()
     scr.bw(40,12);
     scr.title("修改信息");
     scr.textb(38,10,"选择修改方式：");
-    scr.texta(38,13,a);
     scr.text(38,15,b);
     scr.text(38,17,c);
+    scr.texta(38,13,a);
     while(true)
     {
         scr.get();

@@ -34,10 +34,12 @@ int main()
     char c[] = "3.删除好友信息";
     char d[] = "4.添加好友";
     char e[] = "5.退出";
+    user.showme();
     mw.setbc("e0");
     mw.settop(35,9);
     mw.bw(38,16);
     mw.title("好友管理系统");
+    mw.ccp(2,9);
     mw.textb(41,11,"使用上下键选择，回车确认");
     mw.text(41,15,b);
     mw.text(41,17,c);

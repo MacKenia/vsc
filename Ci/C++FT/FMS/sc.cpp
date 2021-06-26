@@ -2,8 +2,6 @@
 
 using namespace std;
 
-char* intTochar(char *s,int a);
-
 HANDLE sc::had = GetStdHandle(STD_OUTPUT_HANDLE);
 CONSOLE_SCREEN_BUFFER_INFO sc::csbi;
 
@@ -93,7 +91,7 @@ char sc::endline()
     return 0;
 }
 
-char* intTochar(char *s,int a)
+char* sc::intTochar(char *s,int a)
 {
     int w = 3;
     if(a/100 == 0) w = 2;

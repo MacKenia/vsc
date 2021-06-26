@@ -1,7 +1,7 @@
 way = g++
-name = loginframe
-head = sc.h login.h
-cpp = sc.cpp login.cpp cl.cpp
+name = 
+head = 
+cpp = 
 icono = 
 iconr = 
 $(name): $(cpp) $(head) $(icono)

@@ -1,9 +1,9 @@
 #include "frd.h"
-using namespace std;
+// using namespace std;
 
 void frd::funa(struct peo t)
 {
-    cout << "姓名：" << t.name << scr.endline();
+    cout << "姓名：" << scr.color(116) << t.name  << scr.color(112) << scr.endline();
     cout << "好友编号：" << t.num << scr.endline();
     cout << "性别：" << t.gender << scr.endline();
     cout << "等级：" << t.grader <<scr.endline();
@@ -43,18 +43,19 @@ frd::frd(const char *filename)
         vec.push_back(fri);
         cout <<"[" << load[i%4] << "]"<< "正在加载第" << vec.size() << "人的信息\r";
         Sleep(100);
+        i++;
     }
     frdFile.close();
 }
 
 void frd::addf()
 {
-    int c = 200;
+    int co = 200;
     scr.setbc("e0");
     scr.settop(28,4);
     scr.bw(50,20);
-    scr.title("添加好友");
-    cout << scr.textb(36,6,"请输入好友信息后回车确认！") << scr.textb(52,6,"回车",114);
+    scr.title("添加信息");
+    cout << scr.textb(36,6,"请输入相关信息后回车确认！") << scr.textb(52,6,"回车",114);
     cout << scr.textb(36,9,"姓名：") << scr.input(42,9,30);
     cout << scr.textb(36,11,"性别：") << scr.input(42,11,30);
     cout << scr.textb(36,13,"年龄：") << scr.input(42,13,30);
@@ -78,18 +79,18 @@ void frd::addf()
     while(true)
     {
         scr.get();
-        if(scr.button() == 3) c--;
-        else if(scr.button() == 4) c++;
+        if(scr.button() == 3) co--;
+        else if(scr.button() == 4) co++;
         else if(scr.button() == 0)
         {
-            if(!(c%2)) break;
+            if(!(co%2)) break;
             else
             {
                 addf();
                 return;
             }
         }
-        switch(c%2)
+        switch(co%2)
         {
             case 0:
                 cout << scr.textc(40,20,"<确定>") << scr.textb(60,20,"<取消>");
@@ -103,124 +104,249 @@ void frd::addf()
     scr.setbc("af");
     scr.settop(32,8);
     scr.bw(40,12);
-    scr.title("添加好友");
+    scr.title("添加信息");
     cout << scr.textb(50,11,"成功!") << scr.textc(49,15,"<确定>");
     scr.get();
 }
 
 void frd::rmvf()
 {
-    int c = 200;
+    int co = 300;
     char a[24] = "1.按姓名方式删除";
     char b[24] = "2.按编号方式删除";
+    char c[9] = "3.取消";
     scr.setbc("e0");
     scr.settop(35,9);
-    scr.bw(38,10);
+    scr.bw(38,12);
     scr.title("删除好友");
     scr.textb(41,11,"请选则删除好友的方式：");
     scr.texta(41,13,a);
     scr.text(41,15,b);
+    scr.text(41,17,c);
     while(true)
     {
         scr.get();
-        if(scr.button() == 1) c--;
-        else if(scr.button() == 2) c++;
+        if(scr.button() == 1) co--;
+        else if(scr.button() == 2) co++;
         else if(scr.button() == 0)
         {
-            if(c%2)
+            if(co%3 == 0)
             {
-                //编号
-                
-                break;
+                //姓名test
+                char name[25];
+                char d[] = "请输入姓名：";
+                scr.setbc("e0");
+                scr.settop(36,12);
+                scr.bw(34,6);
+                scr.title("以姓名删除好友");
+                scr.textb(40,15,d) << scr.input(52,15,15);
+                scr.ccp(52,15);
+                cin.getline(name,25);
+                rmvf(secf(name));
             } 
-            else
+            else if(co%3 == 1)
             {
-                //姓名
-                break;
+                //编号10610
+                char d[] = "请输入编号：";
+                int num;
+                scr.setbc("e0");
+                scr.settop(36,12);
+                scr.bw(34,6);
+                scr.title("以编号删除好友");
+                scr.textb(40,15,d) << scr.input(52,15,15);
+                scr.ccp(52,15);
+                cin >> num;
+                rmvf(secf(num));
             }
+            else if(co%3 == 2) return;
         }
-        switch(!(c%2))
+        switch(co%3)
         {
             case 0:
                 scr.texta(41,13,a);
                 scr.text(41,15,b);
+                scr.text(41,17,c);
                 break;
             case 1:
                 scr.text(41,13,a);
                 scr.texta(41,15,b);
+                scr.text(41,17,c);
                 break;
+            case 2:
+                scr.text(41,13,a);
+                scr.text(41,15,b);
+                scr.texta(41,17,c);
         }
     }
     
 }
 
-void frd::rmvf(const char *s)
+void frd::rmvf(vector<peo>::iterator p)
 {
-    char t;
-    vp = secf(s);
-    cout << "确定移除：" <<  vp->name  <<"吗？" << scr.endline()
-    << "回车确认，输入n放弃：";
-    t = getchar();
-    cin.ignore();
-    if(t == '\n')
-    {
-        vec.erase(vp);
-        cout << "删除成功";
+    int co = 200;
+    scr.setbc("c7");
+    scr.settop(29,4);
+    scr.bw(50,22);
+    scr.title("删除");
+    scr.textb(35,6,"确定删除这个人吗?");
+    scr.textb(39,6,"删除",116);
+    scr.ccp(37,8);
+    scr.settop(37,8);
+    if(p != vec.end())
+    {//显示信息
+        cout << scr.color(240) << "姓名："  << scr.color(112) << " " << scr.color(15)  << p->name << scr.endline() << scr.endline();
+        cout << scr.color(240) << "好友编号：" << scr.color(112) << " " << scr.color(15)  << p->num << scr.endline() << scr.endline();
+        cout << scr.color(240) << "性别：" << scr.color(112) << " " << scr.color(15)  << p->gender << scr.endline() << scr.endline();
+        cout << scr.color(240) << "等级：" << scr.color(112) << " " << scr.color(15)  << p->grader <<scr.endline() << scr.endline();
+        cout << scr.color(240) << "年龄：" << scr.color(112) << " " << scr.color(15)  << p->age << scr.endline() << scr.endline();
+        cout << scr.color(240) << "电话：" << scr.color(112) << " " << scr.color(15)  << p->tel << scr.endline() << scr.endline();
+        cout << scr.color(240) << "爱好：" << scr.color(112) << " " << scr.color(15)  << p->hobby << scr.endline() << scr.endline();
     }
-}
-
-void frd::rmvf(int a)
-{
-    char t;
-    vp = secf(a);
-    cout << "确定移除："  << vp->name  <<"吗？" << scr.endline()
-    << "回车确认，输入n放弃：";
-    t = getchar();
-    cin.ignore();
-    if(t == '\n')
+    else
     {
-        vec.erase(vp);
-        cout << "删除成功";
+        scr.setbc("c7");
+        scr.settop(32,8);
+        scr.bw(40,12);
+        cout << scr.textb(45,11,"未查找到此人!") << scr.textc(49,15,"<确定>");
+        scr.get();
+        return;
     }
+    cout << scr.textc(40,23,"<确定>") << scr.textb(60,23,"<取消>");
+    while(true)
+    {
+        scr.get();
+        if(scr.button() == 3) co--;
+        else if(scr.button() == 4) co++;
+        else if(scr.button() == 0)
+        {
+            if(!(co%2)) break;
+            else return;
+        }
+        switch(co%2)
+        {
+            case 0:
+                cout << scr.textc(40,23,"<确定>") << scr.textb(60,23,"<取消>");
+                break;
+            case 1:
+                cout << scr.textb(40,23,"<确定>") << scr.textc(60,23,"<取消>");
+                break;
+        } 
+    }
+    vec.erase(p);
+    scr.setbc("af");
+    scr.settop(32,8);
+    scr.bw(40,12);
+    cout << scr.textb(48,11,"删除成功!") << scr.textc(49,15,"<确定>");
+    scr.get();
 }
 
 void frd::shwf()
 {
+    int co = 400;
     char all[21] = "1.展示全部好友";
     char gen[21] = "2.展示同性好友";
     char ag[21] = "3.展示同龄好友";
-    cout << "选择展示方式：" ;
-    cout << all;
-    cout << gen;
-    cout << ag;
-    //界面
-}
-
-void frd::showall()
-{
-    scr.cls();
+    char cn[9] = "4.取消";
     scr.setbc("e0");
-    scr.settop(0,0);
-    for(vp = vec.begin(); vp < vec.end(); vp++)
+    scr.settop(35,9);
+    scr.bw(38,14);
+    scr.title("查看好友");
+    scr.textb(41,11,"选择展示方式：");
+    scr.texta(41,13,all);
+    scr.text(41,15,gen);
+    scr.text(41,17,ag);
+    scr.text(41,19,cn);
+    while(true)
     {
-        funa(*vp);
+        scr.get();
+        if(scr.button() == 1) co--;
+        else if(scr.button() == 2) co++;
+        else if(scr.button() == 0)
+        {
+            if(co%4 == 0) 
+            {
+                show();
+                return;
+            }
+            else if(co%4 == 1)
+            {
+                show(1);
+                return;
+            }
+            else if(co%4 == 2)
+            {
+                show(2);
+                return;
+            }
+            else if(co%4 == 3) return;
+        }
+        switch(co%4)
+        {
+            case 0:
+                scr.texta(41,13,all);
+                scr.text(41,15,gen);
+                scr.text(41,17,ag);
+                scr.text(41,19,cn);
+                break;
+            case 1:
+                scr.text(41,13,all);
+                scr.texta(41,15,gen);
+                scr.text(41,17,ag);
+                scr.text(41,19,cn);
+                break;
+            case 2:
+                scr.text(41,13,all);
+                scr.text(41,15,gen);
+                scr.texta(41,17,ag);
+                scr.text(41,19,cn);
+                break;
+            case 3:
+                scr.text(41,13,all);
+                scr.text(41,15,gen);
+                scr.text(41,17,ag);
+                scr.texta(41,19,cn);
+                break;
+        }
     }
 }
 
-void frd::genders()
+void frd::show(int w)
 {
-    for(vp = vec.begin(); vp < vec.end(); vp++)
+    scr.setbc("e0");
+    scr.settop(1,1);
+    scr.bw(106,29);
+    scr.title("所有好友");
+    scr.settop(5,3);
+    scr.ccp(5,3);
+    if(vec.size() <= 15)
     {
-        funb(*vp);
+        for(vp = vec.begin(); vp < vec.end(); vp++)
+        {
+            switch(w)
+            {
+                case 0:
+                    funa(*vp);
+                    break;
+                case 1:
+                    funb(*vp);
+                    break;
+                case 2:
+                    func(*vp);
+                    break;
+            }
+        }
+        cout << scr.textc(50,27,"<退出>");
+        if(vp == vec.end()) cout << vec.end()-vp << endl;
+        getchar();
+        return;
     }
-}
+    else
+    {
 
-void frd::ages()
-{
-    for(vp = vec.begin(); vp < vec.end(); vp++)
-    {
-        func(*vp);
+        cout << scr.textc(40,27,"<←上一页>") << scr.textb(60,27,"<下一页→>");
+        cout << scr.textc(40,27,"<回车退出>") << scr.textb(60,27,"<下一页→>");
     }
+    pos pp;
 }
 
 void mod()
@@ -271,8 +397,6 @@ void frd::createme()
     addf();
     vp = vec.end();
     vp--;
-    funa(*vp);
-    scr.get();
     me.num = vp->num;
     me.grader = vp->grader;
     strcpy(me.age,vp->age);

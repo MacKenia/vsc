@@ -18,7 +18,7 @@ struct peo //结构体用于储存个人信息
     char name[25];
     char gender[5];
     char age[3];
-    char grader;
+    int grader;
     char tel[12];
     char hobby[255];
     bool operator==(int a){ //重载运算符用于查找
@@ -44,10 +44,9 @@ public:
     ~frd(); //析构函数
     void addf(); //添加好友
     void rmvf(); //主界面删除好友
-    void rmvf(const char *); //删除好友（名字方式）
-    void rmvf(int); //删除好友（编号方式）
+    void rmvf(vector<peo>::iterator); //删除好友界面
     void shwf(); //主界面展示所有好友
-    void showall(); //直接展示
+    void show(int=0); //展示
     void genders(); //同性好友
     void ages(); //同龄好友
     void modf(); //主界面修改好友

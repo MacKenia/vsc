@@ -82,14 +82,13 @@ char sc::endline()
 {
     had = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleScreenBufferInfo(had, &csbi);
-    cr.Y = csbi.dwCursorPosition.Y;
-    cr.Y++;
-    cr.X = top.X;
-    if(cr.Y == csbi.dwSize.Y)
+    cr.Y = csbi.dwCursorPosition.Y + 1;
+    if(csbi.dwSize.Y - cr.Y < 6)
     {
-        cr.X += 20;
-        cr.Y = 0;
+        top.X += 20;
+        cr.Y = top.Y;
     }
+    cr.X = top.X;
     SetConsoleCursorPosition(had,cr);
     return 0;
 }
@@ -113,7 +112,7 @@ void sc::cls()
 }
 
 void sc::setbc(const char *b)
-{
+{//c7 红色 e0 黄色 af 绿色
     char hd[9] = "color ";
     strcat(hd, b);
     system(hd);
@@ -230,7 +229,10 @@ void sc::bw(int w, int h)
             }
             if(flag) cout << ' ';
         }
-        cout << endline();
+        // cout << endline();
+        had = GetStdHandle(STD_OUTPUT_HANDLE);
+        GetConsoleScreenBufferInfo(had, &csbi);
+        ccp(top.X, csbi.dwCursorPosition.Y + 1);
     }
     ccp(top.X+1,top.Y+h);
     for(int i = 0; i <= w; i++) cout << color(7) << ' ';

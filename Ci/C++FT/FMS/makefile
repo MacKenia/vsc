@@ -1,5 +1,5 @@
 way = g++
-name = frdtest
+name = friendManageSystem
 head = sc.h frd.h login.h
 cpp = main.cpp sc.cpp frd.cpp login.cpp
 icon = ico48.o

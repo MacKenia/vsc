@@ -186,7 +186,7 @@ int main()
 	{
 		keybd_event(VK_CAPITAL,0,0,0);
  		keybd_event(VK_CAPITAL,0,KEYEVENTF_KEYUP,0);
-		}
+	}
 	return 0;
 }
  

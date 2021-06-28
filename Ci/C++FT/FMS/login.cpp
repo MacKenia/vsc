@@ -6,7 +6,7 @@ login::login()
     pasFile.open(filename, ios::binary | ios::in | ios::out | ios::app);
     if(pasFile.fail())
     {
-        cout << "初始化，请重试！" << endl;
+        cout << "初始化失败，请重试！" << endl;
         getchar();
         exit(0);
     }
@@ -90,21 +90,26 @@ char* login::signIn()
     while(!pasFile.eof())
     {
         pasFile.read((char*)data, sizeof(data));
-        if(pasFile.fail()) break;
-        if(strcmp(data,input))
+        if(pasFile.fail())
         {
             lo.setbc("c7");
             lo.settop(32,8);
             lo.bw(40,12);
-            cout << lo.text(42,11,"用户名或错误，请重试!") << lo.textc(49,15,"<确定>");
+            cout << lo.text(42,11,"1用户名或错误，请重试!") << lo.textc(49,15,"<确定>");
             pasFile.close();
             lo.get();
-            return signIn();
+            return log();
         }
-        else break;
+        if(!strcmp(data,input)) return username;
+        
     }
+    lo.setbc("c7");
+    lo.settop(32,8);
+    lo.bw(40,12);
+    cout << lo.text(42,11,"2用户名或错误，请重试!") << lo.textc(49,15,"<确定>");
     pasFile.close();
-    return username;
+    lo.get();
+    return log();
 }
 
 char* login::signUp()
@@ -126,12 +131,13 @@ char* login::signUp()
         cout << lo.textb(39,10,"请注册，并牢记用户名和密码");
         cout << lo.text(40,13,"用户：") << lo.input(47,13);
         cout << lo.text(40,15,"密码：") << lo.input(47,15);
-        cout << lo.textb(50,18,"<登录>");
+        cout << lo.textc(50,18,"<注册>");
         lo.color(240);
         lo.ccp(47,13);
         cin.getline(Data,20);
         lo.ccp(47,15);
         cin.getline(&Data[20],20);
+        lo.get();
     }
     for(int i = 0; i < 39; i++) Data[i] += 1;
     pasFile.flush();

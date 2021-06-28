@@ -9,9 +9,9 @@ int main()
     int f;
     while (true)
     {
-        if(GetKeyState(VK_ESCAPE) == -127) break;
-        f = GetKeyState(VK_CAPITAL);
-        cout << f << " " ;
+        if(GetKeyState(VK_ESCAPE) == -127) break; //按下esc退出
+        f = GetKeyState(VK_CAPITAL); //显示状态
+        cout << "\r    " << f << "   ";
         if(f)
         {
             mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);

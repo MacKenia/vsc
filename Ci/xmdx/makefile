@@ -2,10 +2,10 @@ way = g++
 name = rmexe
 head = 
 cpp = rm_exe.cpp
-icon = ico48
+icon = wfl
 $(name): $(cpp) $(head) $(icon).o 
 	$(way) -fexec-charset=GBK -static -o $(name) $(cpp) $(head) $(icon).o
-$(icon).o: $(icon).rc
+$(icon): $(icon).rc
 	windres -i $(icon).rc -o $(icon).o
 rm:
 	del /s *.o

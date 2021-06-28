@@ -356,11 +356,15 @@ void frd::show(int w)
                 scr.settop(1,1);
                 scr.title("同性好友");
                 scr.settop(5,3);
+                scr.ccp(5,3);
+                scr.settop(5,3);
                 for(vp = vec.begin(); vp < vec.end(); vp++) funb(*vp);
                 break;
             case 2:
                 scr.settop(1,1);
                 scr.title("同龄好友");
+                scr.settop(5,3);
+                scr.ccp(5,3);
                 scr.settop(5,3);
                 for(vp = vec.begin(); vp < vec.end(); vp++) func(*vp);
                 break;

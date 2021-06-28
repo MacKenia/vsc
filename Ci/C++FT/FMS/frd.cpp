@@ -35,7 +35,7 @@ frd::frd(const char *filename)
         exit(0);
     }
     frdFile.read((char*)&me,sizeof(me));
-    if(strcmp(me.name,filename)) createme();
+    if(frdFile.fail()) createme(filename);
     scr.ccp(0,15);
     while(!frdFile.eof())
     {
@@ -785,13 +785,15 @@ vector<peo>::iterator frd::secf(int a)
     return find(vec.begin(),vec.end(),a);
 }
 
-void frd::createme()
+void frd::createme(const char *s)
 {
     scr.setbc("e0");
     scr.settop(32,8);
     scr.bw(40,12);
     scr.title("创建个人信息");
-    cout << scr.textb(40,11,"你还没有个人信息，请先创建！") << scr.textc(49,15,"<确定>");
+    cout << scr.textb(40,10,"你还没有个人信息，请先创建！") 
+    << scr.textb(40,12,"请保持登录名与个人信息一致")
+    << scr.textc(49,15,"<确定>");
     scr.get();
     addf();
     vp = vec.end();
@@ -799,7 +801,7 @@ void frd::createme()
     me.num = vp->num;
     me.grader = vp->grader;
     strcpy(me.age,vp->age);
-    strcpy(me.name,vp->name);
+    strcpy(me.name,s);
     strcpy(me.gender,vp->gender);
     strcpy(me.tel,vp->tel);
     strcpy(me.hobby,vp->hobby);
@@ -810,7 +812,7 @@ frd::~frd()
 {
     int i = 0;
     char load[5] = "/-\\|";
-    frdFile.open(me.name, ios::out);
+    frdFile.open(me.name, ios::binary | ios::out);
     frdFile.write((char*)&me,sizeof(me));
     for(vp = vec.begin(); vp != vec.end(); vp++)
     {
@@ -830,5 +832,4 @@ frd::~frd()
     frdFile.close();
     vec.clear();
     delete []Tmpdata;
-    getchar();
 }

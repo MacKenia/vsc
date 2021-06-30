@@ -779,6 +779,145 @@ void frd::modf(vector<peo>::iterator p)
     scr.get();
 }
 
+void frd::secf()
+{
+    vector<peo>::iterator p;
+    int co = 300;
+    char a[24] = "1.按姓名方式查找";
+    char b[24] = "2.按编号方式查找";
+    char c[9] = "3.取消";
+    scr.setbc("e0");
+    scr.settop(35,9);
+    scr.bw(38,12);
+    scr.title("查找好友");
+    scr.textb(41,11,"请选则查找好友的方式：");
+    scr.text(41,15,b);
+    scr.text(41,17,c);
+    scr.texta(41,13,a);
+    while(true)
+    {
+        scr.get();
+        if(scr.button() == 1) co--;
+        else if(scr.button() == 2) co++;
+        else if(scr.button() == 0)
+        {
+            if(co%3 == 0)
+            {
+                //姓名
+                char name[25];
+                char d[] = "请输入姓名：";
+                scr.setbc("e0");
+                scr.settop(36,12);
+                scr.bw(34,6);
+                scr.title("以姓名查找好友");
+                scr.textb(40,15,d) << scr.input(52,15,15);
+                scr.ccp(52,15);
+                cin.getline(name,25);
+                p = secf(name);
+                if(p != vec.end())
+                {//显示信息
+                    scr.setbc("e0");
+                    scr.settop(29,4);
+                    scr.bw(50,20);
+                    scr.title("搜索结果");
+                    scr.ccp(37,6);
+                    scr.settop(37,6);
+                    cout << scr.color(240) << "姓名："  << scr.color(112) << " " << scr.color(15)  << p->name << scr.endline() << scr.endline();
+                    cout << scr.color(240) << "好友编号：" << scr.color(112) << " " << scr.color(15)  << p->num << scr.endline() << scr.endline();
+                    cout << scr.color(240) << "性别：" << scr.color(112) << " " << scr.color(15)  << p->gender << scr.endline() << scr.endline();
+                    cout << scr.color(240) << "等级：" << scr.color(112) << " " << scr.color(15)  << p->grader <<scr.endline() << scr.endline();
+                    cout << scr.color(240) << "年龄：" << scr.color(112) << " " << scr.color(15)  << p->age << scr.endline() << scr.endline();
+                    cout << scr.color(240) << "电话：" << scr.color(112) << " " << scr.color(15)  << p->tel << scr.endline() << scr.endline();
+                    cout << scr.color(240) << "爱好：" << scr.color(112) << " " << scr.color(15)  << p->hobby << scr.endline() << scr.endline();
+                    scr.textc(51,21,"<确定>");
+                }
+                else
+                {
+                    scr.setbc("c7");
+                    scr.settop(32,8);
+                    scr.bw(40,12);
+                    cout << scr.textb(45,11,"未查找到此人!") << scr.textc(49,15,"<确定>");
+                }
+                scr.get();
+                scr.setbc("e0");
+                scr.settop(35,9);
+                scr.bw(38,12);
+                scr.title("查找好友");
+                scr.textb(41,11,"请选则查找好友的方式：");
+                scr.texta(41,13,a);
+                scr.text(41,15,b);
+                scr.text(41,17,c);
+            } 
+            else if(co%3 == 1)
+            {
+                //编号
+                char d[] = "请输入编号：";
+                int num;
+                scr.setbc("e0");
+                scr.settop(36,12);
+                scr.bw(34,6);
+                scr.title("以编号查找好友");
+                scr.textb(40,15,d) << scr.input(52,15,15);
+                scr.ccp(52,15);
+                cin >> num;
+                cin.ignore();
+                p = secf(num);
+                if(p != vec.end())
+                {//显示信息
+                    scr.setbc("e0");
+                    scr.settop(29,4);
+                    scr.bw(50,20);
+                    scr.title("搜索结果");
+                    scr.ccp(37,6);
+                    scr.settop(37,6);
+                    cout << scr.color(240) << "姓名："  << scr.color(112) << " " << scr.color(15)  << p->name << scr.endline() << scr.endline();
+                    cout << scr.color(240) << "好友编号：" << scr.color(112) << " " << scr.color(15)  << p->num << scr.endline() << scr.endline();
+                    cout << scr.color(240) << "性别：" << scr.color(112) << " " << scr.color(15)  << p->gender << scr.endline() << scr.endline();
+                    cout << scr.color(240) << "等级：" << scr.color(112) << " " << scr.color(15)  << p->grader <<scr.endline() << scr.endline();
+                    cout << scr.color(240) << "年龄：" << scr.color(112) << " " << scr.color(15)  << p->age << scr.endline() << scr.endline();
+                    cout << scr.color(240) << "电话：" << scr.color(112) << " " << scr.color(15)  << p->tel << scr.endline() << scr.endline();
+                    cout << scr.color(240) << "爱好：" << scr.color(112) << " " << scr.color(15)  << p->hobby << scr.endline() << scr.endline();
+                    scr.textc(51,21,"<确定>");
+                }
+                else
+                {
+                    scr.setbc("c7");
+                    scr.settop(32,8);
+                    scr.bw(40,12);
+                    cout << scr.textb(45,11,"未查找到此人!") << scr.textc(49,15,"<确定>");
+                }
+                scr.get();
+                scr.setbc("e0");
+                scr.settop(35,9);
+                scr.bw(38,12);
+                scr.title("查找好友");
+                scr.textb(41,11,"请选则查找好友的方式：");
+                scr.texta(41,13,a);
+                scr.text(41,15,b);
+                scr.text(41,17,c);
+            }
+            else if(co%3 == 2) return;
+        }
+        switch(co%3)
+        {
+            case 0:
+                scr.text(41,15,b);
+                scr.text(41,17,c);
+                scr.texta(41,13,a);
+                break;
+            case 1:
+                scr.text(41,13,a);
+                scr.text(41,17,c);
+                scr.texta(41,15,b);
+                break;
+            case 2:
+                scr.text(41,13,a);
+                scr.text(41,15,b);
+                scr.texta(41,17,c);
+        }
+    }
+}
+
 vector<peo>::iterator frd::secf(const char *s)
 {
     return find(vec.begin(), vec.end(),s);

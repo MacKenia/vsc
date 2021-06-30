@@ -34,27 +34,27 @@ int main()
     char c[] = "3.删除好友信息";
     char d[] = "4.添加好友";
     char e[] = "5.退出";
-    user.showme();
-    mw.setbc("e0");
-    mw.settop(35,9);
-    mw.bw(38,16);
-    mw.title("好友管理系统");
-    mw.ccp(2,9);
-    mw.textb(41,11,"使用上下键选择，回车确认");
-    mw.text(41,15,b);
+    user.showme(); //展示个人信息
+    mw.setbc("e0"); //设置背景色
+    mw.settop(35,9); //设置左上角坐标
+    mw.bw(38,16); //输出一个界面
+    mw.title("好友管理系统"); //更改界面标题
+    mw.ccp(2,9); //移动光标位置
+    mw.textb(41,11,"使用上下键选择，回车确认"); //输出一条信息到指定位置
+    mw.text(41,15,b); //输出作为选项的信息
     mw.text(41,17,c);
     mw.text(41,19,d);
     mw.text(41,21,e);
     mw.texta(41,13,a);
-    while(true)
+    while(true) //选择界面
     {
-        mw.get();
-        if(mw.button() == 1) co--;
+        mw.get(); //获取键盘按钮
+        if(mw.button() == 1) co--; //判断按键
         else if(mw.button() == 2) co++;
-        else if(mw.button() == 0)
+        else if(mw.button() == 0) //回车进入
         {
             if(co%5 == 0)
-            {
+            {//进入展示好友界面
                 user.shwf();
                 mw.setbc("e0");
                 mw.settop(35,9);
@@ -68,7 +68,7 @@ int main()
                 mw.text(41,21,e);
             }
             else if(co%5 == 1)
-            {
+            {//进入修改好友界面
                 user.modf();
                 mw.setbc("e0");
                 mw.settop(35,9);
@@ -81,7 +81,7 @@ int main()
                 mw.text(41,19,d);
             }
             else if(co%5 == 2)
-            {
+            {//进入删除好友界面
                 user.rmvf();
                 mw.setbc("e0");
                 mw.settop(35,9);
@@ -94,7 +94,7 @@ int main()
                 mw.text(41,19,d);
             }
             else if(co%5 == 3)
-            {
+            {//进入添加好友界面
                 user.addf();
                 mw.setbc("e0");
                 mw.settop(35,9);
@@ -106,10 +106,10 @@ int main()
                 mw.text(41,17,c);
                 mw.text(41,19,d);
             }
-            else break;
+            else break; //退出程序
         }
         switch(co%5)
-        {
+        {//更新界面
             case 0:
                 mw.text(41,15,b);
                 mw.text(41,17,c);

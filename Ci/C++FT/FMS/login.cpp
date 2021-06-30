@@ -140,7 +140,7 @@ char* login::signUp()
         cout << lo.textc(50,18,"<注册>");
         getchar();
     }
-    for(int i = 0; i < 39; i++) Data[i] += 1;
+    for(int i = 0; i < 39; i++) Data[i] += 1; //对用户名等等信息进行加密 
     pasFile.flush();
     pasFile.seekg(0L, ios::end);
     pasFile.write((char*)Data,sizeof(Data));

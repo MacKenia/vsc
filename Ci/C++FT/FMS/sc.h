@@ -32,7 +32,7 @@ public:
     sc(const char*); //构造函数
     void flush(); //刷新屏幕缓冲区
     void setT(const char*); //设置窗口标题
-    char color(int a); //修改文字输出的颜色
+    char color(int); //修改文字输出的颜色
     char ccp(int, int); //ConsoleCursorPosition 设置控制台指针位置
     void ccp(COORD); //ConsoleCursorPosition 设置控制台指针位置
     void setW(int, int); //设置窗口大小

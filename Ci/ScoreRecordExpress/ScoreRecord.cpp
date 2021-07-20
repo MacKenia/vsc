@@ -19,6 +19,20 @@ struct score{
 vector<score> scores;
 vector<score>::iterator p;
 
+void capslockt(bool f)
+{
+	if(!GetKeyState(VK_CAPITAL))
+	{
+		keybd_event(VK_CAPITAL,0,0,0);
+		keybd_event(VK_CAPITAL,0,KEYEVENTF_KEYUP,0);
+	}
+	if(GetKeyState(VK_CAPITAL))
+	{
+		keybd_event(VK_CAPITAL,0,0,0);
+ 		keybd_event(VK_CAPITAL,0,KEYEVENTF_KEYUP,0);
+	}
+}
+
 int getn()
 {
 	int r, len;

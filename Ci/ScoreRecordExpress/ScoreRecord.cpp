@@ -21,12 +21,7 @@ vector<score>::iterator p;
 
 void capslockt(bool f)
 {
-	if(!GetKeyState(VK_CAPITAL))
-	{
-		keybd_event(VK_CAPITAL,0,0,0);
-		keybd_event(VK_CAPITAL,0,KEYEVENTF_KEYUP,0);
-	}
-	if(GetKeyState(VK_CAPITAL))
+	if(GetKeyState(VK_CAPITAL) != f)
 	{
 		keybd_event(VK_CAPITAL,0,0,0);
  		keybd_event(VK_CAPITAL,0,KEYEVENTF_KEYUP,0);
@@ -156,18 +151,14 @@ int main()
 		strcpy(example.Cname,pTemp);
 		strcpy(example.Ename, pTemp1);
 		// if((int)pTemp[2]==-97&&(int)pTemp[3]==-112) example.Ename[1] = 'H';
-		if((int)pTemp[4]==-103&&(int)pTemp[5]==72) example.Ename[2] = 'T';
+		// if((int)pTemp[4]==-103&&(int)pTemp[5]==72) example.Ename[2] = 'T';
 		if(!(int)pTemp[0]) continue;
 		scores.push_back(example);
 	}
 	file.close();
 	showRecord();
 	cout << "现在开始录入成绩，请以大写的方式输入简拼(输入！退出，)：" << endl;
-	if(!GetKeyState(VK_CAPITAL))
-	{
-		keybd_event(VK_CAPITAL,0,0,0);
-		keybd_event(VK_CAPITAL,0,KEYEVENTF_KEYUP,0);
-	}
+	capslockt(true);
 	while(true)
 	{
 		int S;
@@ -196,11 +187,7 @@ int main()
 		
 	}
 	showRecord();
-	if(GetKeyState(VK_CAPITAL))
-	{
-		keybd_event(VK_CAPITAL,0,0,0);
- 		keybd_event(VK_CAPITAL,0,KEYEVENTF_KEYUP,0);
-	}
+	capslockt(false);
 	return 0;
 }
  

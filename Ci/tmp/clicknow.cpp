@@ -18,7 +18,7 @@ int main()
 	        Sleep(10);//要留给某些应用的反应时间
 	        mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
         }
-        Sleep(60);
+        Sleep(600);
     }
     return 0;
 }

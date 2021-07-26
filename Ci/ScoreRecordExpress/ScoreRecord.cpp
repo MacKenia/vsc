@@ -96,7 +96,7 @@ void GetFirstLetter(char* strName, char* strFirstLetter, int nLen)
 	strFirstLetter[len] = '\0';  
 }  
 void FirstLetter(int nCode, char& strLetter)  
-{  
+{
 	if(nCode >= 1601 && nCode < 1637) strLetter = 'A';
 	else if(nCode >= 1637 && nCode < 1833) strLetter = 'B';
 	else if(nCode >= 1833 && nCode < 2078) strLetter = 'C';
@@ -164,6 +164,7 @@ int main()
 		int S;
 		cout << "请输入同学的简拼：";
 		cin >> QR;
+		for(int i = 0; i < 5; i++) if(QR[i] >= 'a') QR[i]-=32;
 		if(QR[0] == '!') break;
 		cin.ignore();
 		p = find(scores.begin(),scores.end(),QR);
@@ -172,6 +173,7 @@ int main()
 			cout << "为找到该同学，请核对！或者重新输入：";
 			cin >> QR;
 			cin.ignore();
+			for(int i = 0; i < 5; i++) if(QR[i] >= 'a') QR[i]-=32;
 			p = find(scores.begin(),scores.end(),QR);
 		}
 		cout << "该同学的名字为: " << p->Cname << endl;

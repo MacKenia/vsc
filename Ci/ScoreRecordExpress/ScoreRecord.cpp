@@ -1,9 +1,7 @@
-#include <iostream>
-#include <cstring>
+#include <sc.h>
 #include <fstream>
 #include <vector>
 #include <algorithm>
-#include <windows.h>
 #include <cmath>
 
 using namespace std;
@@ -11,8 +9,14 @@ struct score{
 	char Cname[10];
 	char Ename[5];
 	int Score;
-	bool operator==(const char *s){
-		return !(strcmp(Ename,s));
+	bool operator==(const char *s)
+	{
+		// return !(strcmp(Ename,s));
+		for(int i = 0; s[i] != '\0'; i++)
+		{
+			if(s[i]!=Ename[i]) return 0;
+		}
+		return 1;
 	}
 }example = {"","",0};
 
@@ -134,6 +138,8 @@ void FirstLetter(int nCode, char& strLetter)
 
 int main()
 {
+	sc m("ScoreRecordExpress");
+	m.setW(55,12);
 	fstream file;
 	char pTemp[10], QR[5];
 	char pTemp1[5];//保存汉字的首字母
@@ -159,7 +165,7 @@ int main()
 	showRecord();
 	cout << "现在开始录入成绩，请以大写的方式输入简拼(输入！退出，)：" << endl;
 	capslockt(true);
-	while(true)
+	while(false)
 	{
 		int S;
 		cout << "请输入同学的简拼：";
@@ -187,6 +193,12 @@ int main()
 		}
 		file.close();
 		
+	}
+	while(true)
+	{
+		vector<score>::iterator* pos = new vector<score>::iterator[scores.size()]; //存放候选人的容器位置
+		int candidate; //候选人数量
+		int cur; //选择光标的位置
 	}
 	showRecord();
 	capslockt(false);

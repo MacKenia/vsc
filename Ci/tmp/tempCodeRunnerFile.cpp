@@ -1,4 +1,10 @@
+#include <bits/stdc++.h>
+#include <conio.h>
 
-        }
-        Sleep(60);
-    }
+using namespace std;
+
+int main()
+{
+    cout << hex << (int)getch() << endl;
+    return 0;
+}

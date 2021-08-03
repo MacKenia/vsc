@@ -8,7 +8,7 @@ int main()
     while(true)
     {
         if(GetKeyState(VK_ESCAPE) == -127) exit(0);
-        Sleep(10000);
+        Sleep(100);
         FreeConsole();
         cout << AllocConsole();
     }

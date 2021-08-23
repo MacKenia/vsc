@@ -13,19 +13,39 @@
 
 ### Debian
 
+> 好
+
 ### Ubuntu
+
+> 基于debain的发行版，算是很知名的的发行版了
+
+
 
 ### Deepin
 
+> 深度系统，基于Ubuntu的国产Linux发行版，桌面风格更偏向Mac
+
+
+
 ### Fedora
+
+> 基于Redhat，桌面使用的是gnome40
+
+
 
 ### Arch Linux
 
+> 超级轻的Linux发行版，滚动更新，安装麻烦，全命令行操作
+
+
+
 ### openSUSE
 
+> 俗称大蜥蜴
 
 
-# 使用Linux的途径
+
+# 尝试Linux的途径
 
 ## wls
 

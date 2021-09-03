@@ -5,8 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>快停止散发魅力吧</title>
-</head>
-<body>
     <style>
         * {
             padding: 0;
@@ -16,7 +14,7 @@
             /* border: 1px solid red; */
         }
 
-        html, body, table {
+        html, body, table ,div{
             height: 100%;
             width: 100%;
         }
@@ -25,28 +23,40 @@
             display: flex;
             flex-direction: row;
         }
+        
+        .file{
+            background-image: url(img/FlieGator.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+
+        }
+
+        td:hover{
+            background: #000000ab;
+            border: 1px solid #000;
+        }
 
     </style>
-
-    <div class="container">
-        <table border="1">
+</head>
+<body>
+        <table>
             <tr>
-                <td>
-                    第一行第一列
+                <td class="file">
+                    filegator
                 </td>
-                <td>
-                    第一行第二列
+                <td class="fire">
+                    fire
                 </td>
             </tr>
             <tr>
-                <td>
-                    第二行第一列
+                <td class="fruit">
+                    fruit
                 </td>
-                <td>
-                    第二行第二列
+                <td class="code">
+                    code
                 </td>
             </tr>
         </table>
-    </div>
 </body>
 </html>

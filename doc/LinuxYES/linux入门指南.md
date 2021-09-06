@@ -62,20 +62,31 @@
 > 注意！非Win10用户无法使用！
 
 1. 按在搜索中搜索功能
+![](WSL/search.png)
 2. 找到 `适用于Windows的Linux子系统` 勾选上，并重启电脑
+![](WSL/turnon.png)
 3. 打开微软商店,搜索 `Linux` ,目前提供 `Debian`、`Ubuntu`、`Kali`、`openSUSE` 等发行版，我以下载Ubuntu为例。
+![](WSL/download.png)
 4. 打开下载好的Ubuntu，等待其初始化
+![](WSL/initial.png)
 5. 输入用户名和密码，注意在输密码是是不会有回显的，也就是不会显示任何字符。
+![](WSL/entername.png)
+![](WSL/enterpass.png)
 6. 在控制台输入 `bash -c "$(curl -Lv gitee.com/mo2/linux/raw/2/2)"`
+![]()
 > 脚本由这位大佬提供L：[Moe](https://gitee.com/mo2)
-7. 等待跑码，
+7. 等待跑码，回车
+![](WSL/enter_1.png)
 8. 输入刚刚设置的密码，回车
 9. 选择简体中文
+![](WSL/chinese.png)
 10. 回车
+![](WSL/enter_1.png)
 11. 等待跑码
 12. 选择 `*°▽°* Update:更新`，基础设置就完成了，之后便可退出，下次输入`tmoe`即可再次打开此界面
-13. 安装开发环境，输入`sudo apt install default-jdk lsb-core -y`，便会自动安装Python、C/C++、JAVA8的开发环境
-14. 终端环境搭建就完成了，可以使用Vscode来连接WSL进行程序的编写
+13. 安装开发环境，输入`sudo apt install default-jdk lsb-core -y`，便会自动安装Python、C/C++、JAVA的开发环境
+![](WSL/)
+1.  终端环境搭建就完成了，可以使用Vscode来连接WSL进行程序的编写
 
 |C\C++|Python|Java|
 ---|---|---

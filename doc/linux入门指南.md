@@ -1,6 +1,6 @@
 [toc]
 
-# linux入门指南
+# linux快速入门指南
 
 ## 对Linux简介
 
@@ -13,41 +13,66 @@
 
 ### Debian
 
-> 好
+> 好，包管理器为pkg
 
 ### Ubuntu
 
-> 基于debain的发行版，算是很知名的的发行版了
+> 基于debain的发行版，算是很知名的的发行版了，包管理器为apt
 
 
 
 ### Deepin
 
-> 深度系统，基于Ubuntu的国产Linux发行版，桌面风格更偏向Mac
+> 深度系统，基于Ubuntu的国产Linux发行版，桌面风格更偏向Mac，包管理器为apt
 
 
 
 ### Fedora
 
-> 基于Redhat，桌面使用的是gnome40
+> 基于Redhat，桌面使用的是gnome40，包管理器为dnf
 
 
 
 ### Arch Linux
 
-> 超级轻的Linux发行版，滚动更新，安装麻烦，全命令行操作
+> 超级轻的Linux发行版，滚动更新，安装麻烦，全命令行操作，包管理器为pacman
 
 
 
 ### openSUSE
 
-> 俗称大蜥蜴
+> 俗称大蜥蜴，支持滚动更新，包管理器为zypper
 
 
 
 # 尝试Linux的途径
 
-## wls
+目前有三种途径：`WSL` `虚拟机` `实体机` 
+
+论方便性排序：`WSL` > `虚拟机` > `实体机`
+
+论性能则恰恰相反：`实体机` > `虚拟机` > `WSL`
+
+我个人推荐 `WSL` 主要是方便，无论是安装还是卸载
+
+## WSL(Windows Subsystem for Linux)
+
+> 注意非Win10用户无法使用
+
+1. 按在搜索中搜索功能
+2. 找到 `适用于Windows的Linux子系统` 勾选上，并重启电脑
+3. 打开微软商店,搜索 `Linux` ,目前提供 `Debian`、`Ubuntu`、`Kali`、`openSUSE` 等发行版，我以下载Ubuntu为例。
+4. 打开下载好的Ubuntu，等待其初始化
+5. 输入用户名和密码，注意在输密码是是不会有回显的，也就是不会显示任何字符。
+6. 在控制台输入 `bash -c "$(curl -Lv gitee.com/mo2/linux/raw/2/2)"`
+> 脚本由这位大佬提供L：[Moe](https://gitee.com/mo2)
+7. 等待跑码，
+8. 输入刚刚设置的密码，回车
+9. 选择简体中文
+10. 回车
+11. 等待跑码
+12. 选择 `*°▽°* Update:更新`，基础设置就完成了，之后便可退出，下次输入`tmoe`即可再次打开此界面
+13. 安装开发环境，输入`sudo apt install lsb-core -y`，便会自动安装Python、C/C++的开发环境
 
 ## 虚拟机
 

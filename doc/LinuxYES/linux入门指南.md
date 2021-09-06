@@ -59,7 +59,7 @@
 
 ## WSL(Windows Subsystem for Linux)
 
-> 注意非Win10用户无法使用
+> 注意！非Win10用户无法使用！
 
 1. 按在搜索中搜索功能
 2. 找到 `适用于Windows的Linux子系统` 勾选上，并重启电脑
@@ -76,6 +76,10 @@
 12. 选择 `*°▽°* Update:更新`，基础设置就完成了，之后便可退出，下次输入`tmoe`即可再次打开此界面
 13. 安装开发环境，输入`sudo apt install default-jdk lsb-core -y`，便会自动安装Python、C/C++、JAVA8的开发环境
 14. 终端环境搭建就完成了，可以使用Vscode来连接WSL进行程序的编写
+
+|C\C++|Python|Java|
+---|---|---
+|![C++](WSL/c++.png)|![Python](WSL/python.png)|![Java](WSL/java.png)|
 
 ## 虚拟机
 

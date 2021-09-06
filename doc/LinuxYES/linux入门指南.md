@@ -53,6 +53,8 @@
 
 论性能则恰恰相反：`实体机` > `虚拟机` > `WSL`
 
+> 再慢也比我写代码快
+
 我个人推荐 `WSL` 主要是方便，无论是安装还是卸载
 
 ## WSL(Windows Subsystem for Linux)
@@ -72,12 +74,12 @@
 10. 回车
 11. 等待跑码
 12. 选择 `*°▽°* Update:更新`，基础设置就完成了，之后便可退出，下次输入`tmoe`即可再次打开此界面
-13. 安装开发环境，输入`sudo apt install lsb-core -y`，便会自动安装Python、C/C++的开发环境
+13. 安装开发环境，输入`sudo apt install default-jdk lsb-core -y`，便会自动安装Python、C/C++、JAVA8的开发环境
+14. 终端环境搭建就完成了，可以使用Vscode来连接WSL进行程序的编写
 
 ## 虚拟机
 
 ## 实体机
-
 
 
 

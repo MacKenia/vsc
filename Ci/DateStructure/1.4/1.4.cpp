@@ -10,7 +10,7 @@
  */
 
 #include <bits/stdc++.h>
-#define N 10
+#define N 4
 
 using namespace std;
 
@@ -18,11 +18,12 @@ int main()
 {
     int a[N][N], b[N][N], c[N][N];
     int n = N;
+    memset(c, 0, N*N*sizeof(int));
     for(int i = 0; i < n; i++)
     	for(int j = 0; j < n; j++)
 	{
-		a[i][j] = rand() % 100;
-		b[i][j] = rand() % 100;
+		a[i][j] = rand() % 10;
+		b[i][j] = rand() % 10;
 		//cout << "a = " << a[i][j] << " b = " << b[i][j] << endl;
 	}
     cout << "fill done" << endl;
@@ -47,9 +48,8 @@ int main()
     for(int i = 0; i < n; i++)
         for(int j = 0; j < n; j++)
         {
-            // c[i][j] = 0;
             for(int k = 0; k < n; k++)
-                c[i][j] = c[i][k] + a[i][k] * b[k][j];
+                c[i][j] = c[i][j] + a[i][k] * b[k][j];
         }
     cout << "calculate done" << endl;
     for(int i = 0; i < n; i++)

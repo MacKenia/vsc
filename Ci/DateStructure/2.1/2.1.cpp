@@ -7,6 +7,11 @@
 
 using namespace std;
 
+struct Polynomial{
+    int coefficient;
+    int index;
+};
+
 int main()
 {
     

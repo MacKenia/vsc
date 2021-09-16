@@ -156,6 +156,66 @@
             alert("请输入正确的数字");
         }
 
+        // 2.5.2 cycle structure
+        var i = sum = 0;
+        while(i <= 100) {
+            if (i % 2)
+            {
+                sum += 1;
+            }
+            i++;
+        }
+        console.log("100以内的奇数和：" + sum);
+
+        // do while
+        var i = -2;
+        do{
+            console.log("i=" + i);
+            ++i;
+        } while (i >= 0);
+        
+        // for
+        for(var i = 0; i < 5; ++i)
+        {
+            console.log("*");
+        }
+
+        // jump statement
+        for (let i = 0; i < 5; ++i) {
+            console.log("i=" + i);
+            if(i == 3)
+            {
+                break;
+            }
+            console.log("ending");
+        }
+
+        // label
+        outerLoop:
+        for(var i = 0; i < 10; ++i)
+        {
+            for(var j = 0; j < 1; ++j)
+            {
+                if(i == 3)
+                {
+                    break outerLoop;
+                }
+                console.log("i=" + i + " j=" + j);
+            }
+        }
+
+        // pyramid
+        var level = prompt("请设置金字塔的层数");
+        level = parseFloat(level) && Number(level);
+        if (isNaN(level)){
+            alert("金字塔层数必须是纯数字")
+        }
+        for(var i = 1; i <= level; ++i) {
+            var blank = level - i;
+            for(var k = 0; k < blank; ++k) {
+                document.write("&nbsp;");
+            }
+        }
 
     </script>
 </body>

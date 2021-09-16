@@ -15,7 +15,7 @@
         unit = 3;
         room = 1001;
         var fname = 'Tom', age = 12;
-        flag = false; // Omiting Var
+        flag = false; // omit Var
         a = 1, b= 2;
         
         var r = 6;
@@ -101,6 +101,61 @@
         console.log(String(12));
         console.log(num1 + num2 + num3.toString());
         console.log(num4.toString(2));
+
+        // 2.3 expression
+        var x, y, z;
+        x = 1;
+        y = 2 + 3;
+        z = y = x;
+        console.log(z);
+        console.log(x + y);
+
+        // 2.4 operator
+        // 2.4.2 string_operator
+        var color = "blue";
+        var str = "The sky is " + color;
+        var tel = 110 + "120";
+        console.log(str);
+        console.log(tel);
+        console.log(typeof str, typeof tel);
+
+        // 2.4.3 assignment operator
+        var a = b = c = 8;
+        var num1 = 2, num2 = '2';
+        num1 += 3;
+        num2 += 3;
+        console.log(num1, num2);
+
+        // 2.4.4 compare operator
+
+        // 2.4.5 logic operator
+        
+        // 2.4.6 ternary operator
+        var age = prompt("请输入需要判断的年龄：");
+        var status = age >= 18? "已成年" : "未成年";
+        console.log(status);
+
+        // 2.4.7 bit operator
+        // 2.4.8 operator 
+        console.log(8 + 6 * 3);
+        console.log((8 + 6) * 3);
+
+        // 2.4.9 calculate perimeter and area
+        document.write("<p>圆的半径：<input id='r' type='text'></p>");
+        document.write("<p>圆的周长：<input id='cir' type='text'></p>");
+        document.write("<p>圆的面积：<input id='area' type='text'></p>");
+        var r = prompt("请输入圆的半径");
+        r = parseFloat(r) && Number(r);
+        if(!isNaN(r)) {
+            var cir = 2 * Math.PI * r;
+            var area = Math.PI * r * r;
+            document.getElementById('r').value = r;
+            document.getElementById('cir').value = cir.toFixed(2);
+            document.getElementById('area').value = area.toFixed(2);
+        } else {
+            alert("请输入正确的数字");
+        }
+
 
     </script>
 </body>

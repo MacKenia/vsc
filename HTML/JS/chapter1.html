@@ -10,7 +10,12 @@
     网页内容
     <script>document.write("内嵌文本");</script>
     <div id = "test">Hello</div>
-    <input type="button" onclick="alert('Hello');" value="testin">
+    <input type="button" onclick="alert('Hello');" value="Test">
+    <input id="btn" type="button" value="Test">
+    <input type="button" value="设为红色" onclick="color('red')">
+    <input type="button" value="设为蓝色" onclick="color('blue')">
+    <input type="button" value="设为黄色" onclick="color('yellow')">
+    <input type="button" value="设为自定义颜色" onclick="color('#00ff00')">
     <script>
 
         // 
@@ -70,8 +75,15 @@
         }
         alert(stu.introduce());
 
-        // 1.3.7 事件
-        
+        // 1.3.7 event
+        document.getElementById("btn").onclick = function() {
+            alert(this.value);
+        };
+
+        // 1.3.8 change background_color
+        function color(str) {
+            document.body.style.backgroundColor = str;
+        };
 
     </script>
 </body>

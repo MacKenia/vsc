@@ -7,6 +7,20 @@
     <title>Chapter2</title>
 </head>
 <body>
+    <style>
+        *{
+            font-family: "Consolas";
+        }
+        table {
+            /* border: 1px solid black; */
+            border-collapse: collapse;
+        }
+        table tr td{
+            border: 1px solid black;
+        }
+    </style>
+    <div id="table">
+    </div>
     <script>
         //2.1.3 usage of variable
         var unit, room;
@@ -214,9 +228,27 @@
             var blank = level - i;
             for(var k = 0; k < blank; ++k) {
                 document.write("&nbsp;");
+                console.log(" ");
             }
+            var star = i*2 -1;
+            for(var j = 0; j < star; ++j) {
+                document.write("*");
+                console.log("*");
+            }
+            document.write("<br>");
         }
 
+        // multiple table
+        var str = "<table>";
+        for(var i = 1; i < 10; ++i ) {
+            str += "<tr>";
+            for (var j = 1; j <= i; j++) {
+                str += "<td>&nbsp" + i + " * " + j + " = " + i*j +"&nbsp</td>";
+            }
+            str += "</tr>";
+        }
+        str += "</table>";
+        document.getElementById("table").innerHTML = str;
         
     </script>
 </body>

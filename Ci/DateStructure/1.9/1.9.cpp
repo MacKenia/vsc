@@ -12,14 +12,16 @@ int main()
 {
     int a[1000];
     int e;
+    cout << "请输入要查找的值：";
     cin >> e;
+    cout << "下标\t值" << endl;
     for(int i = 0; i < 1000; i++)
     {
         a[i] = rand() % 100;
     }
     for(int i = 0; i < 1000; i++)
     {
-        if(a[i] == e) cout << i + 1 << " " << a[i] << endl;
+        if(a[i] == e) cout << i + 1 << "\t" << a[i] << endl;
     }
     return 1;
 }

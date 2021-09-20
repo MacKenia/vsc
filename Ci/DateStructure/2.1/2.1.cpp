@@ -28,6 +28,15 @@ int main()
     }
     for(int i = 0; i < 10; i++)
     {
+        if(b[m1].index < c[m2].index)
+        {
+            a[i].index =  b[m1].index;
+        }
+        else
+        {
+            a[i].index = c[m2].index;
+        }
+        
         
     }
     return 0;

@@ -14,3 +14,6 @@ echo "Mac-Arch" > /etc/hostname
 pacman -S 
 adduser -m -G wheel /bin/bash mackenia
 
+
+bash -c "$(curl -Lv gitee.com/mo2/liunx/raw/2/2)"
+

@@ -21,9 +21,6 @@ int main()
     for (int i = 0; i < 5; i++)
     {
         if(b[m1].index > b[i].index) m1 = i;
-    }
-    for(int i = 0; i < 5; i++)
-    {
         if(c[m2].index > c[i].index) m2 = i;
     }
     for(int i = 0; i < 10; i++)
@@ -36,7 +33,14 @@ int main()
         {
             a[i].index = c[m2].index;
         }
-        
+        if(b[m1].index == c[m2].index)
+        {
+            a[i].coefficient = b[m1].coefficient + c[m2].coefficient;
+        }
+        for(int i = 0; i < 5; i++)
+        {
+            if(a[i].index ) ;
+        }
         
     }
     return 0;

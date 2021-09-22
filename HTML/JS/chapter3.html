@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter3</title>
+    
+    <style>
+
+        *{
+            /* border: 1px solid #000; */
+        }
+
+        ul{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            list-style-type: none;
+        }
+        
+        li{
+            padding: 4px;
+            line-height: 24px;
+            height: 24px;
+        }
+
+        li:hover{
+            background-color: #26c1cca8;
+            color: #fff;
+            transition-duration: 500ms;
+        }
+
+    </style>
+
+</head>
+<body>
+    
+    <div class="nav" id="navlist"></div>
+
+    <script>
+
+        // 3.2.1 create array
+        var area = new Array("Beijing", "Shanghai", "Shenzhen");
+        var score = new Array(56, 68, 98, 44);
+        var mix = new Array(123, "abc", null, true, undefined);
+        var arr1 = Array();
+
+        // 3.2.2 use [] to create array
+        var weather = ["wind", "fine"];
+        var empty = [];
+        var mood = ["sad", , , , "happy"];
+
+        // 3.3.1 get the length of array
+        var arr1 = [78, 88, 98];
+        var arr2 = ["a", , , , "b", "c"];
+        console.log(arr1.length);
+        console.log(arr1.length);
+        
+        var arr1 = [];
+        arr1.length = 5;
+        console.log(arr1);
+        var arr2 = [1, 2, 3];
+        console.log(arr2);
+        var arr3 = ["a", "b"];
+        arr3.length = 2;
+        console.log(arr3);
+        var arr4 = ["hehe", "xixi", "gugu", "jiujiu"];
+        arr4.length = 3;
+        console.log(arr4);
+        
+        var arr = new Array(3);
+        console.log(arr);
+        
+        // 3.3.2 Array access and traversal
+        var arr = ["hello", "javascript", 22.48, true];
+        console.log(arr[0]);
+        console.log(arr[2]);
+        console.log(arr);
+        
+        var navlist = ["首页", "免费资源", "课程中心", "IT学院", "学元故事", "线上学院", "技术社区"];
+        var str = "<ul>";
+        for(var i in navlist) {
+            str += "<li><a>" + navlist[i] + "</a></li>";
+        }
+        str += "</ul>";
+        document.getElementById("navlist").innerHTML = str;
+
+    </script>
+
+</body>
+</html>

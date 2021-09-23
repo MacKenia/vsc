@@ -91,7 +91,46 @@
             console.log(value);
         }
 
-        // 3.3.3 element
+        // 3.3.3 add element and modify
+        var height = [];
+        height[5] = 183;
+        height[0] = 175;
+        height[3] = 150;
+        console.log(height);
+        
+        var arr = ["Asa", "Taylor"];
+        arr[2] = 123;
+        arr[3] = 456;
+        console.log(arr);
+        
+        var stu = ["Tom", "Jimmy", "Lucy"];
+        console.log(stu);
+        delete stu[1];
+        console.log(stu);
+        
+        [a, b, c] = [1, 2, 3];
+        console.log(a, b, c);
+
+        var arr = [1, 2, 3];
+        [a, b] = arr;
+        console.log(a + " - " + b);
+        var n1 = 4, n2 = 8;
+        [n1, n2] = [n2, n1];
+        console.log(n1 + " - " + n2);
+        
+        var arr = [100, 7, 65, 54, 12, 6];
+        var min = max = arr[0];
+        for (var i = 0; i < arr.length; i++) {
+            if( arr[i] > max ) {
+                max = arr[i];
+            }
+            if( arr[i] < min ) {
+                min = arr[i];
+            }
+            
+        }
+
+
     </script>
 
 </body>

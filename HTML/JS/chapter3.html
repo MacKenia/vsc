@@ -20,7 +20,7 @@
         }
         
         li{
-            padding: 4px;
+            padding: 1px 10px 0px 10px;
             line-height: 24px;
             height: 24px;
         }
@@ -118,6 +118,7 @@
         [n1, n2] = [n2, n1];
         console.log(n1 + " - " + n2);
         
+        // 3.3.5 find biggest and smallest 
         var arr = [100, 7, 65, 54, 12, 6];
         var min = max = arr[0];
         for (var i = 0; i < arr.length; i++) {
@@ -127,8 +128,73 @@
             if( arr[i] < min ) {
                 min = arr[i];
             }
-            
         }
+        console.log("待查找数组：" + arr);
+        console.log("最小值：" + min);
+        console.log("最大值：" + max);
+        
+        // 3.4.1 create and traversal
+        var info = new Array(new Array("Tom", 13, 155), new Array("lucy", 11, 152));
+        var arr = new Array(new Array, new Array);
+
+        var num = [[1, 3], [2, 4]];
+        var empty = [[], []];
+
+        var arr = [[12, 59, 66], [100, 888]];
+        var sum = 0;
+        for(var i in arr) {
+            for(var j in arr[i]){
+                sum += arr[i][j];
+            }
+        }
+        console.log("待求和的二维数组：" + arr);
+        console.log("二维数组arr求和等于：" + sum);
+        
+        var arr = [];
+        for(var i = 0; i < 3; i++){
+            arr[i] = [];
+            arr[i][0] = i;
+        }
+
+        // 3.4.2 two-dimensional array transpose
+        var arr = [["a", "b", "c"],["d", "e", "f"],["g", "h", "i"], ["j", "k", "l"]];
+        var res = [];
+        for (var i = 0; i < arr[0].length; i++) {
+            res[i] = [];
+            for(var j = 0; j < arr.length; j++) {
+                res[i][j] = arr[j][i];
+            }
+        }
+        console.group("转置前：");
+        console.log(arr);
+        console.groupEnd();
+        console.group("转置后：");
+        console.log(res);
+        console.groupEnd();
+
+        // 3.5 array sort
+        // 3.5.1 bubble sort
+        var arr = [10, 2, 5, 27, 98, 32];
+        console.log("待排序数组：" + arr);
+        for(var i = 1; i < arr.length; i++) {
+            for(var j = 0; j < arr.length - i; j++) {
+                if(arr[j] > arr[j + 1]) {
+                    [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                }
+                
+            }
+        }
+        console.log("排序后的数组：" + arr);
+        
+        // 3.5.2 insert sort
+        var arr = [89, 56, 100, 21, 87, 45, 1, 888];
+        console.log("待排序的数组：" + arr);
+        for (var i = 1; i < arr.length; i++) {
+            for (var j = i; j > 0; j-- ) {
+                
+            }
+        }
+        
 
 
     </script>

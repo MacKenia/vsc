@@ -20,6 +20,6 @@ public class PrimeNumber {
 
         	System.out.print("press enter to exit");
 	        String str = s.nextLine();
-		s.close();
+			s.close();
 	}
 }

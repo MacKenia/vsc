@@ -17,6 +17,6 @@ public class intSort{
         System.out.println("\nBiggest index = " + tmp);
         System.out.print("press enter to exit");
         String str = s.nextLine();
-	s.close();
+	    s.close();
     }
 }

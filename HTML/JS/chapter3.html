@@ -214,7 +214,32 @@
         console.log(data.includes(26, -3));
         console.log(Array.isArray(data));
         
+        var arr = ["potato", "tomato", "chillies", "green-paper"];
+        var search = "cucumber";
+        if (arr.indexOf(search) === -1) {
+            arr.push(search);
+            console.log("更新后的数组为：" + array);
+        } else if (arr.indexOf(search) > -1) {
+            console.log(search + "元素已在arr数组中");
+        }
+
+        var res = [];
+        var arr = ["a", "b", "a", "c", "a", "d"];
+        var search = "a";
+        var i = arr.lastIndexOf(search);
+        while (i !== -1) {
+            res.push(i);
+            i = (i > 0 ? arr.lastIndexOf(serch, i - 1): -1);
+        }
+        console.log("元素" + search + "在数组中的所有位置为：" + res);
         
+        // 3.6.3 Array to String
+        console.log(["a", "b", "c"].join());
+        console.log([[4, 5], [1, 2]].join());
+        console.log(["a", "b", "c"].toString());
+        console.log([[4, 5], [1, 2]].toString());
+        
+        // 3.6.4 other functions
         
 
         

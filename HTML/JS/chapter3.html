@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,7 +28,7 @@
         li:hover{
             background-color: #26c1cca8;
             color: #fff;
-            transition-duration: 500ms;
+            transition-duration: 200ms;
         }
 
     </style>
@@ -191,9 +191,32 @@
         console.log("待排序的数组：" + arr);
         for (var i = 1; i < arr.length; i++) {
             for (var j = i; j > 0; j-- ) {
-                
+                if(arr[j - 1] > arr[j]) {
+                    [arr[j], arr[j-1]] = [arr[j - 1], arr[j]];
+                }
             }
         }
+        console.log("排序后的数组：" + arr);
+        
+        // 3.6.1 stack and queue
+        var arr = ["Rose", "Lily"];
+        console.log("原数组：" + arr);
+        var list = arr.pop();
+        console.log("在末尾移出元素：" + last + " - 移出后数组：" + arr);
+        var len = arr.push("Tulip", "Jasmine");
+        console.log("在开头移出元素：" + first + " - 移出后数组：" + arr);
+        len = arr.unshift("Balsam", "sunflower");
+        console.log("在开头添加元素后长度变为：" + len + " - 添加后数组：" + arr);
+        
+        // 3.6.2 search
+        var data = ["peach", "pear", 26, "26", "grape"];
+        console.log(data.includes(26, 3));
+        console.log(data.includes(26, -3));
+        console.log(Array.isArray(data));
+        
+        
+        
+
         
         
 

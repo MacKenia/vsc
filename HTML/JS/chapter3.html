@@ -38,6 +38,17 @@
     
     <div class="nav" id="navlist"></div>
 
+    <select id="province">
+        <option value="-1">请选择</option>
+    </select>
+
+    <select id="city">
+        <select id="country">
+            
+        </select>
+    </select>
+    
+
     <script>
 
         // 3.2.1 create array
@@ -241,9 +252,33 @@
         
         // 3.6.4 other functions
         var arr = ["sky", "wind", "snow", "sun"];
-	arr.splice(2, 2);
-	console.log(arr);
-	
+	    arr.splice(2, 2);
+	    console.log(arr);
+        arr.splice(1, 1, "snow");
+        console.log(arr);
+        arr.splice(4, 0, "hail", "sun");
+        console.log(arr);
+        arr.splice(3, 0, ["lala", "yaya"], null, undefined, []);
+        console.log(arr);
+        
+        // 3.6.5 monkey king
+        var total = prompt("请输入猴子的总数：");
+        var kick = prompt("踢出第几只猴子：");
+        var monkey = [];
+        for (var i = 1; i <= total; i++) {
+            monkey.push(i);
+        }
+        i = 0;
+        while(monkey.length > 1) {
+            i++;
+            head = monkey.shift();
+            if(i % kick != 0) {
+                monkey.push(head);
+            }
+        }
+        console.log("猴王编号：" + monkey[0]);
+        
+        // Three-level linkage of provinces and cities
 
         
         

@@ -3,7 +3,7 @@
 > 利用Github Desktop客户端将自己的代码托管到Gitee（码云）或者Github，将代码储存到云端，不用再担心自己的代码放在U盘丢失和数据损坏的问题了，还可以更好的管理自己的代码
 
 # Github Desktop
-这是由GitHub开发，用于替代git的客户端，它可以替代git完成大部分工作，众所周知git是纯命令操作的代码系统，而GitHub Desktop就不一样了，它是由GUI界面的而且美观
+这是由GitHub开发，用于替代git的客户端，它可以替代git完成大部分工作，众所周知git是纯命令操作的代码管理系统，而GitHub Desktop就不一样了，它是不仅有GUI界面而且美观
 
 Github Desktop:
 [![github desktop](https://desktop.github.com/images/github-desktop-screenshot-windows.png)](https://desktop.github.com)
@@ -18,18 +18,41 @@ Git:
 
 # 创建属于自己的代码仓库
 
-## Github
+## 注册仓库账号
 
+### Github
 
+> 由于是国外的平台，如果你连接不上，属于正常现象，毕竟其服务器在国外，能连上已经是万幸了，不过我还是推荐你使用Github
 
-## Gitee
+#### 打开[官网](https://github.com)
 
+#### 点击[Sign up](https://github.com/signup?ref_cta=Sign+up)
 
+#### 输入你的邮箱账号
 
+> 最好不要用QQ邮箱
 
-## 下载Github Desktop
+#### 输入密码
 
-(https://desktop.github.com)
+#### 
+
+### Gitee
+
+> 国内的平台，好处是稳定至少不会连不上，但我还是推荐使用Github。
+
+### 创建一个仓库
+
+#### Github
+
+#### Gitee
+
+### 下载[Github Desktop](https://desktop.github.com)
+
+### 与代码仓库同步
+
+#### Github
+
+#### Gitee
 
 
 

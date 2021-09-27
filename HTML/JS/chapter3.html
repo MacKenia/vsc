@@ -42,53 +42,63 @@
         <option value="-1">请选择</option>
     </select>
 
-    <select id="city">
-        <select id="country">
-            <script>
-                //省份数组
-			var provinceArr = ['上海', '江苏', '河北'];
-			//城市数组
-			var cityArr = [
-				['上海市'],
-				['苏州市', '南京市', '扬州市'],
-				['石家庄', '秦皇岛', '张家口']
-			];
-			//区域数组
-			var countryArr = [
-				[
-					['黄浦区', '静安区', '长宁区', '浦东区'],
-				],
-				[
-					['虎丘区', '吴中区', '相城区', '姑苏区', '吴江区'],
-					['玄武区', '秦淮区', '建邺区', '鼓楼区', '浦口区'],
-					['邗江区', '广陵区', '江都区']
-				],
-				[
-					['长安区', '桥西区', '新华区', '井陉矿区'],
-					['海港区', '山海关区', '北戴河区', '抚宁区'],
-					['桥东区', '桥西区', '宣化区', '下花园区']
-				]
-			];
-
-            function createOption(obj, data) {
-                for (var i in data) {
-                    var op = new Option(data[i], i);
-                    obj.options.add(op);
-                }
+    <select id="city"></select>
+    <select id="country"></select>
+    <script>
+            //省份数组
+		var provinceArr = ['上海', '江苏', '河北'];
+		//城市数组
+		var cityArr = [
+			['上海市'],
+			['苏州市', '南京市', '扬州市'],
+			['石家庄', '秦皇岛', '张家口']
+		];
+		//区域数组
+		var countryArr = [
+			[
+				['黄浦区', '静安区', '长宁区', '浦东区'],
+			],
+			[
+				['虎丘区', '吴中区', '相城区', '姑苏区', '吴江区'],
+				['玄武区', '秦淮区', '建邺区', '鼓楼区', '浦口区'],
+				['邗江区', '广陵区', '江都区']
+			],
+			[
+				['长安区', '桥西区', '新华区', '井陉矿区'],
+				['海港区', '山海关区', '北戴河区', '抚宁区'],
+				['桥东区', '桥西区', '宣化区', '下花园区']
+			]
+		];
+        function createOption(obj, data) {
+            for (var i in data) {
+                var op = new Option(data[i], i);
+                obj.options.add(op);
             }
-            var province = document.getElementById("province");
-            createOption(province, provinceArr);
+        }
+        var province = document.getElementById("province");
+        createOption(province, provinceArr);
+        var city = document.getElementById("city");
+        province.onchange = function () {
+            city.options.length = 0;
+            createOption(city, cityArr[province.value]);
+        }
 
-            var city = document.getElementById("city");
-            province.onchange = function () {
-                city.options.length = 0;
-                createOption(city, cityArr[province.value]);
+        var country = document.getElementById("country");
+        city.onchange = function () {
+            country.options.length = 0;
+            createOption(country, countryArr[province.value] [city.value]);
+        }
+
+        province.onchange = function () {
+            city.options.length = 0;
+            createOption(city, cityArr[province.value]);
+            if (province.value >= 0) {
+                city.onchange();
+            } else {
+                country.options.length = 0;
             }
-            </script>
-        </select>
-    </select>
-    
-
+        }
+    </script>
     <script>
 
         // 3.2.1 create array
@@ -129,7 +139,7 @@
         console.log(arr[2]);
         console.log(arr);
         
-        var navlist = ["首页", "免费资源", "课程中心", "IT学院", "学元故事", "线上学院", "技术社区"];
+        var navlist = ["首页", "免费资源", "课程中心", "IT学院", "学院故事", "线上学院", "技术社区"];
         var str = "<ul>";
         for(var i in navlist) {
             str += "<li><a>" + navlist[i] + "</a></li>";
@@ -252,9 +262,11 @@
         // 3.6.1 stack and queue
         var arr = ["Rose", "Lily"];
         console.log("原数组：" + arr);
-        var list = arr.pop();
+        var last = arr.pop();
         console.log("在末尾移出元素：" + last + " - 移出后数组：" + arr);
         var len = arr.push("Tulip", "Jasmine");
+        console.log("在末尾添加元素后长度变为:" + " - 添加后数组：" + arr);
+        var first = arr.shift();
         console.log("在开头移出元素：" + first + " - 移出后数组：" + arr);
         len = arr.unshift("Balsam", "sunflower");
         console.log("在开头添加元素后长度变为：" + len + " - 添加后数组：" + arr);
@@ -269,7 +281,7 @@
         var search = "cucumber";
         if (arr.indexOf(search) === -1) {
             arr.push(search);
-            console.log("更新后的数组为：" + array);
+            console.log("更新后的数组为：" + arr);
         } else if (arr.indexOf(search) > -1) {
             console.log(search + "元素已在arr数组中");
         }
@@ -280,7 +292,7 @@
         var i = arr.lastIndexOf(search);
         while (i !== -1) {
             res.push(i);
-            i = (i > 0 ? arr.lastIndexOf(serch, i - 1): -1);
+            i = (i > 0 ? arr.lastIndexOf(search, i - 1): -1);
         }
         console.log("元素" + search + "在数组中的所有位置为：" + res);
         
@@ -319,8 +331,19 @@
         console.log("猴王编号：" + monkey[0]);
         
         // Three-level linkage of provinces and cities
+        var arr = [];
 
-        
+        for (var i = 0; i < 10; i++) {
+            arr[i] = [];
+            for (var j = 0; j <= i; j++) {
+                if (j == 0 || j == i) {
+                    arr[i][j] = 1;
+                } else {
+                    arr[i][j] = arr[i-1][j-1] + arr[i-1][j];
+                }
+            }
+        }
+        console.log(arr);
         
 
 

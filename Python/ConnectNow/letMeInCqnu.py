@@ -15,9 +15,6 @@ def get_host_ip():
         s.close()
         return ip
 
-print(get_host_ip())
-
-url1 = "http://10.0.251.18/a70.htm?wlanuserip="+ get_host_ip() +"&wlanacip=&wlanacname=&redirect=&session=&vlanid=0&ssid=&areaid=&ip="+ get_host_ip() +"&mac=000000000000"
 url = "http://10.0.251.18:801/eportal/?c=ACSetting&a=Login&wlanuserip="+ get_host_ip() +"" +"&wlanacip=&lanacname=&redirect=&session=&vlanid=0&ssid=&port=&iTermType=1&protocol=http:&queryACIP=0"
 
 datas = {

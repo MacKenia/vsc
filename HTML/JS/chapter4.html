@@ -1,154 +1,154 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chapter4</title>
-  </head>
-  <body>
-    <button id="btn">click me</button>
-    <div id="demo" style="display: none">Surprise Mother fucker!</div>
-    <h2>Capital Change</h2>
-    Before: <input type="text" id="old" />
-    Operate:
-    <input type="button" value="ChangeUp" onclick="deal('upper')" />
-    <input type="button" value="ChangeLo" onclick="deal('lower')" />
-    newData:
-    <input type="text" id="new" />
-    <script>
-      // 4.1.1 hello function
-      console.log(parseFloat("7.26e-2"));
-      console.log(isNaN(" "));
-      console.log(parseInt("15.99"));
-
-      function $(id) {
-        return document.getElementById(id);
-      }
-
-      function show() {
-        $("demo").style.display = "block";
-      }
-      $("btn").onclick = show;
-
-      // 4.1.2 parameter
-      function greet() {
-        console.log("Hello everyone!");
-      }
-
-      function maxNum(a, b) {
-        a = parseInt(a);
-        b = parseInt(b);
-        return a >= b ? a : b;
-      }
-
-      function transferParam() {
-        console.log(arguments.length);
-        console.log(arguments);
-      }
-
-      function greet(name, say = "hi, I'm") {
-        console.log(say + name);
-      }
-
-      function transferParam(num1, ...theNums) {
-        theNums.unshift(num1);
-        console.log(theNums);
-      }
-
-      function getSum() {
-        var sum = 0;
-        for (i in arguments) {
-          sum += arguments[i];
-        }
-        return sum;
-      }
-      console.log(getSum(10, 20, 30));
-
-      // 4.1.4 String capital transfer
-      function deal(opt) {
-        var str = document.getElementById("old").value;
-        switch (opt) {
-          case "upper":
-            str = str.toUpperCase();
-            break;
-          case "lower":
-            str = str.toLowerCase();
-        }
-        document.getElementById("new").value = str;
-      }
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chapter4</title>
+    </head>
+    <body>
+        <button id="btn">click me</button>
+        <div id="demo" style="display: none">Surprise Mother fucker!</div>
+        <h2>Capital Change</h2>
+        Before: <input type="text" id="old" />
+        Operate:
+        <input type="button" value="ChangeUp" onclick="deal('upper')" />
+        <input type="button" value="ChangeLo" onclick="deal('lower')" />
+        newData:
+        <input type="text" id="new" />
+        <script>
+            // 4.1.1 hello function
+            console.log(parseFloat("7.26e-2"));
+            console.log(isNaN(" "));
+            console.log(parseInt("15.99"));
+
+            function $(id) {
+                return document.getElementById(id);
+            }
+
+            function show() {
+                $("demo").style.display = "block";
+            }
+            $("btn").onclick = show;
+
+            // 4.1.2 parameter
+            function greet() {
+                console.log("Hello everyone!");
+            }
+
+            function maxNum(a, b) {
+                a = parseInt(a);
+                b = parseInt(b);
+                return a >= b ? a : b;
+            }
+
+            function transferParam() {
+                console.log(arguments.length);
+                console.log(arguments);
+            }
+
+            function greet(name, say = "hi, I'm") {
+                console.log(say + name);
+            }
+
+            function transferParam(num1, ...theNums) {
+                theNums.unshift(num1);
+                console.log(theNums);
+            }
+
+            function getSum() {
+                var sum = 0;
+                for (i in arguments) {
+                    sum += arguments[i];
+                }
+                return sum;
+            }
+            console.log(getSum(10, 20, 30));
+
+            // 4.1.4 String capital transfer
+            function deal(opt) {
+                var str = document.getElementById("old").value;
+                switch (opt) {
+                    case "upper":
+                        str = str.toUpperCase();
+                        break;
+                    case "lower":
+                        str = str.toLowerCase();
+                }
+                document.getElementById("new").value = str;
+            }
 
-      // 4.2 variable's period
-      function info() {
-        var age = 18;
-      }
-      try {
-        console.log(age);
-      } catch (e) {
-          console.log(e);
-      } 
+            // 4.2 variable's period
+            function info() {
+                var age = 18;
+            }
+            try {
+                console.log(age);
+            } catch (e) {
+                console.log(e);
+            }
 
-      var a = "one";
-      function test() {
-        var a = "two";
-        console.log(a);
-      }
-      test();
-      
-      for (let a = 0; a < 3; a++) {
-        console.log(a);
-      }
-      try {
-          console.log(a);
-      } catch(e) {
-          console.log(e);
-      }
+            var a = "one";
+            function test() {
+                var a = "two";
+                console.log(a);
+            }
+            test();
 
-      function test(num) {
-        num - num + 1;
-        return num;
-      }
-      var num = test(24);
-      console.log(num);
+            for (let a = 0; a < 3; a++) {
+                console.log(a);
+            }
+            try {
+                console.log(a);
+            } catch (e) {
+                console.log(e);
+            }
 
-      // 4.3 anonymous function
-      // 4.3.1 function expression
-      var fn = function sum(num1, num2) {
-        return num1 + num2;
-      };
-      fn();
+            function test(num) {
+                num - num + 1;
+                return num;
+            }
+            var num = test(24);
+            console.log(num);
 
-      // 4.3.2 anonymous function
-      var fn = function (num1, num2) {
-        return num1 + num2;
-      };
-      fn(1, 2);
+            // 4.3 anonymous function
+            // 4.3.1 function expression
+            var fn = function sum(num1, num2) {
+                return num1 + num2;
+            };
+            fn();
 
-      (function (num1, num2) {
-        return num1 + num2;
-      })(2, 3);
+            // 4.3.2 anonymous function
+            var fn = function (num1, num2) {
+                return num1 + num2;
+            };
+            fn(1, 2);
 
-      document.body.onclick = function () {
-        alert("Hi, everybody");
-      };
+            (function (num1, num2) {
+                return num1 + num2;
+            })(2, 3);
 
-      var fn1 = (x) => x + 2;
-      console.log(fn1(4));
+            document.body.onclick = function () {
+                alert("Hi, everybody");
+            };
 
-      var fn2 = (x, y) => x + y;
-      console.log(fn2(1, 2));
+            var fn1 = (x) => x + 2;
+            console.log(fn1(4));
 
-      // 4.3.3 callback
-      function cal(num1, num2, fn) {
-        return fn(num1 + num2);
-      }
-      console.log(cal(45, 55, (a, b) => a + b));
+            var fn2 = (x, y) => x + y;
+            console.log(fn2(1, 2));
 
-      console.log(cal(10, 20, (a, b) => a * b));
+            // 4.3.3 callback
+            function cal(num1, num2, fn) {
+                return fn(num1 + num2);
+            }
+            console.log(cal(45, 55, (a, b) => a + b));
 
-      var arr = ["a", "b", "c"];
-      arr.map((value, index) => console.log(value, index));
+            console.log(cal(10, 20, (a, b) => a * b));
 
+            var arr = ["a", "b", "c"];
+            arr.map((value, index) => console.log(value, index));
+            
 
 
 
@@ -177,21 +177,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </script>
-  </body>
+        </script>
+    </body>
 </html>

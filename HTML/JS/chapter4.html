@@ -31,7 +31,9 @@
             <input type="button" value="相除" onclick="calc(div)">
         </p>
         <p>结果：<input type="text" id="result"></p>
+        <script src="https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js"></script>
         <script>
+            var vConsole = new VConsole();
             // 4.1.1 hello function
             console.log(parseFloat("7.26e-2"));
             console.log(isNaN(" "));
@@ -321,6 +323,25 @@
                 }
             }
 
+            iForEach(test,a => console.log(a));
+
+            // iMap
+            function iMap(arr, func, thisValue) {
+                var tmp = [];
+                for(var i = 0; i < arr.length; i++) {
+                    tmp[i] = func(arr[i], i, arr);
+                }
+                return tmp;
+            }
+
+            console.log(iMap(test, a => ++a));
+
+            // iReduce
+            function iReduce(arr, func, initialValue) {
+                for(var i = 0; i < arr.length; i++) {
+                    func(total, arr[i], i, arr);
+                }
+            }
 
 
 

@@ -338,10 +338,15 @@
 
             // iReduce
             function iReduce(arr, func, initialValue) {
+                if(initialValue === undefined) {initialValue = 0;}
                 for(var i = 0; i < arr.length; i++) {
-                    func(total, arr[i], i, arr);
+                    initialValue += func(total, arr[i], i, arr);
                 }
+                return initialValue;
             }
+
+            console.log(iReduce(test, (a, b) => a + b));
+            
 
 
 

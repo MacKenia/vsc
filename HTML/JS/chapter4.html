@@ -5,17 +5,32 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Chapter4</title>
+        <style>
+            body {
+                transform: rotate(180deg);
+            }
+        </style>
     </head>
     <body>
         <button id="btn">click me</button>
         <div id="demo" style="display: none">Surprise Mother fucker!</div>
         <h2>Capital Change</h2>
-        Before: <input type="text" id="old" />
+        Before: <input type="text" id="old" /><br/>
         Operate:
         <input type="button" value="ChangeUp" onclick="deal('upper')" />
         <input type="button" value="ChangeLo" onclick="deal('lower')" />
         newData:
         <input type="text" id="new" />
+        <br/>
+        <p>整数1：<input type="text" id="num1"></p>
+        <p>整数2：<input type="text" id="num2"></p>
+        <p>
+            <input type="button" value="相加" onclick="calc(add)">
+            <input type="button" value="相减" onclick="calc(sub)">
+            <input type="button" value="相乘" onclick="calc(mul)">
+            <input type="button" value="相除" onclick="calc(div)">
+        </p>
+        <p>结果：<input type="text" id="result"></p>
         <script>
             // 4.1.1 hello function
             console.log(parseFloat("7.26e-2"));
@@ -149,6 +164,162 @@
             var arr = ["a", "b", "c"];
             arr.map((value, index) => console.log(value, index));
             
+            var arr = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+            var reverse = arr[1].map(function (col, i) {
+                return arr.map(function (row) {
+                    return row[i];
+                });
+            });
+            console.log(reverse);
+            
+            // 4.4.1 Function nesting and scope chain
+            var i = 26;
+            function fn1() {
+                var i = 24;
+                function fn2 () {
+                    function fn3 () {
+                        console.log(i);
+                    }
+                    fn3();
+                }
+                fn2();
+            }
+            fn1();
+
+            // 4.4.2 recursive call
+            function factorial(n) {
+                if(n == 1) {
+                    return 1;
+                }
+                return n * factorial(n - 1);
+            }
+            // var n = prompt("求n的阶乘\n n 是大于等于1的正整数，如2表示求2!。");
+            // n = parseInt(n);
+            n = 3;
+            if(isNaN(n)) {
+                console.log("输入的值不合法");
+            } else {
+                console.log(n + "的阶乘为：" + factorial(n));
+            }
+            
+            // 4.4.3 find the nth term of fibonacci sequence
+            function recursion(n) {
+                if (n < 0) {
+                    return "输入的数字不能小于0";
+                } else if(n == 0) {
+                    return 0;
+                } else if(n == 1) {
+                    return 1;
+                } else if(n > 1) {
+                    return recursion(n - 1) + recursion(n - 2);
+                }
+            }
+
+            // 4.5.1 closure function
+            function fns() {
+                var times = 0;
+                var c = _ => ++times;
+                return c;
+            }
+            var count = fns();
+
+            console.log(count());
+            console.log(count());
+            console.log(count());
+            console.log(count());
+            console.log(count());
+            
+            // calculator
+            function calc(func) {
+                var result = document.getElementById("result");
+                var num1 = parseInt(document.getElementById("num1").value);
+                var num2 = parseInt(document.getElementById("num2").value);
+                if (isNaN(num1) || isNaN(num2)){
+                    alert("请输入数字");
+                    return false;
+                }
+                result.value = func(num1, num2);
+            }
+            function add(num1, num2) {
+                return num1 + num2;
+            }
+            function sub(num1, num2) {
+                return num1 - num2;
+            }
+            function mul(num1, num2) {
+                return num1 * num2;
+            }
+            function div(num1, num2) {
+                if (num2 === 0) {
+                    alert("除数不能为0");
+                    return "";
+                }
+                return num1 / num2;
+            }
+
+            var test = [2,6,3,76,23,3,45,52,1]
+
+            // iSort
+            function iSort(arr, func) {
+                if (func === undefined){
+                    func = (a, b) => {
+                        a = a.toString();
+                        b = b + "";
+                        return a[0] > b[0];
+                    }
+                }
+                for(var i = 0; i < arr.length; i++) {
+                    for(var j = i + 1; j > 0; j--) {
+                        if(func(arr[j - 1], arr[j]) > 0) {
+                            [arr[j - 1], arr[j]] = [arr[j], arr[j - 1]];
+                        }
+                    }
+                }
+                return arr;
+            }
+
+            console.log(iSort(test));
+            console.log(iSort(test,(a, b) => a-b));
+
+            // iFind
+            function iFind(arr, func, thisValue) {
+                for(var i = 0; i < arr.length; i++)
+                {
+                    if(func(arr[i], i, arr)) return arr[i];
+                }
+                return undefined;
+            }
+
+            console.log(iFind(test, a => {
+                return a > 10;
+            }));
+
+            // iEvery
+            function iEvery(arr, func, thisValue) {
+                for(var i = 0; i < arr.length; i++) {
+                    if(!func(arr[i], i, arr)) return false;
+                }
+                return true;
+            }
+
+            console.log(iEvery(test, a => a < 100));
+            
+            // iSome 
+            function iSome(arr, func, thisValue) {
+                for(var i = 0; i < arr.length; i++) {
+                    if(func(arr[i], i, arr)) return true;
+                }
+                return false;
+            }
+
+            console.log(iSome(test, a => a < 10));
+            
+            // iForEach
+            function iForEach(arr, func, thisValue) {
+                for(var i = 0; i < arr.length; i++) {
+                    func(arr[i], i, arr);
+                }
+            }
 
 
 

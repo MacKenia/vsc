@@ -13,6 +13,7 @@ public:
     T *addB(int n,T *p, T *q);
     T *delA(T *p, T *q);
     T *delB(int n, T *q);
+    void del(T *p);
     T *searchA(int tar, T *p);
 };
 
@@ -63,4 +64,14 @@ T *LTT<T>::searchA(int n, T *q)
     return q;
 }
 
+template<typename T>
+void LTT<T>::del(T *p)
+{
+    T *q = p;
+    p = q->next;
+    for(; p->next != NULL; p = p->next, q = p)
+    {
+        delete q;
+    }
+}
 #endif

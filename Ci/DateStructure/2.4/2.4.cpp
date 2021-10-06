@@ -19,15 +19,21 @@ int main()
     ls f;
     list = &f;
     list->i = 7;
+    list->next = NULL;
     p = new ls;
     p->next = NULL;
     p->i = 8;
     p = tool.addA(list, p);
-    cout << p->i << endl;
+    if(p->next != NULL)
+    {
+        cout << list->i << ",null" << endl;
+        return 0;
+    }
     for (p = list; p->next != NULL; p = p->next)
     {
         cout << p->i << " ";
     }
-    cout << endl;
+    cout << p->i << endl;
+    tool.del(list);
     return 0;
 }

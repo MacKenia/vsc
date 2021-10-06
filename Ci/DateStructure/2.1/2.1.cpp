@@ -14,7 +14,12 @@ int main()
     int c[N] = {0,0,5,2,7};
     for(int i = 0; i < N; i++)
     {
-        
+        a[i] = b[i] + c[i];
     }
+    for(int i:a)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
     return 0;
 }

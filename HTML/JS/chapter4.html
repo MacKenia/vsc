@@ -7,7 +7,7 @@
         <title>Chapter4</title>
         <style>
             body {
-                transform: rotate(180deg);
+                transform: rotate(0deg);
             }
         </style>
     </head>
@@ -19,6 +19,7 @@
         Operate:
         <input type="button" value="ChangeUp" onclick="deal('upper')" />
         <input type="button" value="ChangeLo" onclick="deal('lower')" />
+        <br/>
         newData:
         <input type="text" id="new" />
         <br/>
@@ -31,9 +32,9 @@
             <input type="button" value="相除" onclick="calc(div)">
         </p>
         <p>结果：<input type="text" id="result"></p>
-        <script src="https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js"></script>
+        <!-- <script src="https://cdn.bootcss.com/vConsole/3.3.0/vconsole.min.js"></script> -->
         <script>
-            var vConsole = new VConsole();
+            // var vConsole = new VConsole();
             // 4.1.1 hello function
             console.log(parseFloat("7.26e-2"));
             console.log(isNaN(" "));
@@ -195,9 +196,9 @@
                 }
                 return n * factorial(n - 1);
             }
-            // var n = prompt("求n的阶乘\n n 是大于等于1的正整数，如2表示求2!。");
-            // n = parseInt(n);
-            n = 3;
+            var n = prompt("求n的阶乘\n n 是大于等于1的正整数，如2表示求2!。");
+            n = parseInt(n);
+            // n = 3;
             if(isNaN(n)) {
                 console.log("输入的值不合法");
             } else {
@@ -340,16 +341,25 @@
             function iReduce(arr, func, initialValue) {
                 if(initialValue === undefined) {initialValue = 0;}
                 for(var i = 0; i < arr.length; i++) {
-                    initialValue += func(total, arr[i], i, arr);
+                    initialValue = func(initialValue, arr[i], i, arr);
                 }
                 return initialValue;
             }
 
             console.log(iReduce(test, (a, b) => a + b));
+
+            // iReduceRight
+            function iReduceRight(arr, func, initialValue) {
+                if(initialValue === undefined) {initialValue = 0;}
+                for(var i = arr.length - 1; i >= 0; i--) {
+                    initialValue = func(initialValue, arr[i], i, arr);
+                }
+                return initialValue;
+            }
+
+            console.log(iReduceRight(test, (a, b) => a + b));
             
-
-
-
+            
 
 
 

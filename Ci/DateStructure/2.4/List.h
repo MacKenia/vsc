@@ -38,7 +38,7 @@ template<typename T>
 T *LTT<T>::delA(T *p, T *q)
 {
     p->next = q->next;
-    del q;
+    dellet(q);
     return p;
 }
 
@@ -51,7 +51,7 @@ T *LTT<T>::delB(int n, T *q)
     p = q;
     q = q->next;
     p->next = q->next;
-    del q;
+    dellet(q);
     return p;
 }
 

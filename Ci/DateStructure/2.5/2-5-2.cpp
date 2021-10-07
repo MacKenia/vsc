@@ -62,7 +62,7 @@ void genrand(ge *p)
 ge *min(ge *p, ge *q)
 {
     ge *n = newGe();
-    ge *nn, *pp = p, *qq = q;
+    ge *nn = n, *pp = p, *qq = q;
     int i, j;
     for(i = 0, p = pp->next; i < pp->first; i++)
     {
@@ -73,7 +73,7 @@ ge *min(ge *p, ge *q)
         }
         if(j >= qq->first)
         {
-            nn = tool.addA(nn, newGe(q->first));
+            nn = tool.addA(nn, newGe(p->first));
             n->first++;
         }
         p = p->next;

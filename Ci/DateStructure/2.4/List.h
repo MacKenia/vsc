@@ -28,7 +28,7 @@ T *LTT<T>::addA(T *p, T *q)
 template<typename T>
 T *LTT<T>::addB(int n,T *p, T *q)
 {
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n - 1; i++)
         p = p->next;
     q->next = p->next;
     p->next = q;
@@ -47,8 +47,8 @@ template<typename T>
 T *LTT<T>::delB(int n, T *q)
 {
     T *p = NULL;
-    p = q->next;
-    cout << "1";
+    for(int i = 0; i < n - 1; i++)
+        q = q->next;
     p = q;
     q = q->next;
     p->next = q->next;

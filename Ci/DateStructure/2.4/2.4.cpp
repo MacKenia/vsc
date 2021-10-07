@@ -36,10 +36,10 @@ int main()
     tool.delB(3, list);
 
     // 输出内容链表内容
-    p = list;
-    while(list->first--)
+    p = list->next;
+    while(--list->first)
     {
-        cout << p->next->first << " ";
+        cout << p->first << " ";
         p = p->next;
     }
     cout << endl;

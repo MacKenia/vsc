@@ -39,20 +39,20 @@ template<typename T>
 T *LTT<T>::delA(T *p, T *q)
 {
     p->next = q->next;
-    dellet(q);
+    delete q;
     return p;
 }
 
 template<typename T>
 T *LTT<T>::delB(int n, T *q)
 {
-    T *p;
-    for (int i = 0; i < n - 1; i++)
-        q = q->next;
+    T *p = NULL;
+    p = q->next;
+    cout << "1";
     p = q;
     q = q->next;
     p->next = q->next;
-    dellet(q);
+    delete q;
     return p;
 }
 
@@ -67,11 +67,12 @@ T *LTT<T>::searchA(int n, T *q)
 template<typename T>
 void LTT<T>::del(T *p)
 {
-    T *q = p;
-    p = q->next;
+    T *q = p->next;
+    p = q->next->next;
     for(; p->next != NULL; p = p->next, q = p)
     {
         delete q;
     }
+    delete q;
 }
 #endif

@@ -6,6 +6,8 @@ typedef struct Node
 	struct Node *next;
 } Node, *LinkList;
 
+void showList(LinkList L);
+
 void CreateList(LinkList &L)
 {
 	int x, n;
@@ -13,6 +15,7 @@ void CreateList(LinkList &L)
 	cin >> n;
 	cout << "集合的元素依次是：";
 	L = new Node;
+	L->data = n; //头节点数据存放链表长度
 	L->next = NULL;
 	LinkList q = L;
 	for (int i = 0; i < n; i++)
@@ -26,42 +29,56 @@ void CreateList(LinkList &L)
 	q->next = NULL;
 }
 
-void except(LinkList &LA, LinkList &LB, LinkList &LC) //我感觉主要在这有问题
+void except(LinkList &LA, LinkList &LB, LinkList &LC) 
 {
 	LinkList pa = LA->next;
-	LinkList pb, pc = NULL;
+	LinkList pb, pc = new Node;
+	LinkList head = pc; // 头指针
+	head->data = 0;
+	head->next = NULL;
 	int x = 1;
-	while (pa->next != NULL)
+	while (LA->data--)
 	{
+		
 		pb = LB->next;
-		while (pb->next != NULL)
+		int t = LB->data; // 保存头结点的值
+		while (LB->data--) // 头节点的值依次减一来遍历
 		{
 			if (pa->data == pb->data)
 			{
 				x = 0;
+				pa = pa->next;//pa遍历被放入另一种情况的if中，所以在这里要加一条
 				break;
 			}
 			else
+			{
+				x = 1; //将标志重置为1 
 				pb = pb->next;
+			}
 		}
+		LB->data = t; // 将值还给头结点以便下一次遍历
 		if (x == 1)
 		{
-			pc = pa;
+			pc->next = pa;
+			pa = pa->next; //为保证复制之后的两条链依旧分开
 			pc = pc->next;
+			pc->next = NULL; //保证链表有限
+			head->data++; //链表长度加一
 		}
-		pa = pa->next;
 	}
-	LC = pc;
+	LC = head;
 }
 
 void showList(LinkList L)
 {
-	LinkList p = L; 
-	while (p != NULL)
+	LinkList p = L->next; 
+	int t = L->data;
+	while (L->data--)
 	{
 		cout << p->data << " ";
 		p = p->next;
 	}
+	L->data = t;
 	cout << endl
 		 << endl;
 }

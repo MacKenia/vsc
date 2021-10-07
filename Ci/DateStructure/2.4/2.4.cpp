@@ -33,9 +33,21 @@ int main()
         q = p;
     }
 
+    // 输出内容链表内容
+    cout << "原链表的内容：";
+    p = list->next;
+    int t = list->first;
+    while(t--)
+    {
+        cout << p->first << " ";
+        p = p->next;
+    }
+    cout << endl;
+
     tool.delB(3, list);
 
     // 输出内容链表内容
+    cout << "删除第三个元素：";
     p = list->next;
     while(--list->first)
     {

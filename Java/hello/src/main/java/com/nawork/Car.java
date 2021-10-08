@@ -1,11 +1,13 @@
-package com.first;
+package com.nawork;
 import java.util.*;
 public class Car {
     private int speed;
     private int volume;
-    Car(int a, int b) {
+    private int pos;
+    Car(int a, int b, int c) {
         speed = a;
         volume = b;
+	pos = c;
     }
 
     public int getSpeed() {
@@ -26,9 +28,19 @@ public class Car {
         speed -= a;
         return speed;
     }
+    
+    public int MoveForward(int a){
+	    pos += a;
+	    return pos;
+    }
+
+    public int MoveBack(int a){
+	    pos -= a;
+	    return pos;
+    }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Car car = new Car(0, 120);
+        Car car = new Car(0, 120, 0);
         car.setSpeed(30);
         System.out.println("Speed: " + car.getSpeed());
         System.out.println("SpeedUp 10:" + car.SpeedUp(10));

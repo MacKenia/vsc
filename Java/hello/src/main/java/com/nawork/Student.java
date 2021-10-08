@@ -16,7 +16,13 @@ public class Student {
     }
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
-        Student student = new Student("王麻子", "110");
+	String name, number;
+	System.out.print("Please enter Student's name:");
+	name = s.nextLine();
+	System.out.print("Please enter Student's number:");
+	number = s.nextLine();
+        //Student student = new Student("王麻子", "110");
+	Student student = new Student(name, number);
         student.getInfo();
         String st = s.nextLine();
         s.close();

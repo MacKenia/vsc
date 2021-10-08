@@ -29,15 +29,26 @@ public class Car {
         return speed;
     }
     
-    public int MoveForward(int a){
+    public int VolumeUp(int a) {
+	volume += a;
+	return volume;
+    }
+
+    public int VolumeDecrease(int a) {
+	    volume -= a;
+	    return volume;
+    }
+
+    public int MoveForward(int a) {
 	    pos += a;
 	    return pos;
     }
 
-    public int MoveBack(int a){
+    public int MoveBack(int a) {
 	    pos -= a;
 	    return pos;
     }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Car car = new Car(0, 120, 0);
@@ -45,6 +56,7 @@ public class Car {
         System.out.println("Speed: " + car.getSpeed());
         System.out.println("SpeedUp 10:" + car.SpeedUp(10));
         System.out.println("SpeedDown 20:" + car.SpeedDown(20));
+	System.out.println("VolumeDecrease 30:" + car.VolumeDecrease(30));
         String s = sc.nextLine();
         sc.close();
     }    

@@ -1,4 +1,4 @@
-package com.first;
+package com.nawork;
 import java.util.*;
 
 public class User {

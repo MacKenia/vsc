@@ -18,7 +18,8 @@ fi = open("passwd.txt","r")
 user = fi.readline()
 passwd = fi.readline()
 
-user = user[:len(user)-1:]
+user = user.rstrip()
+passwd = passwd.rstrip()
 
 url = "http://10.0.251.18:801/eportal/?c=ACSetting&a=Login&wlanuserip="+ str(get_host_ip()) +"&wlanacip=&lanacname=&redirect=&session=&vlanid=0&ssid=&port=&iTermType=1&protocol=http:&queryACIP=0"
 

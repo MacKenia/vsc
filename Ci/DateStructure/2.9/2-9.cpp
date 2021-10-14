@@ -31,6 +31,9 @@ int main()
         tool.push(&tmp, ls);
     }
     if(!len%2) len++;
-    
+    for(int i = len/2; i < len; i++)
+    {
+        
+    }
     return 1;
 }

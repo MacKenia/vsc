@@ -24,12 +24,13 @@ int main()
     tmp.data = st[0];
     tmp.next = NULL;
     ls = &tmp;
-    for(int i = 1; i < len; i++)
+    for(int i = 1; i < len/2; i++)
     {
         tmp.data = st[i];
         tmp.next = NULL;
         tool.push(&tmp, ls);
     }
+    if(!len%2) len++;
     
     return 1;
 }

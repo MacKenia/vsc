@@ -11,8 +11,10 @@ class LTT
 public:
     T *addA(T *p, T *q);
     T *addB(int n,T *p, T *q);
+    T *push(T *p,T *q);
     T *delA(T *p, T *q);
     T *delB(int n, T *q);
+    T *pop(T *p);
     void del(T *p);
     T *searchA(int tar, T *p);
 };
@@ -33,6 +35,13 @@ T *LTT<T>::addB(int n,T *p, T *q)
     q->next = p->next;
     p->next = q;
     return p->next;
+}
+
+template<typename T>
+T *LTT<T>::push(T *p, T *q)
+{
+    p->next = q;
+    return p;
 }
 
 template<typename T>
@@ -57,6 +66,15 @@ T *LTT<T>::delB(int n, T *q)
 }
 
 template<typename T>
+T *LTT<T>::pop(T *p)
+{
+    T *q = p;
+    p = p->next;
+    delete q;
+    return p;
+}
+
+template<typename T>
 T *LTT<T>::searchA(int n, T *q)
 {
     for (int i = 0; i < n; i++)
@@ -67,12 +85,17 @@ T *LTT<T>::searchA(int n, T *q)
 template<typename T>
 void LTT<T>::del(T *p)
 {
-    T *q = p->next;
-    p = q->next->next;
-    for(; p->next != NULL; p = p->next, q = p)
+    if(p->next == NULL)
+    {
+        delete p;
+        return;
+    }
+    T *q = p;
+    p = q->next;
+    for(; q->next != NULL; q = p, p = p->next)
     {
         delete q;
     }
-    delete q;
+    delete p;
 }
 #endif

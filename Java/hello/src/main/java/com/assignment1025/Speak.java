@@ -27,11 +27,14 @@ public class Speak {
 		}
 	}
 
-	public static void main() {
-		Monkey mo = new Monkey("fuck");
-		People pe = new People("fuck");
+	public static void main(String[] args) {
+		Monkey mo = new Speak().new Monkey("monkey");
+		People pe = new Speak().new People("people");
 		mo.speak();
 		pe.speak();
+		Scanner sc = new Scanner(System.in);
+		String s = sc.nextLine();
+		sc.close();
 	}
 }
 

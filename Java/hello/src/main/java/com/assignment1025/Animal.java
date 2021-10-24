@@ -4,7 +4,7 @@ import java.util.*;
 public class Animal {
     private String name;
     private int leg;
-    private int count; 
+    private int count;
     public void setLeg(int a){
         leg = a;
     }
@@ -30,7 +30,9 @@ public class Animal {
     }
 
     public class Fish extends Animal {
-
+        public int getCount(){
+            return super.count;
+        }
     }
 
     public class Tiger extends Animal {
@@ -43,5 +45,8 @@ public class Animal {
 
     public static void main(String[] args) {
         
+        Fish f = new Animal().new Fish();
+        f.setCount(100);
+        System.out.println(f.getCount());
     }
 }

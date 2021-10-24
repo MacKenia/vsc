@@ -35,7 +35,7 @@ void insert(DblStack &d)
         d.v[d.top[0]++] = tmp;
         break;
     case 2:
-        d.v[d.top[1]++] = tmp;
+        d.v[d.top[1]--] = tmp;
         break;
     }
     cout << "成功" << endl << endl;
@@ -54,13 +54,13 @@ void pop(DblStack d)
         d.v[d.top[0]--] = 0;
         break;
     case 2:
-        d.v[d.top[1]--] = 0;
+        d.v[d.top[1]++] = 0;
         break;
     }
     cout << "成功" << endl << endl;
 }
 
-char gethead(DblStack d)
+char gethead(DblStack d) //获取头栈的内容
 {
     for(int i = d.bot[0]; i < d.top[0]; i++)
     {
@@ -69,7 +69,7 @@ char gethead(DblStack d)
     return 0;
 }
 
-char gettail(DblStack d)
+char gettail(DblStack d) //获取尾栈的内容
 {
     for (int i = d.bot[1]; i > d.top[1]; i--)
     {

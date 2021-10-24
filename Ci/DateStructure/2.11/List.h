@@ -109,7 +109,7 @@ void LTT<T>::del(T *p) // delete whole List
     }
     T *q = p;
     p = q->next;
-    for(; q->next != NULL; q = p, p = p->next)
+    for(; p->next != NULL; q = p, p = p->next)
     {
         delete q;
     }

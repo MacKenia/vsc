@@ -39,7 +39,7 @@ int main()
     }
     if(i < len)
     {
-        cout << st << "不是回文！" << ls->data << endl;
+        cout << st << "不是回文！" << endl;
         tool.del(ls);
     }
     else

@@ -85,16 +85,20 @@ T *LTT<T>::searchA(int n, T *q)
 template<typename T>
 void LTT<T>::del(T *p)
 {
-    if(p->next == NULL)
+    if(p == NULL)
+        return;
+    else if(p->next == NULL)
     {
         delete p;
         return;
     }
     T *q = p;
     p = q->next;
-    for(; q->next != NULL; q = p, p = p->next)
+    while(p != NULL)
     {
         delete q;
+        q = p;
+        p = p->next;
     }
     delete p;
 }

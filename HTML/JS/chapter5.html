@@ -59,6 +59,9 @@
 <body>
     
     <div class="form"><p>个人信息</p><form id="form"></form></div>
+    <input type="text" id="k" value="name">
+    <input type="text" id="v" value="jack">
+    <input type="button" id="btn" value="test">
     <script src="FormBuilder.js"></script>
     <script>
         var elements = {
@@ -191,6 +194,71 @@
         }
 
         var o1 = factory("jack", 18);
+        var o2 = factory("Alice", 19);
+        console.log(o1);
+        console.log(o2);
+
+        // 5.3.2 JavaScript build in constructor
+        var obj = new object();
+        var str = new String("123");
+        console.log(obj.constructor);
+        console.log(str.constructor);
+        console.log({}.constructor);
+        
+        // 5.3.3 User constructor
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+            this.sayHello = function () {
+                console.log("hello, my name is " + this.name);
+            };
+        };
+        var p1 = new Person("Jack", 18);
+        var p2 = new Person("Alice", 19);
+        console.log(p1);
+        console.log(p2);
+        p1.sayHello();
+        console.log(p1.constructor);
+
+        class Person{
+            constructor (name, age, gender) {
+                this.name = name;
+                this.age = age;
+                this.gender = gender;
+            }
+            introduce(){
+                console.log("我是" + this.name + "，今年" + this.age + "岁。");
+            }
+        }
+        var p = new Person("Jim", 19, "男");
+        p.introduce();
+
+        // 5.3.4 private members
+        function Person() {
+            var name = "Jim";
+            this.getName = function () {
+                return name;
+            };
+        }
+        var p = new Person();
+        console.log(p.name);
+        p.getName();
+        
+        // 5.3.5 this
+        function foo() {
+            return this;
+        }
+        var o = {name: "Jim", func: foo};
+        console.log(foo() === window);
+        console.log(o.func() === o);
+
+        function method() {
+            console.log(this.name);
+        }
+        method.apply({name:"张三"});
+        method.call({name:"李四"})
+        
+        
         
 
 

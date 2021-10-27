@@ -116,7 +116,83 @@
         
         // 5.2.1 Define object
         var o1 = {};
-        var o2 = {};
+        var o2 = {name:"Jim"};
+        var o3 = {name:"Jim", age: 19, gender:""};
+        var o4 = {
+            name:"Jim",
+            age: 19,
+            gender:"",
+            sayHello: function(){
+                console.log("Hello");
+            }
+        };
+
+        // 5.2.2 access object's member
+        var o5 = {};
+        o5.name = "Jack";
+        o5.introduce = function () {
+            alert("my name is " + this.name);
+        };
+        alert(o5.name);
+        o5.introduce();
+
+        var o6 = {};
+        var key = "id";
+        o6[key] = 123;
+        
+        // example 5-1
+        var k = document.getElementById("k");
+        var v = document.getElementById("v");
+        var btn = document.getElementById("btn");
+        var o = {};
+        btn.onclick = function () {
+            o[k.value] = v.value;
+            console.log(o);
+        };
+
+        //  5.2.3 objects
+        var obj = {name: "Tom", age: 16};
+        for(var k in obj) {
+            console.log(k + "-" + obj[k]);
+        }
+        console.log("name" in obj);
+        console.log("gender" in obj);
+        
+        // 5.2.4 shadow copy
+        var p1 = {name: "Jim", age: 19};
+        var p2 = p1;
+        p2.name = "Tom";
+        console.log(p1);
+        console.log(p2);
+        console.log(p1 === p2);
+        
+        // example 5-2 dome
+        function deepCopy(obj) {
+            var o = {};
+            for(var k in obj) {
+                o[k] = (typeof obj[k] === "object") ? deepCopy(obj[k]): obj[k];
+            }
+            return o;
+        }
+
+        var p1 = {name: "Jim", subject: {name: ["HTML", "CSS"]}};
+        var p2 = deepCopy(p1);
+        p2.subject.name[0] = "javaScript";
+        console.log(p1.subject.name[0]);
+        console.log(p2.subject.name[0]);
+        console.log(p1 === p2);
+        
+        // 5.3.1 constructor
+        function factory(name, age) {
+            var o = {};
+            o.name = name;
+            o.age = age;
+            return o;
+        }
+
+        var o1 = factory("jack", 18);
+        
+
 
         // 5.4.5 calendar
         //var year = parseInt(prompt("请输入年份:", "2018"));

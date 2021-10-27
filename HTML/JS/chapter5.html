@@ -1,361 +1,421 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter5</title>
-    <style>
-
-        *{
-            padding: 0;
-            margin: 0;
-            /* border: 1px solid red; */
-        }
-
-        body, html{
-            width: 100%;
-            height: 100%;
-        }
-
-        .head{
-            background-color: #c4c4c4;
-        }
-
-        table{
-            display: inline-block;
-        }
-
-        tr{
-            margin: 10px;
-        }
-
-        div.form{
-            border: 1px solid #63badd;
-            width: 600px;
-            height: 400px;
-            margin: 10px auto 0;
-            padding: 0px;
-        }
-
-        div p{
-            background-color: #63badd;
-            height: 30px;
-            line-height: 30px;
-            padding: 0 0 0 10px;
-        }
-
-        th{
-            padding: 10px;
-            margin: 10px;
-            text-align: center;
-            vertical-align: middle;
-        }
-
-
-
-    </style>
-</head>
-<body>
-    
-    <div class="form"><p>个人信息</p><form id="form"></form></div>
-    <input type="text" id="k" value="name">
-    <input type="text" id="v" value="jack">
-    <input type="button" id="btn" value="test">
-    <script src="FormBuilder.js"></script>
-    <script>
-        var elements = {
-            "姓名": {
-                tag: "input",
-                text: "姓名：",
-                attr:{type:"text", name:"user"},
-                option:null
-            },
-            "性别": {
-                tag: "input",
-                text: "性别：",
-                attr: {type: "radio", name: "gender"},
-                option: {m: "男", w: "女"}
-            },
-            "爱好": {
-                tag: "input",
-                text: "爱好：",
-                attr: {type: "checkbox", name: "hobby[]"},
-                option: {swingming: "游泳", reading: "读书", running: "跑步"}
-            },
-            "地址": {
-                tag:"select",
-                text: "地址：",
-                attr: {name: "area"},
-                option: {"":"--请选择--", bj: "北京", sh: "上海", sz: "深圳", cq: "重庆"}
-            },
-            "自我介绍": {
-                tag: "textarea",
-                text: "自我介绍",
-                attr: {name:"introduce", rows:"5", cols:"50"},
-                option: null
-            },
-            "提交": {
-                tag: "input",
-                text: "",
-                attr: {type: "submit", value: "提交"},
-                option: null
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chapter5</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                /* border: 1px solid red; */
             }
-        }
-        var html = new FormBuilder(elements).create();
-        document.getElementById("form").innerHTML = html;
-    </script>
-    <script src="vconsole.min.js"></script> 
-    <script>
-        var vConsole = new window.VConsole();
-        console.log("");
-        // 5.1.2 Object-oriented features multiType
-        var obj = 123;
-        console.log(obj.toString());
-        obj = [1, 2, 3];
-        console.log(obj.toString());
-        obj = function () {};
-        console.log(obj.toString());
-        
-        // 5.2.1 Define object
-        var o1 = {};
-        var o2 = {name:"Jim"};
-        var o3 = {name:"Jim", age: 19, gender:""};
-        var o4 = {
-            name:"Jim",
-            age: 19,
-            gender:"",
-            sayHello: function(){
-                console.log("Hello");
+
+            body,
+            html {
+                width: 100%;
+                height: 100%;
             }
-        };
 
-        // 5.2.2 access object's member
-        var o5 = {};
-        o5.name = "Jack";
-        o5.introduce = function () {
-            alert("my name is " + this.name);
-        };
-        alert(o5.name);
-        o5.introduce();
-
-        var o6 = {};
-        var key = "id";
-        o6[key] = 123;
-        
-        // example 5-1
-        var k = document.getElementById("k");
-        var v = document.getElementById("v");
-        var btn = document.getElementById("btn");
-        var o = {};
-        btn.onclick = function () {
-            o[k.value] = v.value;
-            console.log(o);
-        };
-
-        //  5.2.3 objects
-        var obj = {name: "Tom", age: 16};
-        for(var k in obj) {
-            console.log(k + "-" + obj[k]);
-        }
-        console.log("name" in obj);
-        console.log("gender" in obj);
-        
-        // 5.2.4 shadow copy
-        var p1 = {name: "Jim", age: 19};
-        var p2 = p1;
-        p2.name = "Tom";
-        console.log(p1);
-        console.log(p2);
-        console.log(p1 === p2);
-        
-        // example 5-2 dome
-        function deepCopy(obj) {
-            var o = {};
-            for(var k in obj) {
-                o[k] = (typeof obj[k] === "object") ? deepCopy(obj[k]): obj[k];
+            .head {
+                background-color: #c4c4c4;
             }
-            return o;
-        }
 
-        var p1 = {name: "Jim", subject: {name: ["HTML", "CSS"]}};
-        var p2 = deepCopy(p1);
-        p2.subject.name[0] = "javaScript";
-        console.log(p1.subject.name[0]);
-        console.log(p2.subject.name[0]);
-        console.log(p1 === p2);
-        
-        // 5.3.1 constructor
-        function factory(name, age) {
-            var o = {};
-            o.name = name;
-            o.age = age;
-            return o;
-        }
+            table {
+                display: inline-block;
+            }
 
-        var o1 = factory("jack", 18);
-        var o2 = factory("Alice", 19);
-        console.log(o1);
-        console.log(o2);
+            tr {
+                margin: 10px;
+            }
 
-        // 5.3.2 JavaScript build in constructor
-        var obj = new object();
-        var str = new String("123");
-        console.log(obj.constructor);
-        console.log(str.constructor);
-        console.log({}.constructor);
-        
-        // 5.3.3 User constructor
-        function Person(name, age) {
-            this.name = name;
-            this.age = age;
-            this.sayHello = function () {
-                console.log("hello, my name is " + this.name);
+            div.form {
+                border: 1px solid #63badd;
+                width: 600px;
+                height: 400px;
+                margin: 10px auto 0;
+                padding: 0px;
+            }
+
+            div p {
+                background-color: #63badd;
+                height: 30px;
+                line-height: 30px;
+                padding: 0 0 0 10px;
+            }
+
+            th {
+                padding: 10px;
+                margin: 10px;
+                text-align: center;
+                vertical-align: middle;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="form">
+            <p>个人信息</p>
+            <form id="form"></form>
+        </div>
+        <input type="text" id="k" value="name" />
+        <input type="text" id="v" value="jack" />
+        <input type="button" id="btn" value="test" />
+        <script src="FormBuilder.js"></script>
+        <script>
+            var elements = {
+                姓名: {
+                    tag: "input",
+                    text: "姓名：",
+                    attr: { type: "text", name: "user" },
+                    option: null,
+                },
+                性别: {
+                    tag: "input",
+                    text: "性别：",
+                    attr: { type: "radio", name: "gender" },
+                    option: { m: "男", w: "女" },
+                },
+                爱好: {
+                    tag: "input",
+                    text: "爱好：",
+                    attr: { type: "checkbox", name: "hobby[]" },
+                    option: {
+                        swingming: "游泳",
+                        reading: "读书",
+                        running: "跑步",
+                    },
+                },
+                地址: {
+                    tag: "select",
+                    text: "地址：",
+                    attr: { name: "area" },
+                    option: {
+                        "": "--请选择--",
+                        bj: "北京",
+                        sh: "上海",
+                        sz: "深圳",
+                        cq: "重庆",
+                    },
+                },
+                自我介绍: {
+                    tag: "textarea",
+                    text: "自我介绍",
+                    attr: { name: "introduce", rows: "5", cols: "50" },
+                    option: null,
+                },
+                提交: {
+                    tag: "input",
+                    text: "",
+                    attr: { type: "submit", value: "提交" },
+                    option: null,
+                },
             };
-        };
-        var p1 = new Person("Jack", 18);
-        var p2 = new Person("Alice", 19);
-        console.log(p1);
-        console.log(p2);
-        p1.sayHello();
-        console.log(p1.constructor);
+            var html = new FormBuilder(elements).create();
+            document.getElementById("form").innerHTML = html;
+        </script>
+        <script src="vconsole.min.js"></script>
+        <script>
+            var vConsole = new window.VConsole();
+            console.log("");
+            // 5.1.2 Object-oriented features multiType
+            var obj = 123;
+            console.log(obj.toString());
+            obj = [1, 2, 3];
+            console.log(obj.toString());
+            obj = function () {};
+            console.log(obj.toString());
 
-        class Person{
-            constructor (name, age, gender) {
+            // 5.2.1 Define object
+            var o1 = {};
+            var o2 = { name: "Jim" };
+            var o3 = { name: "Jim", age: 19, gender: "" };
+            var o4 = {
+                name: "Jim",
+                age: 19,
+                gender: "",
+                sayHello: function () {
+                    console.log("Hello");
+                },
+            };
+
+            // 5.2.2 access object's member
+            var o5 = {};
+            o5.name = "Jack";
+            o5.introduce = function () {
+                alert("my name is " + this.name);
+            };
+            alert(o5.name);
+            o5.introduce();
+
+            var o6 = {};
+            var key = "id";
+            o6[key] = 123;
+
+            // example 5-1
+            var k = document.getElementById("k");
+            var v = document.getElementById("v");
+            var btn = document.getElementById("btn");
+            var o = {};
+            btn.onclick = function () {
+                o[k.value] = v.value;
+                console.log(o);
+            };
+
+            //  5.2.3 objects
+            var obj = { name: "Tom", age: 16 };
+            for (var k in obj) {
+                console.log(k + "-" + obj[k]);
+            }
+            console.log("name" in obj);
+            console.log("gender" in obj);
+
+            // 5.2.4 shadow copy
+            var p1 = { name: "Jim", age: 19 };
+            var p2 = p1;
+            p2.name = "Tom";
+            console.log(p1);
+            console.log(p2);
+            console.log(p1 === p2);
+
+            // example 5-2 dome
+            function deepCopy(obj) {
+                var o = {};
+                for (var k in obj) {
+                    o[k] =
+                        typeof obj[k] === "object" ? deepCopy(obj[k]) : obj[k];
+                }
+                return o;
+            }
+
+            var p1 = { name: "Jim", subject: { name: ["HTML", "CSS"] } };
+            var p2 = deepCopy(p1);
+            p2.subject.name[0] = "javaScript";
+            console.log(p1.subject.name[0]);
+            console.log(p2.subject.name[0]);
+            console.log(p1 === p2);
+
+            // 5.3.1 constructor
+            function factory(name, age) {
+                var o = {};
+                o.name = name;
+                o.age = age;
+                return o;
+            }
+
+            var o1 = factory("jack", 18);
+            var o2 = factory("Alice", 19);
+            console.log(o1);
+            console.log(o2);
+
+            // 5.3.2 JavaScript build in constructor
+            var obj = new object();
+            var str = new String("123");
+            console.log(obj.constructor);
+            console.log(str.constructor);
+            console.log({}.constructor);
+
+            // 5.3.3 User constructor
+            function Person(name, age) {
                 this.name = name;
                 this.age = age;
-                this.gender = gender;
+                this.sayHello = function () {
+                    console.log("hello, my name is " + this.name);
+                };
             }
-            introduce(){
-                console.log("我是" + this.name + "，今年" + this.age + "岁。");
+            var p1 = new Person("Jack", 18);
+            var p2 = new Person("Alice", 19);
+            console.log(p1);
+            console.log(p2);
+            p1.sayHello();
+            console.log(p1.constructor);
+
+            class Person {
+                constructor(name, age, gender) {
+                    this.name = name;
+                    this.age = age;
+                    this.gender = gender;
+                }
+                introduce() {
+                    console.log(
+                        "我是" + this.name + "，今年" + this.age + "岁。"
+                    );
+                }
             }
-        }
-        var p = new Person("Jim", 19, "男");
-        p.introduce();
+            var p = new Person("Jim", 19, "男");
+            p.introduce();
 
-        // 5.3.4 private members
-        function Person() {
-            var name = "Jim";
-            this.getName = function () {
-                return name;
-            };
-        }
-        var p = new Person();
-        console.log(p.name);
-        p.getName();
-        
-        // 5.3.5 this
-        function foo() {
-            return this;
-        }
-        var o = {name: "Jim", func: foo};
-        console.log(foo() === window);
-        console.log(o.func() === o);
+            // 5.3.4 private members
+            function Person() {
+                var name = "Jim";
+                this.getName = function () {
+                    return name;
+                };
+            }
+            var p = new Person();
+            console.log(p.name);
+            p.getName();
 
-        function method() {
-            console.log(this.name);
-        }
-        method.apply({name:"张三"});
-        method.call({name:"李四"})
-        
-	function methoe(){
-            console.log(a+b);
-	}
-        method.apply({}, ["1", "2"]);
-        method.call({}, "3", "4");
-        function method(a, b){
-            console.log(this.name + a + b);
-        }
-        var name = "zhangsan";
-            var test = method.bind({name: "lisi"}, "3", "4");
+            // 5.3.5 this
+            function foo() {
+                return this;
+            }
+            var o = { name: "Jim", func: foo };
+            console.log(foo() === window);
+            console.log(o.func() === o);
+
+            function method() {
+                console.log(this.name);
+            }
+            method.apply({ name: "张三" });
+            method.call({ name: "李四" });
+
+            function method() {
+                console.log(a + b);
+            }
+            method.apply({}, ["1", "2"]);
+            method.call({}, "3", "4");
+            function method(a, b) {
+                console.log(this.name + a + b);
+            }
+            var name = "张三";
+            var test = method.bind({ name: "李四" }, "3", "4");
             method("1", "2");
             test();
-        
 
+            // 5.4.1 object String
+            var str = "HelloWorld";
+            str.length;
+            str.charAt(5);
+            str.indexOf("o");
+            str.lastIndexOf("o");
+            str.substring(5);
+            str.substring(5, 7);
+            str.substr(5);
+            str.substr(5, 2);
+            str.toLowerCase();
+            str.toLocaleUpperCase();
+            str.split("l");
+            str.split("l", 3);
+            str.replace("World", "JavaScript");
 
+            var name = "Administrator";
+            if(name.length < 3 || name.length > 10) {
+                alert("用户名产的必须在3～10之间");
+            }
+            if(name.toLowerCase().indexOf("admin") !== -1) {
+                alert("用户名不能包含敏感词：admin");
+            }
 
-        
+            // 5.4.2 Number
+            var num = 12345.6789;
+            num.toFixed();
+            num.toFixed(1);
+            num.toFixed(6);
+            Number.MAX_VALUE;
+            Number.MIN_VALUE;
 
+            // Math
+            var num = 10.88;
+            Math.ceil(num);
+            Math.round(num);
+            Math.random();
+            Math.abs(-25);
+            Math.abs("-25");
+            Math.max(5, 7, 9, 8);
+            Math.min(6, 2, 5, 3);
 
-        // 5.4.5 calendar
-        //var year = parseInt(prompt("请输入年份:", "2018"));
-        var year = 2018;
-        document.write(calendar(year));
+            Math.random() * (3 - 1) + 1;
+            Math.random() * (20 - 10) + 10;
+            Math.random() * (99 - 88) + 88;
 
-        function calendar(y) {
-            var w = new Date(y, 0).getDay();
-            var html = "";
-            for (var i = 0; i < 12; i++) {
-                html += "<table>";
-                html += "<tr><th class='head' colspan='7'>" + y + "年" + (i+1) + "月</th></tr>";
-                html += "<tr><td>日</td><td>一</td><td>二</td><td>三</td><td>四</td>";
-                html += "<td>五</td><td>六</td></tr>";
-                var max = new Date(y, i+1, 0).getDate();
-                //for (var d = 1; d <= max; d++) {
-                //    w = (w + 1 > 6) ? 0: w + 1;
-                //}
-                html += "<tr>";
-                for (var d = 1; d <= max; d++) {
-                    if(w && d == 1) {
-                        html += "<td colspan='" + w +"'> </td>";
+            
+
+            // 5.4.5 calendar
+            //var year = parseInt(prompt("请输入年份:", "2018"));
+            var year = 2018;
+            document.write(calendar(year));
+
+            function calendar(y) {
+                var w = new Date(y, 0).getDay();
+                var html = "";
+                for (var i = 0; i < 12; i++) {
+                    html += "<table>";
+                    html +=
+                        "<tr><th class='head' colspan='7'>" +
+                        y +
+                        "年" +
+                        (i + 1) +
+                        "月</th></tr>";
+                    html +=
+                        "<tr><td>日</td><td>一</td><td>二</td><td>三</td><td>四</td>";
+                    html += "<td>五</td><td>六</td></tr>";
+                    var max = new Date(y, i + 1, 0).getDate();
+                    //for (var d = 1; d <= max; d++) {
+                    //    w = (w + 1 > 6) ? 0: w + 1;
+                    //}
+                    html += "<tr>";
+                    for (var d = 1; d <= max; d++) {
+                        if (w && d == 1) {
+                            html += "<td colspan='" + w + "'> </td>";
+                        }
+                        html += "<td>" + d + "</td>";
+                        if (w == 6 && d != max) {
+                            html += "</tr><tr>";
+                        } else if (d == max) {
+                            html += "</tr>";
+                        }
+                        w = w + 1 > 6 ? 0 : w + 1;
                     }
-                    html += "<td>" + d + "</td>";
-                    if(w == 6 && d != max) {
-                        html += "</tr><tr>";
-                    } else if(d == max) {
-                        html += "</tr>"
-                    }
-                    w = (w + 1 > 6) ? 0 : w + 1;
+                    html += "</table>";
                 }
-                html += "</table>";
+                return html;
             }
-            return html;
-        }
-        // student constructor
-        function Student(name) {
-            this.name = name;
-            console.log("我是"+name);
-        }
-
-        function Pupil() {
-            this.sayHello = function () {
-                console.log("我是小学生！");
-                
+            // student constructor
+            function Student(name) {
+                this.name = name;
+                console.log("我是" + name);
             }
-        }
 
-
-        var p1 = new Student("CXK");
-        var p2 = new Pupil();
-        p1.sayHello = p2.sayHello;
-        p1.sayHello();
-        console.log(p1);
-        console.log(p2);
-        
-        
-        
-        // rectangle 
-        function rec(a, b) {
-            this.height = a;
-            this.wide = b;
-            this.getArea = function () {
-                console.log("This rectangle's area is " + this.height * this.wide);
+            function Pupil() {
+                this.sayHello = function () {
+                    console.log("我是小学生！");
+                };
             }
-            this.getGirth = function () {
-                console.log("This rectangle's grith is " + 2*(this.height + this.wide));
+
+            var p1 = new Student("CXK");
+            var p2 = new Pupil();
+            p1.sayHello = p2.sayHello;
+            p1.sayHello();
+            console.log(p1);
+            console.log(p2);
+
+            // rectangle
+            function rec(a, b) {
+                this.height = a;
+                this.wide = b;
+                this.getArea = function () {
+                    console.log(
+                        "This rectangle's area is " + this.height * this.wide
+                    );
+                };
+                this.getGirth = function () {
+                    console.log(
+                        "This rectangle's grith is " +
+                            2 * (this.height + this.wide)
+                    );
+                };
             }
-        }
 
-        var o = new rec(1, 2);
-        console.log(o);
-        o.getGirth();
-        o.getArea();
+            var o = new rec(1, 2);
+            console.log(o);
+            o.getGirth();
+            o.getArea();
 
-        var p = new rec(3, 3);
-        console.log(p);
-        p.getGirth();
-        p.getArea();
-    </script>
-
-</body>
+            var p = new rec(3, 3);
+            console.log(p);
+            p.getGirth();
+            p.getArea();
+        </script>
+    </body>
 </html>

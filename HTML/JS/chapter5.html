@@ -258,7 +258,22 @@
         method.apply({name:"张三"});
         method.call({name:"李四"})
         
+	function methoe(){
+            console.log(a+b);
+	}
+        method.apply({}, ["1", "2"]);
+        method.call({}, "3", "4");
+        function method(a, b){
+            console.log(this.name + a + b);
+        }
+        var name = "zhangsan";
+            var test = method.bind({name: "lisi"}, "3", "4");
+            method("1", "2");
+            test();
         
+
+
+
         
 
 

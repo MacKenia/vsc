@@ -30,11 +30,35 @@
             margin: 10px;
         }
 
+        div.form{
+            border: 1px solid #63badd;
+            width: 600px;
+            height: 400px;
+            margin: 10px auto 0;
+            padding: 0px;
+        }
+
+        div p{
+            background-color: #63badd;
+            height: 30px;
+            line-height: 30px;
+            padding: 0 0 0 10px;
+        }
+
+        th{
+            padding: 10px;
+            margin: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+
+
     </style>
 </head>
 <body>
     
-    <form id="form"></form>
+    <div class="form"><p>个人信息</p><form id="form"></form></div>
     <script src="FormBuilder.js"></script>
     <script>
         var elements = {
@@ -128,7 +152,28 @@
             }
             return html;
         }
-        // form generator
+        // student constructor
+        function Student(name) {
+            this.name = name;
+            console.log("我是"+name);
+        }
+
+        function Pupil() {
+            this.sayHello = function () {
+                console.log("我是小学生！");
+                
+            }
+        }
+
+
+        var p1 = new Student("CXK");
+        var p2 = new Pupil();
+        p1.sayHello = p2.sayHello;
+        p1.sayHello();
+        console.log(p1);
+        console.log(p2);
+        
+        
         
         // rectangle 
         function rec(a, b) {

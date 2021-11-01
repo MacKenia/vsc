@@ -1,4 +1,6 @@
-#bash
+# /usr/bin/bash
+
+arch-chroot
 
 ls -s /usr/share/zoneinfo/Asia/Shanghai > /etc/localtime
 hwclock --systohc

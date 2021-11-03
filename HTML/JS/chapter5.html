@@ -240,7 +240,6 @@
                     );
                 }
             }
-            console.log(e);
             var p = new Person1("Jim", 19, "男");
             p.introduce();
         </script>
@@ -392,6 +391,192 @@
                 }
                 return html;
             }
+
+            // 5.5.1 error handling
+            var o = {};
+            try{
+                o.func();
+                console.log("test");
+            } catch (e) {
+                console.log(e);
+            }
+            console.log("b");
+
+            // 5.5.2 error objects
+            function foo1() {
+                foo2();
+                console.log("foo1");
+            }
+            function foo2() {
+                var o = {};
+                o.func();
+            }
+            try {
+                foo1();
+            } catch (e) {
+                console.log(e);
+            }
+
+            try {
+                var o = {;};
+            } catch (e) {
+                console.log(e.message);
+            }
+
+            // 5.6.1 prototype
+            function Person(name) {
+                this.name = name;
+                this.introduce = function () {};
+            }
+            var p1 = new Person("Jim");
+            var p2 = new Person("Alice");
+            console.log(p1.introduce == p2.introduce);
+            
+            console.log(typeof Person.prototype);
+            
+            Person.prototype.introduce = function () {};
+            
+            console.log(p1.introduce);
+            console.log(p1.introduce === p2.introduce);
+            
+            // 5.6.2 inherit
+            function Person(name) {
+                this.name = name;
+            }
+
+            Person.prototype.sayHello = function () {
+                console.log("你好, 我是" + this.name);
+            };
+            var p1 = new Person("Jim");
+            var p2 = new Person("Tom");
+            p1.sayHello();
+            p2.sayHello();
+
+            Person.prototype = {
+                sayHello: function () {
+                    console.log("你好，我是新对象");
+                }
+            }
+            
+            var p = new Person();
+            p.sayHello();
+
+            function Person() {
+                Person.prototype.sayHello = function () {
+                    console.log("原来的对象");
+                }
+            }
+
+            var p = new Person();
+            Person.prototype = {
+                sayHello: function () {
+                    console.log("替换后的对象");
+                }
+            }
+
+            var p2 = new Person();
+            p1.sayHello();
+            p2.sayHello();
+
+            var obj = {
+                sayHello: function () {
+                    console.log("我是一个带有sayHello方法的对象");
+                }
+            };
+
+            var newObj = Object.create(obj);
+            newObj.sayHello();
+            console.log(newObj.__proto__ === obj);
+
+            var o1 = {};
+            var o2 = {name: "Jim"};
+            o1.name = o2.name;
+            console.log(o1.name);
+            
+            function extend(o1, o2) {
+                for (var key in o2) {
+                    o1[key] = o2[key];
+                }
+            }
+
+            function Person1() {
+                extend(this, options);
+            }
+            Person1.fn = Person1.prototype;
+            Person1.fn.extend = function(obj) {
+                extend(this, obj);
+            };
+            Person1.fn.extend({
+                sayHello: function() {
+                    console.log("你好，我是" + (this.name || "无名"));
+                }
+            });
+            var p1 = new Person1();
+            var p2 = new Person1({name: "张三", age: 16});
+            p1.sayHello();
+            p2.sayHello();
+
+            function Person2(name) {
+                this.name = name;
+                this.sayHello = function () {
+                    console.log("你好，我是" + this.name);
+                };
+            }
+
+            Person2.age = 123;
+            Person2.sayGood = function () {
+                console.log(this.age);
+            }
+            console.log(Person2.age);
+            Person2.sayGood();
+
+            var p = new Person2("Tom");
+            console.log(p.name);
+            p.sayHello();
+            
+            // 5.6.4 属性搜索原则
+            function Person3() {
+                this.name = "张三";
+            }
+            Person3.prototype.name = "李四";
+            var p = new Person3();
+            console.log(p.name);
+            delete p.name;
+            console.log(p.name);
+            delete Person3.prototype.name;
+            console.log(p.name);
+            
+            // prototype chain
+            function Person4() {};
+            Person4.prototype.constructor === person;
+            new Person4().constructor === person;
+            new Person4().constructor.prototype === Person4.prototype;
+            console.log(Person4.constructor.toString());
+            console.log(Person.constructor === Function);
+            console.log(String.constructor === Function);
+            console.log(Number.constructor === Function);
+            console.log(Object.constructor === Function);
+            console.log(Function.constructor === Function);
+            
+            var func = new Function("a", "b", "return a + b;");
+            console.log(func(100, 200));
+            
+            new Person4().__proto__ === Person4.prototype;
+            console.log(Person4.prototype.__proto__ === Object.prototype);
+            console.log(Object.prototype.__proto__);
+            console.log(Object.__proto__ === Function.prototype);
+            
+            function Person5() {};
+            function Func() {};
+            Person5.prototype = new Func();
+            var p1 = new Person5();
+            p1.constructor === Func;
+            p1.constructor.prototype === Func.prototype;
+            p1.__proto__ === Person5.prototype;
+
+            var p5 = new Person5();
+            console.log(p1 instanceof Person5);
+
             // student constructor
             function Student(name) {
                 this.name = name;

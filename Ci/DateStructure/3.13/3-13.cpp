@@ -5,23 +5,23 @@ using namespace std;
 void insert(char* s, char* t, int pos)
 {
     int i, j;
-    for (i = 0; s[i] != '\0'; i++);
-    for (j = 0; s[j] != '\0'; j++);
-    for ( ; i > pos; i--)
+    for (i = 0; s[i] != '\0'; i++); //get length of each string
+    for (j = 0; t[j] != '\0'; j++);
+    for ( ; i >= pos; i--) // move char to get enough space
     {
-        s[i] = s[i - j];
+        s[j + i - 1] = s[i - 1];
     }
-    for(i = 0; i < j; i++)
+    for(i = 0; i < j; i++) // insert t into s
     {
-        s[i + pos] = t[i];
-    }   
+        s[i + pos - 1] = t[i];
+    }
 }
 
 int main()
 {
     char a[6] = "ad";
     char b[3] = "bc";
-    insert(a, b, 1);
-    cout << a;
+    insert(a, b, 2);
+    cout << a << endl;
     return 0;
 }

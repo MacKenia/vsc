@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#define N 100
+#define N 10
 
 using namespace std;
 
@@ -9,7 +9,7 @@ int main()
     memset(A, 0, sizeof(A));
     for (int i = 0; i < N; i++)
     {
-        if(i%2) A[i] = i+1;
+        if(i%3) A[i] = i+1;
         else A[i] = -(i+1);
     }
     for(int i = 0; i < N; i++)
@@ -17,22 +17,20 @@ int main()
         cout << A[i] << " ";
     }
     cout << endl;
-    for (int i = 0, j = N-1; i < j; i++, j--)
+    for (int i = 0, j = N-1; i < j;)
     {
         int tmp;
         if(A[i] < 0 && A[j] > 0)
         {
-            continue;
+            i++, j--;
         }
         else if(A[i] < 0 && A[j] < 0)
         {
             i++;
-            continue;
         }
         else if(A[i] > 0 && A[j] > 0)
         {
             j--;
-            continue;
         }
         else
         {

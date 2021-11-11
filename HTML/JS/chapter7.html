@@ -71,6 +71,20 @@
     </style>
 </head>
 <body>
+    <a href="#">link</a>
+    <p>chapter......</p>
+    <div id="test"></div>
+    <div id="box">box</div>
+    <div class="bar">bar</div>
+    <div name="main">main</div>
+    <ul id="ul">
+        <li>php</li>
+        <li>JavaScript</li>
+        <ul>
+            <li>jQuery</li>
+        </ul>
+    </ul>
+
     <div class="box" id="box"></div>
     <div class="tab-box">
         <div class="box-header">
@@ -88,6 +102,46 @@
     </div>
     <script>
         // 7.1.2 Dom HTML node tree
+        
+        // 7.1.3 Object inheritance relation
+        var test = document.getElementById("test");
+        console.log(test);
+        console.log(test.__proto__);
+        console.log(test.nodeName);
+        console.log(test.tagName);
+        console.log(document.nodeName);
+        console.log(document.tagName);
+        console.log(test.nodeType === Node.ELEMENT_NODE);
+        console.log(document.nodeType === Node.DOCUMENT_NODE);
+        
+        // 7.2.1 get operate elements
+        console.log(document.getElementById("box"));
+        console.log(document.getElementsByClassName("bar"));
+        console.log(document.getElementsByTagName("div"));
+        console.log(document.getElementsByName("main"));
+        
+        var box = document.getElementById("box");
+        var divs = document.getElementsByTagName("div");
+        console.log(divs[0] === box);
+
+        console.log(document.querySelector("div"));
+        console.log(document.querySelector("#box"));
+        console.log(document.querySelector(".bar"));
+        console.log(document.querySelector("div[name]"));
+        console.log(document.querySelector("div.bar"));
+        console.log(document.querySelector("div#box"));
+        
+        var body = document.getElementsByClassName("body")[0];
+        var html = document.getElementsByTagName("html")[0];
+        console.log(document.body === body);
+        console.log(document.documentElement === html);
+        
+        var lis = document.getElementById("ul").getElementsByTagName("li");
+        console.log(lis);
+        
+        
+        
+        
         
         // 7.2.3 change the size of box
         var box = document.getElementById('box');

@@ -1,19 +1,21 @@
 import requests
-import socket
+# import socket
 
-def get_host_ip():
-    """
-    查询本机ip地址
-    :return: ip
-    """
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(('8.8.8.8', 80))
-        ip = s.getsockname()[0]
-    finally:
-        s.close()
-        return ip
+# def get_host_ip():
+#     """
+#     查询本机ip地址
+#     :return: ip
+#     """
+#     try:
+#         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+#         s.connect(('10.0.251.18', 80))
+#         ip = s.getsockname()[0]
+#     finally:
+#         s.close()
+#         return ip
+
 # 获取相关数据
+
 fi = open("passwd.txt","r")
 user = fi.readline()
 passwd = fi.readline()
@@ -21,7 +23,9 @@ passwd = fi.readline()
 user = user.rstrip()
 passwd = passwd.rstrip()
 
-url = "http://10.0.251.18:801/eportal/?c=ACSetting&a=Login&wlanuserip="+ str(get_host_ip()) +"&wlanacip=&lanacname=&redirect=&session=&vlanid=0&ssid=&port=&iTermType=1&protocol=http:&queryACIP=0"
+# url = "http://10.0.251.18:801/eportal/?c=ACSetting&a=Login&wlanuserip="+ str(get_host_ip()) +"&wlanacip=&lanacname=&redirect=&session=&vlanid=0&ssid=&port=&iTermType=1&protocol=http:&queryACIP=0"
+
+url = "http://10.0.251.18:801/eportal/?c=ACSetting&a=Login&wlanacip=&lanacname=&redirect=&session=&vlanid=0&ssid=&port=&iTermType=1&protocol=http:&queryACIP=0"
 
 datas = {
     "DDDDD":",0,"+user+"@telecom",

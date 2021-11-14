@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chapter7</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+
+            html,
+            body {
+                height: 100%;
+                width: 100%;
+            }
+
+            #box {
+                position: absolute;
+                color: white;
+                border: 1px solid orange;
+                background-color: orange;
+                width: 100px;
+                height: 100px;
+                line-height: 100px;
+                border-radius: 100px;
+                text-align: center;
+                display: none;
+            }
+
+            #box::before {
+                content: "点我啊,崽总";
+            }
+
+            #mouse {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                border-radius: 20px;
+                background-color: cyan;
+                z-index: 2;
+            }
+
+            #box3 {
+                margin: 10px;
+                border: 1px solid #000;
+                position: absolute;
+                display: inline-block;
+                width: 500px;
+                height: 360px;
+                border-radius: 3px;
+                box-shadow: 3px 3px 10px 1px #7a7a7a;
+            }
+
+            #login {
+                position: relative;
+                display: inline-block;
+                width: 50px;
+                height: 20px;
+                transform: scale(1.2);
+            }
+            
+            span {
+                margin-right: 4px;
+                float: right;
+            }
+
+            #drop {
+                padding-left: 4px;
+                background-color: #acacac7c;
+            }
+            #drop::before {
+                content: "注册信息（可以拖拽）"
+            }
+
+            label {
+                display: block;
+            }
+
+            #box2 {
+                height: 80%;
+                display: flex;
+                justify-content: space-around;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            label {
+                transform: scale(1.2);
+            }  
+            
+            #tips {
+                color: red;
+                text-align: center;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="box"></div>
+        <div id="mouse"></div>
+        <div id="box3" class="box3">
+            <div id="drop" class="hd">
+                <span id="box_close">[关闭]</span>
+            </div>
+            <div class="bd"></div>
+            <div id="box2">
+                <div id="tips">&nbsp</div>
+                <label>用户名：<input id="user" type="text" /></label>
+                <label>密&nbsp&nbsp&nbsp&nbsp码：<input id="pass" type="password" /></label>
+                <button id="login">登录</button>
+            </div>
+        </div>
+
+        <script>
+            var obj = document.getElementById("login");
+            obj.onmouseover = function (e) {
+                l = (Math.random() * 10000) % (400);
+                t = (Math.random() * 10000) % (260) ;
+                animation(obj, { left: parseInt(l) - 220 , top: parseInt(t) - 220 });
+            };
+            function animation(obj, option) {
+                clearInterval(obj.timer);
+                obj.timer = setInterval(function () {
+                    var flag = true;
+                    for (var k in option) {
+                        var leader = parseInt(getStyle(obj, k)) || 0;
+                        var target = option[k];
+                        var step = (target - leader) / 10;
+                        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                        leader = leader + step;
+                        obj.style[k] = leader + "px";
+                        if (leader != target) {
+                            flag = false;
+                        }
+                    }
+                    if (flag) {
+                        clearInterval(obj.timer);
+                    }
+                }, 15);
+            }
+            function getStyle(obj, attr) {
+                if (window.getComputedStyle) {
+                    return window.getComputedStyle(obj, null)[attr];
+                } else {
+                    return obj.currentStyle[attr];
+                }
+            }
+        </script>
+        <script>
+            window.onload = function () {
+                addBlur($("user"));
+                addBlur($("pass"));
+            };
+            function $(obj) {
+                return document.getElementById(obj);
+            }
+            function addBlur(obj) {
+                obj.onblur = function () {
+                    isEmpty(this);
+                };
+            }
+            function isEmpty(obj) {
+                if (obj.value === "") {
+                    $("tips").style.display = "block";
+                    $("tips").innerHTML = "注意：输入内容不能为空!";
+                } else {
+                    $("tips").style.display = "none";
+                }
+            }
+        </script>
+        <script>
+            var mouse = document.getElementById("mouse");
+            document.onclick = function (e) {
+                var event = e || window.event;
+                var pageX =
+                    event.pageX ||
+                    event.ClientX + document.documentElement.scrollLeft;
+                var pageY =
+                    event.pageY ||
+                    event.ClientY + document.documentElement.scrollTop;
+                var targetX = pageX - mouse.offsetWidth / 2;
+                var targetY = pageY - mouse.offsetHeight / 2;
+                mouse.style.display = "block";
+                mouse.style.left = targetX + "px";
+                mouse.style.top = targetY + "px";
+            };
+        </script>
+        <script>
+            var box = document.getElementById("box3");
+            var drop = document.getElementById("drop");
+            drop.onmousedown = function (e) {
+                var event = e || window.event;
+                var pageX =
+                    event.pageX ||
+                    event.ClientX + document.documentElement.scrollLeft;
+                var pageY =
+                    event.pageY ||
+                    event.ClientY + document.documentElement.scrollTop;
+                var spaceX = pageX - box.offsetLeft;
+                var spaceY = pageY - box.offsetTop;
+                document.onmousemove = function (e) {
+                    var event = e || window.event;
+                    var pageX =
+                        event.pageX ||
+                        event.ClientX + document.documentElement.scrollLeft;
+                    var pageY =
+                        event.pageY ||
+                        event.ClientY + document.documentElement.scrollTop;
+                    box.style.left = pageX - spaceX + "px";
+                    box.style.top = pageY - spaceY + "px";
+                    if (window.getSelection) {
+                        window.getSelection();
+                    } else {
+                        document.selection.empty();
+                    }
+                };
+                document.onmouseup = function () {
+                    document.onmousemove = null;
+                };
+            };
+        </script>
+    </body>
+</html>

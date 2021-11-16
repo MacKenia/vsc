@@ -15,7 +15,7 @@ public:
     T* Root(T *t);
     T* Value(T *t);
     T* Assign(T *t, )
-
+    
 };
 
 #endif

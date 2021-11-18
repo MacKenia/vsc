@@ -31,3 +31,4 @@ url = "http://www.cqooc.net/learnLog/api/add"
 
 result = requests.post(url, data, header).status_code
 print("{}".format(result))
+ 

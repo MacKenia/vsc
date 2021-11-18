@@ -14,6 +14,7 @@
         html, body {
             width: 100%;
             height: 100%;
+            overflow: hidden;
         }
         
         div#smallBox {
@@ -21,9 +22,10 @@
         }
 
         #mask {
-            display: absolute;
-            z-index: 2;
-            background-color: #8d8d8d73;
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: #8f8f8f7e;
         }
 
     </style>
@@ -44,11 +46,12 @@
         }
 
         $("smallBox").onmouseover = function () {
+            $("mask").style.display = "block";
             $("bigBox").style.display="block";
         };
 
         $("smallBox").onmouseout = function () {
-            $("mask").style.display="none";
+            // $("mask").style.display="none";
             $("bigBox").style.display="none";
         };
 
@@ -63,6 +66,8 @@
             $("mask").style.left = maskX + "px";
             $("mask").style.top = maskY + "px";
         }
+
+        
 
 
     </script>

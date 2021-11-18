@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter8</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        
+        div#smallBox {
+            display: flex;
+        }
+
+        #mask {
+            display: absolute;
+            z-index: 2;
+            background-color: #8d8d8d73;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box" class="box">
+        <div id="smallBox" class="small">
+            <img src="https://api.ixiaowai.cn/api/api.php" width="100%">
+            <div id="mask" class="mask"></div>
+        </div>
+        <div id="bigBox" class="big">
+            <img id="bigImg" src="https://api.ixiaowai.cn/api/api.php" width="100%">
+        </div>
+    </div>
+    <script>
+        function $(id) {
+            return document.getElementById(id);
+        }
+
+        $("smallBox").onmouseover = function () {
+            $("bigBox").style.display="block";
+        };
+
+        $("smallBox").onmouseout = function () {
+            $("mask").style.display="none";
+            $("bigBox").style.display="none";
+        };
+
+        $("smallBox").onmousemove = function (event) {
+            var event = event || window.event;
+            var pageX = event.pageX || event.clientX + document.documentElement.scrollLeft;
+            var pageY = event.pageY || event.clientY + document.documentElement.scrollTop;
+            var boxX = pageX - $("box").offsetLeft;
+            var boxY = pageY - $("box").offsetTop;
+            var maskX = boxX - $("mask").offsetWidth / 2;
+            var maskY = boxY - $("mask").offsetHeight / 2;
+            $("mask").style.left = maskX + "px";
+            $("mask").style.top = maskY + "px";
+        }
+
+
+    </script>
+</body>
+</html>

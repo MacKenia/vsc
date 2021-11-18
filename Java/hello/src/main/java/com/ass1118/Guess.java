@@ -6,8 +6,8 @@ public class Guess {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int answer = (int)(Math.random() * 100) % 100;
+        System.out.print("快猜: ");
         int guess = sc.nextInt();
-        System.out.println("快猜: ");
         while (true) {
             if(answer < guess) {
                 System.out.println("太大了!");

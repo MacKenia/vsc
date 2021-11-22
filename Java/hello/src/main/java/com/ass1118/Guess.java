@@ -24,7 +24,7 @@ public class Guess {
                 return;
             }
         }
-        System.out.println("次数用完了。")
+        System.out.println("次数用完了。");
         sc.close();
     }
 }

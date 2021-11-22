@@ -8,20 +8,23 @@ public class Guess {
         int answer = (int)(Math.random() * 100) % 100;
         System.out.print("快猜: ");
         int guess = sc.nextInt();
-        while (true) {
+        int times = 6;
+        while (times-- > 0) {
             if(answer < guess) {
                 System.out.println("太大了!");
-                System.out.print("重试: ");
+                System.out.print("["+ (6-times) +"/6]重试: ");
                 guess = sc.nextInt();
             } else if (answer > guess) {
                 System.out.println("太小了!");
-                System.out.print("重试: ");
+                System.out.print("["+ (6-times) +"/6]重试: ");
                 guess = sc.nextInt();
             } else {
                 System.out.println("恭喜你!");
-                break;
+                sc.close();
+                return;
             }
         }
+        System.out.println("次数用完了。")
         sc.close();
     }
 }

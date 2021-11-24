@@ -29,6 +29,7 @@
         }
 
         div#bigBox {
+            display: flex;
             position: absolute;
             z-index: 2;
             width: 400px;
@@ -39,7 +40,8 @@
 
         #bigImg {
             position: absolute;
-            transform: scale(10);
+            transform: scale(2);
+            transform-origin:0 0 0;
         }
 
 
@@ -48,11 +50,11 @@
 <body>
     <div id="box" class="box">
         <div id="smallBox" class="small">
-            <img src="https://api.ixiaowai.cn/api/api.php" width="100%">
+            <img src="https://api.ixiaowai.cn/api/api.php">
             <div id="mask" class="mask"></div>
         </div>
         <div id="bigBox" class="big">
-            <img id="bigImg" src="https://api.ixiaowai.cn/api/api.php" width="100%">
+            <img id="bigImg" src="https://api.ixiaowai.cn/api/api.php">
         </div>
     </div>
     <script>
@@ -81,33 +83,39 @@
             if(maskX < 0) {
                 maskX = 0;
             }
-            if(maskX > $("smallBox").offsetWidth - $("mask").offsetWidth) {
-                maskX = $("smallBox").offsetWidth - $("mask").offsetWidth;
+            if(maskX > window.innerWidth - $("mask").offsetWidth) {
+                maskX = window.innerWidth - $("mask").offsetWidth;
             }
             if(maskY < 0) {
                 maskY = 0;
             }
-            if(maskY > $("smallBox").offsetHeight - $("mask").offsetHeight) {
-                maskX = $("smallBox").offsetHeight - $("mask").offsetHeight;
+            if(maskY > window.innerHeight - $("mask").offsetHeight) {
+                maskY = window.innerHeight - $("mask").offsetHeight;
             }
             $("mask").style.left = maskX + "px";
             $("mask").style.top = maskY + "px";
         
-
-            var bigImgToMove = $("bigImg").offsetWidth - $("bigBox").offsetWidth;
-            var maskToMove = $("smallBox").offsetWidth -   $("mask").offsetWidth;
-            var rate = bigImgToMove / maskToMove;
-            $("bigImg").style.left = -1 * maskX + "px";
-            $("bigImg").style.top = -1 * maskY + "px";
+            var rate = window.getComputedStyle($("bigImg"), null).getPropertyValue("transform")[7];
+            console.log(rate);
             
-            if(maskX > $("bigBox").offsetWidth - $("bigBox").offsetWidth) {
-
+            $("bigImg").style.left = -rate * maskX  + "px";
+            $("bigImg").style.top = -rate * maskY + "px";
+            
+            var bigX = maskX + $("mask").offsetWidth;
+            var bigY = maskY;
+            if(bigX > window.innerWidth - $("bigBox").offsetWidth) {
+                bigX = bigX - $("mask").offsetWidth - $("bigBox").offsetWidth;
+            }
+            if(bigY > window.innerHeight - $("bigBox").offsetHeight) {
+                bigY = window.innerHeight - $("bigBox").offsetHeight;
             }
 
 
-            $("bigBox").style.left = maskX + $("mask").offsetWidth + "px";
-            $("bigBox").style.top = maskY + "px";
+            $("bigBox").style.left = bigX + "px";
+            $("bigBox").style.top = bigY + "px";
 
+
+            
 
         }
         

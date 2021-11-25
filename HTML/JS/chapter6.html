@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chapter6</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+            border: 1px solid red;
+        }
+
+        #box {
+            display: flex;
+            justify-self: center;
+            justify-content: space-around;
+            flex-direction: column;
+        }
+
+        #title {
+            text-align: center;
+            font-size: 100px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="title"></div>
+        <div id="tip">
+            <div id="text"></div>
+            <div id="time">
+                <div id="d"></div>
+                <div id="h"></div>
+                <div id="m"></div>
+                <div id="s"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var h1 = document.getElementById("title");
+        h1.innerHTML = "";
+        var s = "READY?"
+        var i = 0;
+        clearInterval(h1.timer);
+        h1.timer = setInterval(
+            function() {
+                var t = s;
+                h1.innerHTML = t;
+                console.log(t);
+            }
+        ,500);
+    </script>
+</body>
+</html>

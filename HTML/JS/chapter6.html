@@ -9,7 +9,8 @@
         *{
             padding: 0px;
             margin: 0px;
-            border: 1px solid red;
+            /* border: 1px solid red; */
+            font-family: 'Source Code Pro';
         }
 
         #box {
@@ -17,6 +18,17 @@
             justify-self: center;
             justify-content: space-around;
             flex-direction: column;
+        }
+
+        #tip {
+            display: flex;
+            justify-content: center;
+        }
+
+        #time {
+            display: flex;
+            justify-content: space-around;
+            flex-direction: row;
         }
 
         #title {
@@ -30,7 +42,7 @@
     <div id="box">
         <div id="title"></div>
         <div id="tip">
-            <div id="text"></div>
+            <div id="text">距开始时间剩余：</div>
             <div id="time">
                 <div id="d"></div>
                 <div id="h"></div>
@@ -42,16 +54,56 @@
     <script>
         var h1 = document.getElementById("title");
         h1.innerHTML = "";
-        var s = "READY?"
         var i = 0;
+        function ready() {
+            var s = "READY?";
+            var t = "";
+            if(i >= s.length) i = 0;
+            for (var j = 0; j < s.length; j++) {
+                if(j != i) t += s[j]
+                else t += "&nbsp";
+            }
+            i++;
+            return t;
+        }
         clearInterval(h1.timer);
         h1.timer = setInterval(
             function() {
-                var t = s;
+                var t = ready();
                 h1.innerHTML = t;
-                console.log(t);
+                // console.log(t);
             }
         ,500);
+    </script>
+    <script>
+        var endTime = new Date("2021-11-27 17:11:30");
+        var endSecond = endTime.getTime();
+        console.log(endSecond);
+        var id = setInterval(secKill, 1000);
+        function secKill() {
+            var d = h = m = s = 0;
+            var now = new Date();
+            var remaining = parseInt((endSecond - now.getTime())/1000);
+            if(remaining > 3) {
+                d = parseInt(remaining/(60*60*24));
+                h = parseInt((remaining/(60*60))%24);
+                m = parseInt((remaining/(60))%60);
+                s = parseInt(remaining%60);
+                d = d < 10 ? '0' + d : d;
+                h = h < 10 ? '0' + h : h;
+                m = m < 10 ? '0' + m : m;
+                s = s < 10 ? '0' + s : s;
+            } else {
+                clearInterval(id);
+                d = h = m  = '00';
+                s = '03';
+                location.assign("chapter6-jump.html");
+            }
+            document.getElementById("d").innerHTML = d + "天";
+            document.getElementById("h").innerHTML = h + "时";
+            document.getElementById("m").innerHTML = m + "分";
+            document.getElementById("s").innerHTML = s + "秒";
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chapter11</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        h1{
+            background: repeating-linear-gradient(to right, #e24f7d, #c12bc1 50%, #3788ce);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        #bigBox, #bigbox{
+            width: 300px;
+            height: 300px;
+            border: 1px solid #000;
+            display: inline-block;
+        }
+
+        #smallBox, #smallbox{
+            text-align: center;
+            font-size: 13px;
+            position: relative;
+            line-height: 50px;
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="bigBox">
+        <div id="smallBox">
+            originJs
+        </div>
+    </div>    
+    <div id="bigbox">
+        <div id="smallbox">
+            jQuery
+        </div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script>
+        $("<h1>炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒</h1>").appendTo("body").css({"text-align":"center"});
+
+    </script>
+    <script>
+        function I(name){
+            return document.getElementById(name);
+        }
+
+        console.log(I("smallbox").offsetWidth);
+        var timer= setInterval(
+            function(){
+                clearInterval(timer);
+                var total = I("bigBox").offsetWidth;
+                var target = {top:0,left:0}
+                var top = 0;
+                var left = 0;
+                if(target.top == top && target.left == left){
+                    target.top = (Math.random() * 1000) % I("bigBox").offsetHeight;
+                    target.left = (Math.random() * 1000) % I("bigBox").offsetWidth;
+                }
+                
+
+            },10);
+        
+    </script>
+</body>
+</html>

@@ -50,30 +50,58 @@
     </div>
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
     <script>
-        $("<h1>炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒炒</h1>").appendTo("body").css({"text-align":"center"});
+        $("<h1>焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯</h1>").appendTo("body").css({"text-align":"center"});
 
     </script>
     <script>
         function I(name){
             return document.getElementById(name);
         }
-
-        console.log(I("smallbox").offsetWidth);
-        var timer= setInterval(
+        clearInterval(timer);
+        var target = {top:0,left:0}
+        function absolute(a){
+            a = a < 0 ? -1*a : a;
+            // console.log(a);
+            return a;
+        }
+        var timer = setInterval(
             function(){
-                clearInterval(timer);
-                var total = I("bigBox").offsetWidth;
-                var target = {top:0,left:0}
-                var top = 0;
-                var left = 0;
-                if(target.top == top && target.left == left){
-                    target.top = (Math.random() * 1000) % I("bigBox").offsetHeight;
-                    target.left = (Math.random() * 1000) % I("bigBox").offsetWidth;
+                var js = I("smallBox");
+                var left = js.offsetLeft;
+                var top = js.offsetTop;
+                //console.log("left: " + left + " top: " + top);
+                if(absolute((target.top-top)) <= 10 && absolute((target.left-left)) <= 10){
+                    target.top = (Math.random() * 1000) % (I("bigBox").offsetHeight - js.offsetHeight);
+                    target.left = (Math.random() * 1000) % (I("bigBox").offsetWidth - js.offsetWidth);
                 }
+                //console.log("targetLeft: " + target.left + " targetTop: " + target.top);
+                left = left + (target.left - left) / 10;
+                top = top + (target.top - top) / 10;
+                js.style.top = parseInt(top) + "px";
+                js.style.left = parseInt(left) + "px";
                 
 
             },10);
-        
+    </script>
+    <script>
+        var _top = 0;
+        var _left = 0;
+        $("#smallbox").css({"left":0, "top":0});
+        $("#bigbox").mouseleave(setInterval(function () {
+            {
+                _top = (Math.random() * 1000) % (parseInt($("#bigbox").height()) - $("#smallbox").height());
+                _left = (Math.random() * 1000) % ($("#bigbox").width() - $("#smallbox").width());
+                // console.log($("#bigbox").height());
+                var __top = _top + "px";
+                var __left = _left + "px";
+                var params = {top: __top, left: __left};
+                // console.log(params.top);
+            
+                var settings = $.speed(500, "linear");
+                $("#smallbox").animate(params, settings);
+            }
+            
+        },600));
     </script>
 </body>
 </html>

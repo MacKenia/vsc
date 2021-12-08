@@ -35,6 +35,30 @@
             border: 1px solid #000;
         }
 
+        a{
+            background-color: #fff;
+            width: 160px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            color: black;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        #fold>ul>li{
+            width: 160px;
+            display: block;
+            border: 1px solid #000;
+        }
+
+        #fold>ul>li>a{
+            font-weight: 28px;
+            font-size: 18px;
+            background-color: #05044b;
+            color: #fff;
+        }
+
     </style>
 </head>
 <body>
@@ -48,6 +72,35 @@
             jQuery
         </div>
     </div>
+    <div id="fold">
+        <ul>
+            <li>
+                <a href="#">消息管理</a>
+                <ul class="wrap">
+                    <li><a href="#">未读消息</a></li>
+                    <li><a href="#">已读消息</a></li>
+                    <li><a href="#">消息列表</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">商品管理</a>
+                <ul class="wrap">
+                    <li><a href="#">商品添加</a></li>
+                    <li><a href="#">商品列表</a></li>
+                    <li><a href="#">商品分类</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">用户管理</a>
+                <ul class="wrap">
+                    <li><a href="#">权限设置</a></li>
+                    <li><a href="#">用户列表</a></li>
+                    <li><a href="#">重置密码</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
     <script>
         $("<h1>焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯焯</h1>").appendTo("body").css({"text-align":"center"});
@@ -102,6 +155,13 @@
             }
             
         },600));
+    </script>
+    <script>
+        $("#fold>ul>li:first").find(".wrap").css({display:"block"});
+        $("#fold>ul>li").click(function(){
+            $(this).siblings("li").find(".wrap").css({display:"none"});
+            $(this).find(".wrap").css({display:"block"});
+        });
     </script>
 </body>
 </html>

@@ -1,0 +1,142 @@
+* {
+    font-family: 宋体;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #000;
+}
+
+body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#center {
+    width: 76%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+::selection {
+    background-color: #ab8c40;
+    color: #fff;
+}
+
+img {
+    width: 100%;
+    overflow: hidden;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a:hover {
+    color: #ab8c40;
+}
+
+.lol {
+    color: #ab8c40;
+}
+
+#fz {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#navigate {
+    width: 110vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+#iconshop {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+#iconshop ul {
+    padding-left: 80px;
+}
+
+#iconshop > div > ul {
+    background-image: url(http://www.qingmings.com/images/icon_menu.png);
+    background-repeat: no-repeat;
+    background-position-x: 20px;
+    height: 72px;
+}
+
+#iconshop > div > ul p {
+    font-size: 3vh;
+}
+
+small {
+    font-size: 1px;
+}
+
+#shop1 > ul {
+    background-position-y: -384px;
+}
+
+#shop2 > ul {
+    background-position-y: -480px;
+}
+
+#shop3 > ul {
+    background-position-y: -576px;
+}
+
+#shop4 > ul {
+    background-position-y: -672px;
+}
+
+#shop5 > ul {
+    background-position-y: -768px;
+}
+
+#shop6 > ul {
+    background-position-y: -864px;
+}
+
+#content {
+    height: 30vh;
+}
+
+#bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#contact {
+    font-size: 10px;
+}
+
+#inform {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#call {
+    font-size: 28px;
+}
+
+#wtime {
+    font-size: 13px;
+    padding: 10px;
+    border: 2px solid #000;
+    border-radius: 6px;
+}

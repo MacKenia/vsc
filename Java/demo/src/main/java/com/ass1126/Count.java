@@ -1,7 +1,7 @@
 package com.ass1126;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class Count {
@@ -13,11 +13,15 @@ public class Count {
         int[] group = new int[52];
         int result = 0;
         try {
-            FileInputStream fi = new FileInputStream(file);
+            FileReader fr = new FileReader(file);
+            // FileInputStream fi = new FileInputStream(file);
             byte[] buf = new byte[1];
             int rs = 0;
-            while ((rs=fi.read(buf))>0) {
-                String tmp = new String(buf, 0, rs);
+            // while ((rs=fi.read(buf))>0) {
+            while((rs = fr.read()) > 0){
+                // String tmp = new String(buf, 0, rs);
+                String tmp = new String();
+                tmp += (char)rs;
                 if(tmp.compareTo("a") >= 0 && tmp.compareTo("z") <= 0) {
                     group[tmp.compareTo("a")]++;
                 } else if(tmp.compareTo("A") >= 0 && tmp.compareTo("Z") <= 0) {

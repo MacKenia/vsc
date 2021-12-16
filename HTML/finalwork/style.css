@@ -2,7 +2,7 @@
     font-family: 宋体;
     padding: 0;
     margin: 0;
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
 }
 
 body {
@@ -12,8 +12,18 @@ body {
     align-items: center;
 }
 
+.logo {
+    background-image: url(http://www.qingmings.com/images/logo.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    height: 15vh;
+    width: 100vw;
+    transform: scale(0.6);
+}
+
 #center {
-    width: 76%;
+    width: 76vw;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -47,24 +57,42 @@ a:hover {
 }
 
 #fz {
-    width: 100%;
+    border-top: 1px solid #a3a3a3af;
+    /* border: 1px solid #727272; */
+    width: 100vw;
     display: flex;
     justify-content: center;
 }
 
 #navigate {
-    width: 110vh;
+    font-weight: bold;
+    font-size: 2vh;
+    padding: 1vh 0 1vh 0;
+    width: 56vw;
     display: flex;
     justify-content: space-between;
 }
 
+#banner {
+    height: 28vh;
+    background-image: url(http://www.qingmings.com/images/banner_sm.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    overflow: hidden;
+}
+
 #iconshop {
     display: flex;
-    width: 100%;
+    width: 76vw;
     justify-content: space-around;
 }
 
 #iconshop ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     padding-left: 80px;
 }
 
@@ -75,12 +103,22 @@ a:hover {
     height: 72px;
 }
 
-#iconshop > div > ul p {
+#iconshop > div > ul p:first-child {
+    margin-top: 2vh;
+    white-space: nowrap;
+    line-height: 2vh;
+    height: 2vh;
     font-size: 3vh;
+    text-overflow: ellipsis;
 }
 
-small {
-    font-size: 1px;
+#iconshop > div > ul p:last-child{
+    margin-top: 1vh;
+    white-space: nowrap;
+    height: 1vh;
+    line-height: 1vh;
+    font-size: 1vh;
+    text-overflow: ellipsis;
 }
 
 #shop1 > ul {
@@ -112,7 +150,7 @@ small {
 }
 
 #bottom {
-    width: 100%;
+    width: 100vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -136,7 +174,7 @@ small {
 
 #wtime {
     font-size: 13px;
-    padding: 10px;
+    padding: 7px;
     border: 2px solid #000;
     border-radius: 6px;
 }

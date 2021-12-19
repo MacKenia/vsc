@@ -35,7 +35,7 @@ body[baidu] #s_lg_img_new{
   display:none !important;
 }
 body[baidu] .c-container{
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(15px);
   border-radius: 5px !important;
   background-color: rgba(255,255,255, 0.3) !important; /*百度搜索块体的颜色；透明度=0.1，最大1*/
 }
@@ -58,4 +58,7 @@ body[baidu] .c-container h3{
 .wrapper_new #u .username {
     padding: 3px 10px;
     margin: 12px;
+}
+.sp-separator{
+  backdrop-filter: blur(5px);
 }

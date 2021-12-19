@@ -1,26 +1,7 @@
 * {
-    font-family: 宋体, "Microsoft YaHei";
+    font-family: "Microsoft YaHei";
     padding: 0;
     margin: 0;
-    /* border: 1px solid #000; */
-}
-
-@keyframes lShow {
-    0%{
-        transform: translate(-100px);
-    }
-    100%{
-        transform: translate(0);
-    }
-}
-
-@keyframes rShow {
-    0%{
-        transform: translate(300px);
-    }
-    100%{
-        transform: translate(0);
-    }
 }
 
 body {
@@ -75,12 +56,10 @@ a:hover {
 }
 
 #fz {
-    position: fixed;
     border-top: 2px solid #ddd;
     width: 100vw;
     display: flex;
     justify-content: center;
-    background-color: #fff;
 }
 
 #navigate {
@@ -101,74 +80,12 @@ a:hover {
     overflow: hidden;
 }
 
-#iconshop {
+#container {
     display: flex;
-    width: 76vw;
-    justify-content: space-around;
-}
-
-#iconshop ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
     align-items: center;
-    padding-left: 80px;
+    justify-content: center;
+    flex-direction: column;
 }
-
-#iconshop > div > ul {
-    background-image: url(http://www.qingmings.com/images/icon_menu.png);
-    background-repeat: no-repeat;
-    background-position-x: 20px;
-    height: 72px;
-}
-
-#iconshop > div > ul p:first-child {
-    margin-top: 2vh;
-    white-space: nowrap;
-    line-height: 2vh;
-    height: 2vh;
-    font-size: 3vh;
-    text-overflow: ellipsis;
-}
-
-#iconshop > div > ul p:last-child{
-    margin-top: 1vh;
-    white-space: nowrap;
-    height: 1vh;
-    line-height: 1vh;
-    font-size: 1vh;
-    text-overflow: ellipsis;
-}
-
-#shop1 > ul {
-    background-position-y: -384px;
-}
-
-#shop2 > ul {
-    background-position-y: -480px;
-}
-
-#shop3 > ul {
-    background-position-y: -576px;
-}
-
-#shop4 > ul {
-    background-position-y: -672px;
-}
-
-#shop5 > ul {
-    background-position-y: -768px;
-}
-
-#shop6 > ul {
-    background-position-y: -864px;
-}
-
-#content {
-    overflow: hidden;
-    height: 60vh;
-}
-
 
 #bottom {
     width: 90vw;
@@ -192,7 +109,7 @@ a:hover {
 
 #sign::before {
     content: "\e135";
-    margin-right: 1vw;
+    margin-left: 1vw;
 }
 
 #inform {

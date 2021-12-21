@@ -10,7 +10,7 @@ struct tree
     tree *right;
 };
 
-void print(tree *h)
+void print(tree *h) //root first
 {
     if(h == NULL)
         return;
@@ -26,11 +26,14 @@ void exchange(tree *(*a), tree *(*b)=NULL)
 {
     if(*a == NULL && *b == NULL) return;
     if(*a) exchange(&((*a)->left), &((*a)->right));
-    if(b && *b) exchange(&((*b)->left), &((*b)->right));
-    else return;
     tree *c;
     c = (*a)->left;
-    (*a)->left = (*b)->right;
+    (*a)->left = (*a)->right;
+    (*a)->right = c;
+    if(b && *b) exchange(&((*b)->left), &((*b)->right));
+    else return;
+    c = (*b)->left;
+    (*b)->left = (*b)->right;
     (*b)->right = c;
 }
 

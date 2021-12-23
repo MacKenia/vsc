@@ -169,6 +169,13 @@ a:hover {
     height: 60vh;
 }
 
+.title>a{
+    padding-left: 50x;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAGCAYAAACxWNwrAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAhSURBVDhPYxgsIDY29j+UOXjBqCOpBYaWI0GMwYtj/wMAXT5d34Cc3PAAAAAASUVORK5CYII=);
+    background-position: right 14px;
+    background-repeat: no-repeat;
+}
+
 
 #bottom {
     width: 90vw;

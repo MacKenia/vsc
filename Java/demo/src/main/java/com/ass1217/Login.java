@@ -17,24 +17,25 @@ public class Login extends JFrame{
     private Container ct = getContentPane();
     private FlowLayout layout = new FlowLayout();
     private BorderLayout gl = new BorderLayout();
+    private JTextField in = new JTextField();
+    private JPasswordField p = new JPasswordField();
 
     public static void main(String[] args) {
         Login lg = new Login();
+        lg.setVisible(true);
     }
 
     public Login() {
         super();
-        setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("登陆");
-        ct.setLayout(gl);
+        ct.setLayout(layout);
         gl.setHgap(3);
         gl.setVgap(6);
         setSize(480,240);
 
         JLabel name = new JLabel();
         JPanel paneln = new JPanel();
-        JTextField in = new JTextField();
         name.setText("用户名:");
         paneln.setSize(470,10);
         in.setColumns(20);
@@ -44,7 +45,6 @@ public class Login extends JFrame{
 
         JLabel pass = new JLabel();
         JPanel panelp = new JPanel();
-        JPasswordField p = new JPasswordField();
         pass.setText("密码:");
         panelp.setSize(470,20);
         p.setColumns(20);
@@ -64,16 +64,27 @@ public class Login extends JFrame{
         panelb.add(res);
         ct.add(panelb);
 
-        class actionlog implements ActionListener{
+        class ActionLogin implements ActionListener{
             public void actionPerformed(ActionEvent e){
-                JButton active = (JButton)e.getSource();
-                String btn = e.getActionCommand();
-                if(btn.equals("登陆")){
-                    JOptionPane 
+                String name = new String(in.getText());
+                String pass = new String(p.getPassword());
+                if(name.equals("ok") && pass.equals("yes")){
+                    JOptionPane.showConfirmDialog(null, "登陆成功", "提示", JOptionPane.DEFAULT_OPTION);
                 } else {
-
+                    JOptionPane.showConfirmDialog(null, "登陆失败", "提示", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
+
+        class ActionRes implements ActionListener{
+            public void actionPerformed(ActionEvent e){
+                in.setText("");
+                p.setText("");
+                JOptionPane.showConfirmDialog(null, "重置成功", "提示", JOptionPane.PLAIN_MESSAGE);
+            }
+        }
+
+        log.addActionListener(new ActionLogin());
+        res.addActionListener(new ActionRes());
     }
 }

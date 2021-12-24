@@ -55,8 +55,9 @@ body {
 }
 
 svg {
-  margin-top: calc(50vh - 75px);
-  width: 300px;
+  margin-top: calc(43vh - 75px);
+  width: 600px;
+  height: 50%;
 }
 
 .Merry, .Christmas {

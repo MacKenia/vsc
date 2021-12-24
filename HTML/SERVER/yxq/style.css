@@ -6,6 +6,14 @@ html, body {
     overflow: hidden;
     background: linear-gradient(135deg, rgba(180,186,214,1) 0%, rgba(232,203,192,1) 100%);
 }
+
+#con{
+    transform: scale(2);
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
   
 .header {text-align: center; margin: 30px 0;}
 .social a img { height: 1.5em; }
@@ -25,7 +33,7 @@ svg {
     width: 310px;
     height: 290px;
     top: 10px;
-    left: 0px;
+    left: 12px;
 }
 
 .canvas_container {
@@ -34,7 +42,7 @@ svg {
 }
 
 .draw_container {
-    position: absolute;
-    top: 50px;
-    width: 100%;
+    /* position: absolute; */
+    /* top: 50px; */
+    /* width: 100%; */
 }

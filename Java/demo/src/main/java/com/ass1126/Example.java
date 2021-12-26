@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class Example {
     public static void main(String[] args) {
-        File f = new File(new Folder().path);
+        File f = new File(Folder.path);
         File fi = new File(f, "example.txt");
         try {
             byte[] buffer = new byte[512];

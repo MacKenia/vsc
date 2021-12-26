@@ -49,6 +49,7 @@ int main()
     int arr[N], count[len];
     int flag = 0;
     memset(arr, 0, sizeof(arr));
+    memset(count, 0, sizeof(count));
     for(int i=0; i < N; i++)
     {
         arr[i] = rand() % 10;

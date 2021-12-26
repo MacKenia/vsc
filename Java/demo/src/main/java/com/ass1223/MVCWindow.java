@@ -13,7 +13,7 @@ public class MVCWindow extends JFrame{
 
     private FlowLayout fl = new FlowLayout();
     private Container ct = getContentPane();
-    private Controller ctrl = new Controller(this);
+    private Controller ctrl = new Controller(ct);
 
     public JLabel a = new JLabel("边长A");
     public JLabel b = new JLabel("边长B");

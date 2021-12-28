@@ -49,7 +49,7 @@ int InsertArc(AMGraph *g, char v, char w)
         if(g->vex[i] == w) b = i; 
     }
     g->arcs[a][b] = 1;
-    g->arcs[b][a] = 1;
+    // g->arcs[b][a] = 1;
     g->arcNum++;
     return 1;
 }

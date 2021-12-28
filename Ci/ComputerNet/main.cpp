@@ -9,6 +9,7 @@
 
 using namespace std;
 
+
 int main()
 {
     int Socket;
@@ -38,7 +39,7 @@ int main()
     socklen_t client_addr_size = sizeof(clientaddr);
     int client_socket = accept(Socket, (struct sockaddr *)&clientaddr,&client_addr_size);
 
-    char mess[] = "Hello";
+    char mess[512] = "Hello";
     write(client_socket,mess,sizeof(mess));
 
     close(client_socket);

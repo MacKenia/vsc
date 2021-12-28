@@ -14,7 +14,7 @@ using namespace std;
 int main()
 {
     int Client;
-    char buffer[256];
+    char buffer[512];
     struct sockaddr_in client_addr;
 
     Client = socket(AF_INET,SOCK_STREAM,0);

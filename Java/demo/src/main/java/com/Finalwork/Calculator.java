@@ -2,6 +2,7 @@ package com.Finalwork;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -39,6 +40,9 @@ public class Calculator extends JFrame {
     private JPanel[] pan = new JPanel[5];
     private int pans = 0;
     private int buts = 0;
+
+    private Insets is = new Insets(2,2,2,2);
+    private Font ft = new Font("Arial",Font.BOLD,17);
 
     private Control listener = new Control(but, text, history);
 
@@ -110,12 +114,15 @@ public class Calculator extends JFrame {
         in1.setHorizontalAlignment(JTextField.CENTER);
         op.setHorizontalAlignment(JTextField.CENTER);
         in2.setHorizontalAlignment(JTextField.CENTER);
-        in1.setColumns(11);
-        op.setColumns(4);
-        in2.setColumns(11);
-        in1.setMargin(new Insets(5,5,5,5));
-        op.setMargin(new Insets(5,5,5,5));
-        in2.setMargin(new Insets(5,5,5,5));
+        in1.setColumns(9);
+        op.setColumns(3);
+        in2.setColumns(9);
+        in1.setMargin(is);
+        op.setMargin(is);
+        in2.setMargin(is);
+        in1.setFont(ft);
+        op.setFont(ft);
+        in2.setFont(ft);
         pan[FPan].add(in1);
         pan[FPan].add(op);
         pan[FPan].add(in2);
@@ -126,8 +133,9 @@ public class Calculator extends JFrame {
         int FPan = pans++;
         pan[FPan] = new JPanel(fl);
         out.setHorizontalAlignment(JTextField.CENTER);
-        out.setColumns(17);
-        out.setMargin(new Insets(5,5,5,5));
+        out.setColumns(14);
+        out.setMargin(is);
+        out.setFont(ft);
         pan[FPan].add(out);
         return pan[FPan];
     }
@@ -136,7 +144,8 @@ public class Calculator extends JFrame {
         int APan = pans++;
         JScrollPane scp = new JScrollPane();
         scp.setViewportView(history);
-        history.setLineWrap(true);
+        scp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        // history.setLineWrap(true);
         pan[APan] = new JPanel(new FlowLayout());
         history.setColumns(17);
         history.setRows(8);

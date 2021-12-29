@@ -68,7 +68,7 @@ public class Control implements ActionListener {
                 flag = 0;
                 break;
             case "√":
-                text[(flag % 3)].setText(String.valueOf(Math.sqrt(Integer.valueOf(text[flag % 3].getText()))));
+                text[(flag % 3)].setText(String.valueOf(Math.sqrt(Double.valueOf(text[flag % 3].getText()))).substring(0,7));
                 break;
             case "<-":
                 text[3].setText("");
@@ -148,7 +148,7 @@ public class Control implements ActionListener {
                     while((buffer = fr.readLine()) != null)
                     {
                         System.out.println(buffer);
-                        history.append(buffer);
+                        history.append(buffer + '\n');
                     }
                     fr.close();
                 }catch(Exception ei){

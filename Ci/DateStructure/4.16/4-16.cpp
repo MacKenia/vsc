@@ -12,10 +12,11 @@ struct tree
 
 int count(tree *h)
 {
-    if(h == NULL)
-        return 0;
+    if(h == nullptr) return 0;
+    if(h->left==nullptr && h->right == nullptr)
+        return 1;
     else
-        return count(h->left) + count(h->right) + 1;
+        return count(h->left) + count(h->right);
 }
 
 void init(tree *(*node), int *arr, int n, int i = 1)
@@ -37,6 +38,6 @@ int main()
         arr[i] = rand() % N;
 
     init(&head, arr, N);
-    cout << "This tree has " << count(head) << " elements." << endl;
+    cout << "This tree has " << count(head) << " leafs." << endl;
     return 0;
 }

@@ -57,9 +57,11 @@ int main()
         a[i] = i + 1;
     }
     init(&head, a, N);
+    cout << "交换前的先序遍历:";
     print(head);
     exchange(&head);
     cout << endl;
+    cout << "交换后的先序遍历:";
     print(head);
     cout << endl;
     return 0;

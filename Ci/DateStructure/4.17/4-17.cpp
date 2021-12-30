@@ -42,7 +42,7 @@ int main()
     }
     init(&a, ar, N);
     init(&b, br, N);
-    if(compare(a, a))
+    if(compare(a, b))
     {
         cout << "Two tree are the same" << endl;
     }

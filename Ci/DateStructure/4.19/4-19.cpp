@@ -61,6 +61,6 @@ int main()
     {
         if(count[flag] < count[i]) flag = i;
     }
-    cout << endl << count[flag] << endl;
+    cout << endl << "树的宽度为: " << count[flag] << endl;
     return 1;
 }

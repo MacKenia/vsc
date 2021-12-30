@@ -14,7 +14,7 @@ using namespace std;
 int main()
 {
     int Client;
-    char buffer[512];
+    char buffer[5];
     struct sockaddr_in client_addr;
 
     Client = socket(AF_INET,SOCK_STREAM,0);
@@ -26,7 +26,7 @@ int main()
 
     connect(Client,(struct sockaddr*)&client_addr, sizeof(client_addr));
 
-    read(Client, buffer, sizeof(buffer)-1);
+    read(Client, buffer, sizeof(buffer));
 
     cout << buffer << endl;
 

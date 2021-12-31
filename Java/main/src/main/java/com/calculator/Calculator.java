@@ -1,4 +1,4 @@
-package com.Finalwork;
+package com.calculator;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.plaf.DimensionUIResource;
 
@@ -35,22 +36,18 @@ public class Calculator extends JFrame {
     private JTextField op = new JTextField();
     private JTextField out = new JTextField();
     private JTextArea history = new JTextArea();
-
+    
     private JTextField[] text = {in1, op, in2, out};
     private JButton[] but = new JButton[23];
     private JPanel[] pan = new JPanel[5];
     private int pans = 0;
     private int buts = 0;
-
+    
     private Insets is = new Insets(2,2,2,2);
     private Font ft = new Font("Arial",Font.BOLD,17);
-
+    
     private Control listener = new Control(but, text, history);
-
-    public static void main(String[] args){
-        Calculator cal = new Calculator();
-    }
-
+    
     Calculator() {
         super();
         setTitle("计算器");
@@ -59,21 +56,37 @@ public class Calculator extends JFrame {
         setContentPane(sp);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-
+        
         leftPanel();
         rightPanel();
-
+        
         for(JButton i : but){
             i.setPreferredSize(new Dimension(52,32));
         }
-
+        
         sp.setContinuousLayout(true);
         sp.setDividerLocation(JSplitPane.CENTER_ALIGNMENT);
         sp.setDividerSize(0);
 
+        for(JTextField i : text){
+            i.setHorizontalAlignment(JTextField.CENTER);
+            i.setMargin(is);
+            i.setFont(ft);
+            i.setEditable(false);
+        }
+        try{
+            for(UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        
         setVisible(true);
     }
-
+    
     void leftPanel() {
         JPanel leftPanel = new JPanel(fl);
         leftPanel.add(inputField());
@@ -112,18 +125,9 @@ public class Calculator extends JFrame {
         int FPan = pans++;
         pan[FPan] = new JPanel(fl);
         fl.setVgap(10);
-        in1.setHorizontalAlignment(JTextField.CENTER);
-        op.setHorizontalAlignment(JTextField.CENTER);
-        in2.setHorizontalAlignment(JTextField.CENTER);
         in1.setColumns(9);
         op.setColumns(3);
         in2.setColumns(9);
-        in1.setMargin(is);
-        op.setMargin(is);
-        in2.setMargin(is);
-        in1.setFont(ft);
-        op.setFont(ft);
-        in2.setFont(ft);
         pan[FPan].add(in1);
         pan[FPan].add(op);
         pan[FPan].add(in2);
@@ -133,10 +137,7 @@ public class Calculator extends JFrame {
     JPanel outputField(){
         int FPan = pans++;
         pan[FPan] = new JPanel(fl);
-        out.setHorizontalAlignment(JTextField.CENTER);
         out.setColumns(14);
-        out.setMargin(is);
-        out.setFont(ft);
         pan[FPan].add(out);
         return pan[FPan];
     }
@@ -151,6 +152,7 @@ public class Calculator extends JFrame {
         history.setColumns(17);
         history.setRows(8);
         history.setMargin(new Insets(5,5,5,5));
+        history.setEditable(false);
         pan[APan].add(scp);
         return pan[APan];
     }

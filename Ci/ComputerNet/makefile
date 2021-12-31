@@ -1,7 +1,7 @@
 socket: server client
 	./server & ./client
-server: main.cpp
-	g++ main.cpp -o server
+server: server.cpp
+	g++ server.cpp -o server
 
 client: client.cpp
 	g++ client.cpp -o client

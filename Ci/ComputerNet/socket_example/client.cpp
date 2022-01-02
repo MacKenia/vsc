@@ -23,7 +23,7 @@ int main()
     client_addr.sin_family = AF_INET;
     client_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
     client_addr.sin_port = htons(13080);
-
+ 
     connect(Client,(struct sockaddr*)&client_addr, sizeof(client_addr));
 
     read(Client, buffer, sizeof(buffer));

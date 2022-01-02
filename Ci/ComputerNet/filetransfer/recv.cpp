@@ -5,8 +5,7 @@ using namespace std;
 int main()
 {
     filetransfer video;
-    printf("ok");
     video.recv();
-    // video.exit();
+    video.exit();
     return 0;
 }

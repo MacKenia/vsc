@@ -110,6 +110,7 @@ void filetransfer::send(void)
             std::cout << fread(&tmp.data, tmp.offset, 1, input) << "\t";
             std::cout << write(recv_socket,(char*)&tmp, sizeof(tmp)) << "\t";
             printf("%.2f%%", ftell(input)*1.0 / size*100);
+            if(!(i%10)) usleep(1);
         }
         printf("发送完成\n");
     }
@@ -164,6 +165,7 @@ void filetransfer::recv()
             if(tmp.flag&8 || ftell(output)>size) break;
         }
         printf("接收完成");
+        // getchar();
     }
     else
     {
@@ -172,10 +174,17 @@ void filetransfer::recv()
 
 void filetransfer::exit()
 {
-    if(!recv_socket) close(recv_socket);
-    if(!send_socket) close(send_socket);
-    if(!input) fclose(input);
-    if(!output) fclose(output);
+    if(input)
+    {
+        fclose(input);
+        close(recv_socket);
+        close(send_socket);
+    }
+    if(output)
+    {
+        fclose(output);
+        close(recv_socket);
+    }
 }
 
 char *filetransfer::ipc()

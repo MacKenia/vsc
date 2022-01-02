@@ -27,8 +27,8 @@ typedef unsigned long int Uint;
 class filetransfer
 {
 private:
-    int send_socket;
-    int recv_socket;
+    int send_socket = 0;
+    int recv_socket = 0;
     int yes;
     struct sockaddr_in send_addr;
     struct sockaddr_in recv_addr;

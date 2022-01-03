@@ -30,7 +30,7 @@ int main()
     for (int i = 0; i < N; i++)
     {
         // break;
-        int flen = Ksize / N;
+        int flen = Fsize;
         int len = 1024;
 
         FILE *op = fopen(tmpname, "wb+");

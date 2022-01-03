@@ -4,8 +4,8 @@ using namespace std;
 
 int main()
 {
-    filetransfer video;
+    char ip[] = "127.0.0.1";
+    filetransfer video(ip);
     video.recv();
-    video.exit();
     return 0;
 }

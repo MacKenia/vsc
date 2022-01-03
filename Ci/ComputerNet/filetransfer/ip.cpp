@@ -113,6 +113,6 @@ int main(void)
 
     printf("%d",a);
 
-    printf("%d",a&2);
+    printf("%d",a&8);
     return 0;
 }

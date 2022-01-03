@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <pthread.h>
+#include <unistd.h>
  
 using namespace std;
  
@@ -11,6 +12,11 @@ void *PrintHello(void *threadid)
    // 对传入的参数进行强制类型转换，由无类型指针变为整形数指针，然后再读取
    int tid = *((int*)threadid);
    cout << "Hello Runoob! 线程 ID, " << tid << endl;
+   FILE *s = fopen("input.txt","rb");
+   char tmp[10];
+   fread(&tmp,10,1,s);
+   usleep(100);
+   if(!s) cout << "文件打开失败" << tid << endl;
    pthread_exit(NULL);
 }
  

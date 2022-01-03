@@ -15,7 +15,7 @@
 
 typedef struct StandardDataStruct
 {
-    char flag; // 1 text 2 file 3 info 8 finish 16 
+    char flag; // 1 text 2 file 3 info 4 start 8 finish 16 
     int offset; // offset of present frame(length of data)
     unsigned long int number; // number of present fragmane when flag == 3 present slice
     char data[1024];
@@ -29,28 +29,29 @@ class filetransfer
 private:
     int send_socket = 0;
     int recv_socket = 0;
-    int yes;
+    static int yes;
+    static const int start = 10000;
     struct sockaddr_in send_addr;
     struct sockaddr_in recv_addr;
-    char *ip;
+    static char *ip;
 
-    FILE *input = nullptr, *output = nullptr;
-    char *filename;
-    int slice; // num of fragments
-    Uint num; // file sequence
-    Uint size = 0; // size of the file
-    Uint len = 0; // K size of the file
+    static char *filename;
+    static int slice; // num of fragments
+    static Uint size; // size of the file
 
 public:
     char ERROR; // 1 local ip miss
-    filetransfer();
     filetransfer(char*);
-    filetransfer(char *,int);
+    filetransfer(char*,char*);
+    filetransfer(char*,char *,int);
     void send(void); // start send file
     void recv();
-    void exit();
+    void setip(char*);
 
 protected:
+    static void *send_fragment(void *);
+    static void *recv_fragment(void *);
+    void merge_fragment();
     void inits();
     void initr();
     void scan();

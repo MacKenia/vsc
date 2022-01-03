@@ -239,8 +239,20 @@ void filetransfer::send()
                 i -= 1;
         // pthread_exit(nullptr);
     }
-    WINDOW *tip = newwin(LINES, COLS, LINES, COLS);
+
+    WINDOW *tip = newwin(LINES/2, COLS/2, LINES/4, COLS/4);
+    refresh();
+    box(tip,'|','-');
+    
+    wmove(tip,0,2);
+    wprintw(tip,"提示");
+
+    wmove(tip,LINES/4-1,COLS/4-1);
+    wprintw(tip,"%s","传输完成");
+    wrefresh(tip);
+
     getchar();
+    endwin();
 }
 
 void filetransfer::recv()
@@ -312,7 +324,7 @@ void filetransfer::recv()
         WINDOW *single = newwin(3, COLS, 9, 0);
         box(single, '|', '-');
         wmove(single, 0, 2);
-        wprintw(single, "%s", "线程1");
+        wprintw(single, "%s", "发送");
         wrefresh(single);
 
         wmove(single, 1, 1);
@@ -380,11 +392,22 @@ void filetransfer::recv()
         for (int i = 0; i < slice; i++)
             if (!done[i])
                 i -= 1;
-        pthread_exit(nullptr);
+        // pthread_exit(nullptr);
         merge_fragment();
     }
-    WINDOW *tip = newwin(LINES, COLS, LINES, COLS);
+    WINDOW *tip = newwin(LINES/2, COLS/2, LINES/4, COLS/4);
+    refresh();
+    box(tip,'|','-');
+    
+    wmove(tip,0,2);
+    wprintw(tip,"提示");
+
+    wmove(tip,LINES/4-1,COLS/4-1);
+    wprintw(tip,"%s","传输完成");
+    wrefresh(tip);
+
     getchar();
+    endwin();
 }
 
 char *filetransfer::ipc()
@@ -410,24 +433,14 @@ void *filetransfer::send_fragment(void *fid)
 {
     initscr();
     int id = *((int *)fid);
-    char rate[COLS - 1];
-    memset(rate, '-', sizeof(rate));
-    rate[0] = '[';
-    rate[COLS - 2] = '\0';
-    rate[COLS - 3] = ']';
 
     WINDOW *sing = newwin(3, COLS, 9 + id * 4, 0);
     // box(sing, '|', '-');
-    usleep(rand() % 10);
     wmove(sing, 0, 2);
+    usleep(rand() % 10);
     wprintw(sing, "%s%d", "线程", id);
     wrefresh(sing);
     usleep(rand() % 10);
-
-    usleep(rand() % 10);
-    wmove(sing, 1, 1);
-    wprintw(sing, "%s", rate);
-    wrefresh(sing);
 
     int send_s = 0;
     int recv_s = 0;
@@ -441,8 +454,8 @@ void *filetransfer::send_fragment(void *fid)
 
     send_s = socket(AF_INET, SOCK_STREAM, 0);
 
-    usleep(rand() % 100);
     wmove(sing, 0, 8);
+    usleep(rand() % 100);
     wprintw(sing, "线程套接字:{%s:%d}", ip, start + id);
     wrefresh(sing);
     // printf("%d: 分配套接字{%s:%d}\n",id,ip,start+id);
@@ -535,28 +548,19 @@ void *filetransfer::send_fragment(void *fid)
         write(recv_s, (char *)&tmp, sizeof(tmp));
         // if(!id) printf("\r");
         // printf("%d: %.2f%%\t",id, i*1024*1.0 / size*100);
-        for (int k = (i - 1) * 1.0 / loopctl * (COLS - 4); k < (i)*1.0 / loopctl * (COLS - 4); k++)
-            rate[k] = '#';
-        usleep(rand() % 10);
-        wmove(sing, 1, 1);
-        wprintw(sing, "%s", rate);
         wmove(sing, 2, 2);
-        wprintw(sing, "%d%%", (int)(i * 100.0 / loopctl));
+        usleep(rand() % 100);
+        if (!(i % 100))
+            wprintw(sing, "%d%%", (int)(i * 100.0 / loopctl));
         wrefresh(sing);
+        refresh();
         usleep(rand() % (slice + 1));
     }
     // printf("%d: 发送完成\n",id);
-    memset(rate, '#', sizeof(rate));
-    rate[0] = '[';
-    rate[COLS - 2] = '\0';
-    rate[COLS - 3] = ']';
-
-    usleep(rand() % 10);
-    wmove(sing, 1, 1);
-    wprintw(sing, "%s", rate);
 
     usleep(rand() % 10);
     wmove(sing, 2, 2);
+    usleep(rand() % 100);
     wprintw(sing, "%s%%", "100");
     wrefresh(sing);
 
@@ -575,25 +579,13 @@ void *filetransfer::recv_fragment(void *fid)
     initscr();
     int id = *((int *)fid);
 
-    char rate[COLS - 1];
-    memset(rate, '-', sizeof(rate));
-    rate[0] = '[';
-    rate[COLS - 2] = '\0';
-    rate[COLS - 3] = ']';
-
     WINDOW *sing = newwin(3, COLS, 9 + id * 4, 0);
-    // box(sing, '|', '-');
-    usleep(rand() % 10);
     wmove(sing, 0, 2);
-    wprintw(sing, "%s%d", "线程",id);
+    usleep(rand() % 100);
+    wprintw(sing, "%s%d", "线程", id);
     wrefresh(sing);
     usleep(rand() % 10);
-    // getchar();
 
-    usleep(rand() % 10);
-    wmove(sing, 1, 1);
-    wprintw(sing, "%s", rate);
-    wrefresh(sing);
     int recv_s = 0;
     struct sockaddr_in recv_a;
 
@@ -614,6 +606,7 @@ void *filetransfer::recv_fragment(void *fid)
 
     usleep(rand() % 10);
     wmove(sing, 0, 8);
+    usleep(rand() % 100);
     wprintw(sing, "线程套接字:{%s:%d}", ip, start + id);
     wrefresh(sing);
     // printf("%d: 分配套接字{%s:%d}\n",id,ip,start+id);
@@ -638,6 +631,7 @@ void *filetransfer::recv_fragment(void *fid)
     // printf("\n%d: 开始传输",id);
 
     int l = tmp.number;
+    int i = 0;
     while (tmp.flag & 2)
     {
         // if (!id)
@@ -649,30 +643,19 @@ void *filetransfer::recv_fragment(void *fid)
         fwrite(&tmp.data, tmp.offset, 1, output);
         // printf("%d\t%d\t%d\t",tmp.offset,tmp.flag,tmp.number);
         // printf("%.2f%%", ftell(output)*1.0 / size*100);
-        for (int k = 0; k < (ftell(output) * 1.0 / l)*(COLS-4); k++)
-            rate[k] = '#';
-        usleep(rand() % 10);
-        wmove(sing, 1, 1);
-        wprintw(sing, "%s", rate);
         wmove(sing, 2, 2);
-        wprintw(sing, "%d%%", (int)(ftell(output) * 1.0 / l));
+        usleep(rand() % 100);
+        if (!(i++ % 100))
+            wprintw(sing, "%d%%", (int)(ftell(output) * 1.0 / l));
         wrefresh(sing);
         if (tmp.flag & 8)
             break;
     }
-    printf("\n\n");
-    memset(rate, '#', sizeof(rate));
-    rate[0] = '[';
-    rate[COLS - 2] = '\0';
-    rate[COLS - 3] = ']';
 
-    usleep(rand() % 10);
-    wmove(sing, 1, 1);
-    // wprintw(sing, "%s", rate);
-
-    usleep(rand() % 10);
     wmove(sing, 2, 2);
+    usleep(rand() % 100);
     wprintw(sing, "%s%%", "100");
+    refresh();
     wrefresh(sing);
     // printf("%d: 接收完成\n",id);
 
@@ -687,12 +670,35 @@ void *filetransfer::recv_fragment(void *fid)
 
 void filetransfer::merge_fragment()
 {
+    initscr();
+    WINDOW *tip = newwin(5, COLS, LINES / 4, 0);
+    refresh();
+    box(tip, '|', '-');
+    wrefresh(tip);
+
+    char rate[COLS - 1];
+    memset(rate, '-', sizeof(rate));
+    rate[0] = '[';
+    rate[COLS - 2] = '\0';
+    rate[COLS - 3] = ']';
+
+    wmove(tip, 0, 2);
+    wprintw(tip, "%s", "合并分片");
+
+    wmove(tip, 2, 1);
+    wprintw(tip, "%s", rate);
+    wrefresh(tip);
     // printf("\n开始合并分片\n");
+
     FILE *input;
     char tmpname[] = "t0";
     char buf[1024];
     FILE *output = fopen(filename, "wb+");
     Uint total = 0;
+
+    wmove(tip, 1, 1);
+    wprintw(tip, "文件名: %s, 分片数: %d, 文件总大小: %d\n", filename, slice, size);
+    wrefresh(tip);
 
     // printf("文件名: %s, 分片数: %d, 文件总大小: %d\n", filename, slice, size);
     for (int i = 0; i < slice; i++)
@@ -706,21 +712,35 @@ void filetransfer::merge_fragment()
         fseek(input, 0, SEEK_SET);
         total += tsize;
 
-        std::cout << tmpname << ":" << tsize << std::endl;
+        // std::cout << tmpname << ":" << tsize << std::endl;
         Ksize = tsize % 1024 ? tsize / 1024 + 1 : tsize / 1024;
         Rsize = 1024;
         for (int j = 0; j < Ksize; j++)
         {
+            usleep(1);
             if (i == slice - 1 && j == Ksize - 1 && tsize % 1024)
                 Rsize = tsize % 1024;
             memset(buf, 0, sizeof(buf));
 
             fread(&buf, Rsize, 1, input);
             fwrite(&buf, Rsize, 1, output);
+
+            for (int k = 0; k < (ftell(output) * 1.0 / size) * (COLS - 4); k++)
+                rate[k] = '#';
+
+            wmove(tip, 2, 1);
+            wprintw(tip, "%s", rate);
+            wrefresh(tip);
         }
         fclose(input);
     }
     fclose(output);
+
+    wmove(tip, 3, 1);
+    wprintw(tip, "文件差值: %d - %d = %d\n", total, size, total - size);
+    wmove(tip, 4, COLS / 2 - 1);
+    wprintw(tip, "OK");
+    wrefresh(tip);
     // printf("文件差值: %d - %d = %d\n", total, size, total - size);
 }
 

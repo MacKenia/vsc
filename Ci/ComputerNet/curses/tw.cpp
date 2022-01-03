@@ -7,7 +7,17 @@ using namespace std;
 
 int main()
 {
-    WINDOW *tip = newwin(LINES/4, COLS/4, LINES, COLS);
+    setlocale(LC_ALL,"");
+    initscr();
+    WINDOW *tip = newwin(LINES/2, COLS/2, LINES/4, COLS/4);
+    refresh();
+    box(tip,'|','-');
+    
+    wmove(tip,0,2);
+    wprintw(tip,"提示");
+
+    wmove(tip,LINES/4-1,COLS/4-1);
+    wprintw(tip,"%s","传输完成");
     wrefresh(tip);
 
     getchar();
@@ -16,8 +26,6 @@ int main()
 
 int x()
 {
-    setlocale(LC_ALL,"");
-    initscr();
     int piece;
     char ip[15];
     char file[80];
@@ -44,4 +52,5 @@ int x()
     wprintw(info,"%s","输入线程数: ");
     wgetstr(info,ip);
     endwin();
+    return 0;
 }

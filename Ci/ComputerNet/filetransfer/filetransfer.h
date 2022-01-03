@@ -9,6 +9,7 @@
 #include <arpa/inet.h>
 #include <net/if.h>
 #include <sys/ioctl.h>
+#include <curses.h>
 
 #ifndef FILETRANSFER_H
 #define FILETRANSGER_H
@@ -30,6 +31,7 @@ private:
     int send_socket = 0;
     int recv_socket = 0;
     static int yes;
+    static int done[32];
     static const int start = 10000;
     struct sockaddr_in send_addr;
     struct sockaddr_in recv_addr;
@@ -44,9 +46,11 @@ public:
     filetransfer(char*);
     filetransfer(char*,char*);
     filetransfer(char*,char *,int);
-    void send(void); // start send file
+    void send(); // start send file
     void recv();
     void setip(char*);
+    static int toint(char*);
+    static char* tochar(int);
 
 protected:
     static void *send_fragment(void *);
@@ -56,8 +60,6 @@ protected:
     void initr();
     void scan();
     char* ipc();
-    char* tochar(int);
-    int toint(char*);
 };
 
 

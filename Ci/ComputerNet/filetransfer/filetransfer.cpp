@@ -5,6 +5,7 @@ char *filetransfer::ip;
 char *filetransfer::filename;
 int filetransfer::slice; // num of fragments
 int filetransfer::yes;
+int filetransfer::done[32];
 
 filetransfer::filetransfer(char *add)
 {
@@ -45,7 +46,7 @@ void filetransfer::initr()
     recv_addr.sin_addr.s_addr = inet_addr(ip);
 }
 
-void filetransfer::send(void)
+void filetransfer::send()
 {
     inits();
     printf("初始化成功\n");
@@ -146,6 +147,9 @@ void filetransfer::send(void)
             }
             // usleep(1);
         }
+        for (int i = 0; i < slice; i++)
+            if(!done[i])
+                i -= 1;
         pthread_exit(nullptr);
     }
 }
@@ -208,7 +212,7 @@ void filetransfer::recv()
         int *index = new int(slice);
         for (int i = 0; i < slice; i++)
         {
-            usleep(10);
+            
             index[i] = i;
             if(
                 pthread_create(&threads[i],nullptr,recv_fragment,(void*)&(index[i]))
@@ -217,6 +221,12 @@ void filetransfer::recv()
                 printf("%d: 创建线程失败\n",i);
             }
         }
+
+        for (int i = 0; i < slice; i++)
+            if(!done[i])
+                i -= 1;
+        
+        merge_fragment();
         pthread_exit(nullptr);
     }
 }
@@ -289,27 +299,32 @@ void *filetransfer::send_fragment(void *fid)
 
     loopctl = Fsize;
 
-    if(id == slice)
+    if(id == slice-1)
     {
         if(Lsize % 1024 == 0)
             loopctl = Lsize/1024;
         else
+        {
             loopctl = Lsize/1024+1;
+            printf("%d: 片大小: %d\n",id,Lsize);
+        }
     }
+    else
+        printf("%d: 片大小: %d\n",id,Fsize*1024);
 
     fseek(input, id*Fsize*1024,SEEK_SET);
 
     listen(send_s,20);
     printf("%d: 开始监听, 准备传输\n",id);
 
-    printf("%d: 当前分片数: %d\n",id,loopctl);
+    // printf("\n\n%d: 当前分片数: %d\n\n",id,loopctl);
 
     socklen_t recv_size = sizeof(recv_a);
     recv_s = accept(send_s,(struct sockaddr*)&recv_a,&recv_size);
 
     printf("%d: 连接接成功,%d\n",id,recv_s);
 
-    usleep(1);
+    usleep(rand()%(slice+1));
 
     // 发送开始信息
     tmp.flag =4;
@@ -329,22 +344,25 @@ void *filetransfer::send_fragment(void *fid)
         if(i == loopctl-1)
         {
             tmp.flag |= 8;
-            if(size%1024) tmp.offset = size%1024;
+            if(id == slice-1 && size%1024) tmp.offset = size%1024;
         }
-        if(id) std::cout << "\n^^" << i << "^^\n";
+        // std::cout << "\n" << i << "\n";
         // std::cout << fread(&tmp.data, tmp.offset, 1, input) << "\t";
         fread(&tmp.data, tmp.offset, 1, input);
         // if(id) printf("%s\t",tmp.data);
         // std::cout << write(recv_s,(char*)&tmp, sizeof(tmp)) << "\t";
         write(recv_s,(char*)&tmp, sizeof(tmp));
-        if(id) printf("%.2f%%", i*1024*1.0 / size*100);
-        usleep(1);
+        // if(!id) printf("\r");
+        // printf("%d: %.2f%%\t",id, i*1024*1.0 / size*100);
+        usleep(rand()%(slice+1));
     }
     printf("%d: 发送完成\n",id);
     
     fclose(input);
     close(send_s);
     close(recv_s);
+    
+    done[id] = 1;
 
     pthread_exit(nullptr);
 }
@@ -392,44 +410,54 @@ void *filetransfer::recv_fragment(void *fid)
 
     while(tmp.flag&2)
     {
+        if(!id) printf("\r");
         memset(tmp.data, 0, sizeof(tmp.data));
-        std::cout << read(recv_s,(char*)&tmp,sizeof(tmp)) << "\t";
-        std::cout << fwrite(&tmp.data,tmp.offset,1,output) << "\t";
-        printf("%d\t%d\t%d\t",tmp.offset,tmp.flag,tmp.number);
-        printf("%.2f%%", ftell(output)*1.0 / size*100);
+        // std::cout << read(recv_s,(char*)&tmp,sizeof(tmp)) << "\t";
+        read(recv_s,(char*)&tmp,sizeof(tmp));
+        // std::cout << fwrite(&tmp.data,tmp.offset,1,output) << "\t";
+        fwrite(&tmp.data,tmp.offset,1,output);
+        // printf("%d\t%d\t%d\t",tmp.offset,tmp.flag,tmp.number);
+        // printf("%.2f%%", ftell(output)*1.0 / size*100);
         if(tmp.flag&8) break;
-        printf("%d: 接收完成\n",id);
     }
+    printf("%d: 接收完成\n",id);
 
     fclose(output);
     close(recv_s);
 
+    done[id] = 1;
+
     pthread_exit(nullptr);
+
 }
 
 void filetransfer::merge_fragment()
 {
+    printf("\n开始合并分片\n");
     FILE *input;
     char tmpname[] = "t0";
     char buf[1024];
     FILE *output = fopen(filename,"wb+");
+    Uint total = 0;
 
+    printf("文件名: %s, 分片数: %d, 文件总大小: %d\n",filename,slice,size);
     for (int i = 0; i < slice; i++)
     {
-        int size = 0, Ksize = 0, Rsize = 0;
+        int tsize = 0, Ksize = 0, Rsize = 0;
 
         input = fopen(tmpname, "rb");
         tmpname[1]++;
         fseek(input, 0, SEEK_END);
-        size = ftell(input);
+        tsize = ftell(input);
         fseek(input, 0, SEEK_SET);
+        total += tsize;
 
-        std::cout << tmpname << ":" << size << std::endl;
-        Ksize = size%1024 ? size/1024 + 1 : size/1024;
+        std::cout << tmpname << ":" << tsize << std::endl;
+        Ksize = tsize%1024 ? tsize/1024 + 1 : tsize/1024;
         Rsize = 1024;
         for (int j = 0; j < Ksize; j++)
         {
-            if(i == slice - 1 && j == Ksize - 1 && size%1024) Rsize = size%1024;
+            if(i == slice - 1 && j == Ksize - 1 && tsize%1024) Rsize = tsize%1024;
             memset(buf, 0, sizeof(buf));
 
             fread(&buf,Rsize,1,input);
@@ -438,6 +466,7 @@ void filetransfer::merge_fragment()
         fclose(input);
     }
     fclose(output);
+    printf("文件差值: %d - %d = %d\n",total,size,total-size);
 }
 
 char *filetransfer::tochar(int a)

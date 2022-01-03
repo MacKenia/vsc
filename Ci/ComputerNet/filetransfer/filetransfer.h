@@ -51,6 +51,7 @@ public:
     void setip(char*);
     static int toint(char*);
     static char* tochar(int);
+    static char* ipc();
 
 protected:
     static void *send_fragment(void *);
@@ -59,7 +60,6 @@ protected:
     void inits();
     void initr();
     void scan();
-    char* ipc();
 };
 
 

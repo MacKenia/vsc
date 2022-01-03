@@ -9,30 +9,36 @@ int filetransfer::done[32];
 
 filetransfer::filetransfer(char *add)
 {
+    setlocale(LC_ALL, "");
+    initscr();
     ip = add;
-    printf("等待接收数据...\n");
 }
 
-filetransfer::filetransfer(char *add,char *input)
+filetransfer::filetransfer(char *add, char *input)
 {
-    printf("欢迎使用\n");
+    setlocale(LC_ALL, "");
+    initscr();
+    // printf("欢迎使用");
     slice = 1;
     filename = input;
     ip = add;
 }
 
-filetransfer::filetransfer(char *add,char *input, int n)
+filetransfer::filetransfer(char *add, char *input, int n)
 {
-    printf("欢迎使用\n");
+    setlocale(LC_ALL, "");
+    initscr();
+    // printf("欢迎使用");
     filename = input;
     slice = n;
     ip = add;
-    if(slice > 32) slice = 32;
+    if (slice > 32)
+        slice = 32;
 }
 
 void filetransfer::inits()
 {
-    printf("初始化...\n");
+    // printf("初始化...");
     send_addr.sin_family = AF_INET;
     send_addr.sin_port = htons(11451);
     send_addr.sin_addr.s_addr = inet_addr(ip);
@@ -40,7 +46,7 @@ void filetransfer::inits()
 
 void filetransfer::initr()
 {
-    printf("初始化...\n");
+    // printf("初始化...");
     recv_addr.sin_family = AF_INET;
     recv_addr.sin_port = htons(11451);
     recv_addr.sin_addr.s_addr = inet_addr(ip);
@@ -48,29 +54,62 @@ void filetransfer::initr()
 
 void filetransfer::send()
 {
+    // int cols = COLS;
+    char rate[COLS - 1];
+    memset(rate, '-', sizeof(rate));
+    rate[0] = '[';
+    rate[COLS - 2] = '\0';
+    rate[COLS - 3] = ']';
+    // for (int i = 0; i < COLS-2; i++)
+    // {
+    //     if(i==0) rate[i] = '[';
+    //     else if(i==COLS-3) rate[i] = ']';
+    //     else rate[i] = '-';
+    //     // printf("%c",rate[i]);
+    // }
+
+    refresh();
+    WINDOW *info = newwin(8, COLS, 0, 0);
+    box(info, '|', '-');
+    wrefresh(info);
+
+    scrollok(info, true);
+
     inits();
-    printf("初始化成功\n");
+    wprintw(info, "%s", "  初始化成功\n");
+    box(info, '|', '-');
+    wrefresh(info);
+
+    // getchar();
+    // return ;
 
     send_socket = socket(AF_INET, SOCK_STREAM, 0);
-    
+
     if (send_socket == -1)
     {
         perror("socket init failed");
     }
-    printf("套接字创建成功\n");
+    wprintw(info, "%s", "  套接字创建成功\n");
+    box(info, '|', '-');
+    wrefresh(info);
 
     yes = 1;
     if (setsockopt(send_socket, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1)
     {
         perror("setsockopt failed\n");
     }
-    printf("端口复用配置成功\n");
+    wprintw(info, "%s", "  端口复用配置成功\n");
+    box(info, '|', '-');
+    wrefresh(info);
+    // printf("端口复用配置成功\n");
 
+    bind(send_socket, (struct sockaddr *)&send_addr, sizeof(send_addr));
+    wprintw(info, "%s", "  套接字绑定成功\n");
+    box(info, '|', '-');
+    wrefresh(info);
+    // printf("套接字绑定成功\n");
 
-    std::cout << bind(send_socket, (struct sockaddr *)&send_addr, sizeof(send_addr));
-    printf("套接字绑定成功\n");
-
-    Uint num; // file sequence
+    Uint num;     // file sequence
     Uint len = 0; // K size of the file
 
     STD tmp;
@@ -84,8 +123,8 @@ void filetransfer::send()
     FILE *input = fopen(filename, "rb");
     fseek(input, 0, SEEK_END);
     size = ftell(input);
-    len = size%1024 ? size/1024 + 1: size/1024;
-    fseek(input,0,SEEK_SET);
+    len = size % 1024 ? size / 1024 + 1 : size / 1024;
+    fseek(input, 0, SEEK_SET);
 
     strcpy(&tmp.data[tmp.offset + 1], tochar(size));
     for (int i = size; i > 0; i /= 10)
@@ -93,23 +132,48 @@ void filetransfer::send()
 
     tmp.number = slice;
 
-    printf("文件名: %s\t文件大小: %d\t分片数: %d\t线程数: %d\n",filename,size,len,slice);
+    wprintw(info, "%s%s\n", "  文件名: ", filename);
+    wprintw(info, "%s%dB\n", "  分片数: ", size);
+    wprintw(info, "%s%d\n", "  分片数: ", len);
+    wprintw(info, "%s%d\n", "  线程数: ", slice);
+    box(info, '|', '-');
+    wrefresh(info);
+    // printf("文件名: %s\t文件大小: %d\t分片数: %d\t线程数: %d\n",filename,size,len,slice);
 
-    std::cout << listen(send_socket, 20);
-    printf("开始监听, 准备传输\n");
+    listen(send_socket, 20);
+    wprintw(info, "%s\n", "  开始监听, 准备传输");
+    box(info, '|', '-');
+    wrefresh(info);
+    // printf("开始监听, 准备传输\n");
 
     socklen_t client_addr_size = sizeof(recv_addr);
     recv_socket = accept(send_socket, (struct sockaddr *)&recv_addr, &client_addr_size);
-    printf("连接接成功,%d\n",recv_socket);
+
+    wprintw(info, "%s\n", "  连接成功");
+    box(info, '|', '-');
+    wrefresh(info);
+
+    // getchar();
+    // printf("连接接成功,%d\n",recv_socket);
 
     write(recv_socket, (char *)&tmp, sizeof(tmp));
 
-
     if (slice == 1)
     {
+        WINDOW *single = newwin(3, COLS, 9, 0);
+        box(single, '|', '-');
+        wmove(single, 0, 2);
+        wprintw(single, "%s", "线程1");
+        wrefresh(single);
+
+        wmove(single, 1, 1);
+        wprintw(single, "%s", rate);
+        wrefresh(single);
+
         usleep(100);
-        printf("开始传输\n");
-        for (int i = 0; i < len;i++)
+
+        // printf("开始传输\n");
+        for (int i = 0; i < len; i++)
         {
             tmp.flag &= 0;
             tmp.flag |= 2;
@@ -117,20 +181,44 @@ void filetransfer::send()
             if (i == len - 1)
             {
                 tmp.flag |= 8;
-                if(size % 1024) tmp.offset = size%1024;
+                if (size % 1024)
+                    tmp.offset = size % 1024;
             }
             else
                 tmp.offset = 1024;
             memset(tmp.data, 0, sizeof(tmp.data));
-            std::cout << "\n"<< i <<  '\t';
-            std::cout << fread(&tmp.data, tmp.offset, 1, input) << "\t";
-            std::cout << write(recv_socket,(char*)&tmp, sizeof(tmp)) << "\t";
-            printf("%.2f%%", ftell(input)*1.0 / size*100);
+            // std::cout << "\r"<< i <<  '\t';
+            fread(&tmp.data, tmp.offset, 1, input);
+            write(recv_socket, (char *)&tmp, sizeof(tmp));
+            // printf("%.2f%%", ftell(input)*1.0 / size*100);
+            // rate[(int)(i*1.0/len*(COLS-4))+1] = '#';
+            for (int k = (i - 1) * 1.0 / len * (COLS - 4); k < (i)*1.0 / len * (COLS - 4); k++)
+                rate[k] = '#';
+            wmove(single, 1, 1);
+            wprintw(single, "%s", rate);
+            wmove(single, 2, 2);
+            wprintw(single, "%d%%", (int)(i * 100.0 / len));
+            wrefresh(single);
             // if(!(i%100)) usleep(3);
-            usleep(1);
+            usleep(2);
+            // printf("%d,",i);
         }
-        printf("发送完成\n");
+
+        memset(rate, '#', sizeof(rate));
+        rate[0] = '[';
+        rate[COLS - 2] = '\0';
+        rate[COLS - 3] = ']';
+        wmove(single, 1, 1);
+        wprintw(single, "%s", rate);
+
+        wmove(single, 2, 2);
+        wprintw(single, "%s%%", "100");
+        wrefresh(single);
+
+        // return;
+        // printf("发送完成\n");
         // fclose(input);
+        endwin();
     }
     else
     {
@@ -139,72 +227,139 @@ void filetransfer::send()
         for (int i = 0; i < slice; i++)
         {
             index[i] = i;
-            if(
-                pthread_create(&threads[i],nullptr,send_fragment,(void*)&(index[i]))
-            )
+            if (
+                pthread_create(&threads[i], nullptr, send_fragment, (void *)&(index[i])))
             {
-                printf("%d: 创建线程失败\n",i);
+                // printf("%d: 创建线程失败\n", i);
             }
-            // usleep(1);
+            usleep(1);
         }
         for (int i = 0; i < slice; i++)
-            if(!done[i])
+            if (!done[i])
                 i -= 1;
-        pthread_exit(nullptr);
+        // pthread_exit(nullptr);
     }
+    WINDOW *tip = newwin(LINES, COLS, LINES, COLS);
+    getchar();
 }
 
 void filetransfer::recv()
 {
+    char rate[COLS - 1];
+    memset(rate, '-', sizeof(rate));
+    rate[0] = '[';
+    rate[COLS - 2] = '\0';
+    rate[COLS - 3] = ']';
+
+    refresh();
+    WINDOW *info = newwin(8, COLS, 0, 0);
+    box(info, '|', '-');
+    wrefresh(info);
+
+    scrollok(info, true);
+
     initr();
-    printf("初始化成功\n");
+    wprintw(info, "%s", "  初始化成功\n");
+    box(info, '|', '-');
+    wrefresh(info);
 
-    recv_socket = socket(AF_INET,SOCK_STREAM,0);
-    printf("套接字创建成功\n");
+    // initr();
+    // printf("初始化成功\n");
 
-    connect(recv_socket,(struct sockaddr*)&recv_addr,sizeof(recv_addr));
-    printf("等待连接\n");
+    recv_socket = socket(AF_INET, SOCK_STREAM, 0);
+    // printf("套接字创建成功\n");
+    wprintw(info, "%s", "  套接字创建成功\n");
+    box(info, '|', '-');
+    wrefresh(info);
 
-    Uint num; // file sequence
+    connect(recv_socket, (struct sockaddr *)&recv_addr, sizeof(recv_addr));
+    // printf("等待连接\n");
+    wprintw(info, "%s", "  等待连接\n");
+    box(info, '|', '-');
+    wrefresh(info);
+
+    Uint num;     // file sequence
     Uint len = 0; // K size of the file
 
     STD tmp;
-    memset(tmp.data,0,sizeof(tmp.data));
+    memset(tmp.data, 0, sizeof(tmp.data));
 
     tmp.flag = 0;
-    while(tmp.flag != 3)
-        read(recv_socket,(char*)&tmp,sizeof(tmp));
+    while (tmp.flag != 3)
+        read(recv_socket, (char *)&tmp, sizeof(tmp));
 
     filename = new char(strlen(tmp.data));
-    
-    strcpy(filename,tmp.data);
-    size = toint(&tmp.data[strlen(tmp.data)+1]);
+
+    strcpy(filename, tmp.data);
+    size = toint(&tmp.data[strlen(tmp.data) + 1]);
 
     slice = tmp.number;
 
-    len = size%1024 ? size/1024 + 1: size/1024;
+    len = size % 1024 ? size / 1024 + 1 : size / 1024;
 
-    printf("文件名: %s\t文件大小: %d\t分片数: %d\t线程数: %d\n",filename,size,len,slice);
+    wprintw(info, "%s%s\n", "  文件名: ", filename);
+    wprintw(info, "%s%dB\n", "  分片数: ", size);
+    wprintw(info, "%s%d\n", "  分片数: ", len);
+    wprintw(info, "%s%d\n", "  线程数: ", slice);
+    box(info, '|', '-');
+    wrefresh(info);
+    // printf("文件名: %s\t文件大小: %d\t分片数: %d\t线程数: %d\n",filename,size,len,slice);
 
-    FILE *output = fopen(filename,"wb+");
-    
+    FILE *output = fopen(filename, "wb+");
+
     if (slice == 1)
     {
-        while(tmp.flag&2)
+        WINDOW *single = newwin(3, COLS, 9, 0);
+        box(single, '|', '-');
+        wmove(single, 0, 2);
+        wprintw(single, "%s", "线程1");
+        wrefresh(single);
+
+        wmove(single, 1, 1);
+        wprintw(single, "%s", rate);
+        wrefresh(single);
+
+        int l = 0;
+        while (tmp.flag & 2)
         {
             tmp.flag = 0;
-            if(tmp.offset < 0) continue;
+            if (tmp.offset < 0)
+                continue;
             memset(tmp.data, 0, sizeof(tmp.data));
             // std::cout << "\r";
-            std::cout << read(recv_socket,(char*)&tmp,sizeof(tmp)) << "\t";
-            std::cout << fwrite(&tmp.data,tmp.offset,1,output) << "\t";
-            printf("%d\t%d\t%d\t",tmp.offset,tmp.flag,tmp.number);
-            printf("%.2f%%\n", ftell(output)*1.0 / size*100);
-            if(tmp.flag&8 || ftell(output)>size) break;
+            // std::cout << read(recv_socket,(char*)&tmp,sizeof(tmp)) << "\t";
+            read(recv_socket, (char *)&tmp, sizeof(tmp));
+            // std::cout << fwrite(&tmp.data,tmp.offset,1,output) << "\t";
+            fwrite(&tmp.data, tmp.offset, 1, output);
+            // printf("%d\t%d\t%d\t",tmp.offset,tmp.flag,tmp.number);
+            // printf("%.2f%%\n", ftell(output)*1.0 / size*100);
+
+            // rate[(int)(ftell(output)*1.0/size*(COLS-4))+1] = '#';
+            for (int k = l; k < ftell(output) / size * (COLS - 4) + 1; k++)
+                rate[k] = '#';
+            l = ftell(output) / size * (COLS - 4) + 1;
+            wmove(single, 1, 1);
+            wprintw(single, "%s", rate);
+            wmove(single, 2, 2);
+            wprintw(single, "%d%%", (int)(ftell(output) * 100.0 / size));
+            wrefresh(single);
+
+            if (tmp.flag & 8 || ftell(output) > size)
+                break;
         }
-        printf("接收完成\n");
+
+        memset(rate, '#', sizeof(rate));
+        rate[0] = '[';
+        rate[COLS - 2] = '\0';
+        rate[COLS - 3] = ']';
+
+        wmove(single, 2, 2);
+        wprintw(single, "%s%%", "100");
+        wrefresh(single);
+        // printf("接收完成\n");
         // getchar();
         fclose(output);
+        endwin();
     }
     else
     {
@@ -212,23 +367,24 @@ void filetransfer::recv()
         int *index = new int(slice);
         for (int i = 0; i < slice; i++)
         {
-            
+
             index[i] = i;
-            if(
-                pthread_create(&threads[i],nullptr,recv_fragment,(void*)&(index[i]))
-            )
+            if (
+                pthread_create(&threads[i], nullptr, recv_fragment, (void *)&(index[i])))
             {
-                printf("%d: 创建线程失败\n",i);
+                // printf("%d: 创建线程失败\n", i);
             }
+            usleep(2);
         }
 
         for (int i = 0; i < slice; i++)
-            if(!done[i])
+            if (!done[i])
                 i -= 1;
-        
-        merge_fragment();
         pthread_exit(nullptr);
+        merge_fragment();
     }
+    WINDOW *tip = newwin(LINES, COLS, LINES, COLS);
+    getchar();
 }
 
 char *filetransfer::ipc()
@@ -252,40 +408,63 @@ char *filetransfer::ipc()
 
 void *filetransfer::send_fragment(void *fid)
 {
-    int id = *((int*)fid);
+    initscr();
+    int id = *((int *)fid);
+    char rate[COLS - 1];
+    memset(rate, '-', sizeof(rate));
+    rate[0] = '[';
+    rate[COLS - 2] = '\0';
+    rate[COLS - 3] = ']';
+
+    WINDOW *sing = newwin(3, COLS, 9 + id * 4, 0);
+    // box(sing, '|', '-');
+    usleep(rand() % 10);
+    wmove(sing, 0, 2);
+    wprintw(sing, "%s%d", "线程", id);
+    wrefresh(sing);
+    usleep(rand() % 10);
+
+    usleep(rand() % 10);
+    wmove(sing, 1, 1);
+    wprintw(sing, "%s", rate);
+    wrefresh(sing);
+
     int send_s = 0;
     int recv_s = 0;
     struct sockaddr_in send_a;
     struct sockaddr_in recv_a;
-    printf("%d: 开始初始化线程",id);
+    // printf("%d: 开始初始化线程",id);
 
     send_a.sin_family = AF_INET;
-    send_a.sin_port = htons(start+id);
+    send_a.sin_port = htons(start + id);
     send_a.sin_addr.s_addr = inet_addr(ip);
 
-    send_s = socket(AF_INET,SOCK_STREAM,0);
+    send_s = socket(AF_INET, SOCK_STREAM, 0);
 
-    printf("%d: 分配套接字{%s:%d}\n",id,ip,start+id);
+    usleep(rand() % 100);
+    wmove(sing, 0, 8);
+    wprintw(sing, "线程套接字:{%s:%d}", ip, start + id);
+    wrefresh(sing);
+    // printf("%d: 分配套接字{%s:%d}\n",id,ip,start+id);
 
-    if(send_s == -1)
+    if (send_s == -1)
     {
         perror("创建套接字失败");
-        printf("%d: 创建失败\n",id);
+        // printf("%d: 创建失败\n",id);
     }
-    printf("%d: 套接字创建成功\n",id);
+    // printf("%d: 套接字创建成功\n",id);
 
     yes = 1;
     if (setsockopt(send_s, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1)
     {
         perror("setsockopt failed\n");
     }
-    printf("%d: 端口复用配置成功\n",id);
+    // printf("%d: 端口复用配置成功\n",id);
 
-    bind(send_s,(struct sockaddr*)&send_a,sizeof(send_a));
-    printf("%d: 套接字绑定成功\n",id);
+    bind(send_s, (struct sockaddr *)&send_a, sizeof(send_a));
+    // printf("%d: 套接字绑定成功\n",id);
 
-
-    FILE *input = fopen(filename,"rb");
+    FILE *input = fopen(filename, "rb");
     Uint Ksize, Lsize, Fsize, loopctl;
 
     Ksize = size / 1024;
@@ -299,87 +478,132 @@ void *filetransfer::send_fragment(void *fid)
 
     loopctl = Fsize;
 
-    if(id == slice-1)
+    if (id == slice - 1)
     {
-        if(Lsize % 1024 == 0)
-            loopctl = Lsize/1024;
+        if (Lsize % 1024 == 0)
+            loopctl = Lsize / 1024;
         else
         {
-            loopctl = Lsize/1024+1;
-            printf("%d: 片大小: %d\n",id,Lsize);
+            loopctl = Lsize / 1024 + 1;
+            // printf("%d: 片大小: %d\n",id,Lsize);
         }
     }
-    else
-        printf("%d: 片大小: %d\n",id,Fsize*1024);
+    // else
+    // printf("%d: 片大小: %d\n",id,Fsize*1024);
 
-    fseek(input, id*Fsize*1024,SEEK_SET);
+    fseek(input, id * Fsize * 1024, SEEK_SET);
 
-    listen(send_s,20);
-    printf("%d: 开始监听, 准备传输\n",id);
+    listen(send_s, 20);
+    // printf("%d: 开始监听, 准备传输\n",id);
 
     // printf("\n\n%d: 当前分片数: %d\n\n",id,loopctl);
 
     socklen_t recv_size = sizeof(recv_a);
-    recv_s = accept(send_s,(struct sockaddr*)&recv_a,&recv_size);
+    recv_s = accept(send_s, (struct sockaddr *)&recv_a, &recv_size);
 
-    printf("%d: 连接接成功,%d\n",id,recv_s);
+    // printf("%d: 连接接成功,%d\n",id,recv_s);
 
-    usleep(rand()%(slice+1));
+    usleep(rand() % (slice + 1));
 
     // 发送开始信息
-    tmp.flag =4;
-    tmp.flag |=3;
-    strcpy(tmp.data,"淦");
+    tmp.flag = 4;
+    tmp.flag |= 3;
+    tmp.number = loopctl;
+    // strcpy(tmp.data, "淦");
 
-    write(recv_s,(char*)&tmp,sizeof(tmp));
+    write(recv_s, (char *)&tmp, sizeof(tmp));
 
-    printf("%d: 开始传输\n",id);
+    // printf("%d: 开始传输\n",id);
 
     for (int i = 0; i < loopctl; i++)
     {
-        tmp.flag &=0;
-        tmp.flag |=2;
+        tmp.flag &= 0;
+        tmp.flag |= 2;
         tmp.number = i;
         memset(tmp.data, 0, sizeof(tmp.data));
-        if(i == loopctl-1)
+        if (i == loopctl - 1)
         {
             tmp.flag |= 8;
-            if(id == slice-1 && size%1024) tmp.offset = size%1024;
+            if (id == slice - 1 && size % 1024)
+                tmp.offset = size % 1024;
         }
         // std::cout << "\n" << i << "\n";
         // std::cout << fread(&tmp.data, tmp.offset, 1, input) << "\t";
         fread(&tmp.data, tmp.offset, 1, input);
         // if(id) printf("%s\t",tmp.data);
         // std::cout << write(recv_s,(char*)&tmp, sizeof(tmp)) << "\t";
-        write(recv_s,(char*)&tmp, sizeof(tmp));
+        write(recv_s, (char *)&tmp, sizeof(tmp));
         // if(!id) printf("\r");
         // printf("%d: %.2f%%\t",id, i*1024*1.0 / size*100);
-        usleep(rand()%(slice+1));
+        for (int k = (i - 1) * 1.0 / loopctl * (COLS - 4); k < (i)*1.0 / loopctl * (COLS - 4); k++)
+            rate[k] = '#';
+        usleep(rand() % 10);
+        wmove(sing, 1, 1);
+        wprintw(sing, "%s", rate);
+        wmove(sing, 2, 2);
+        wprintw(sing, "%d%%", (int)(i * 100.0 / loopctl));
+        wrefresh(sing);
+        usleep(rand() % (slice + 1));
     }
-    printf("%d: 发送完成\n",id);
-    
+    // printf("%d: 发送完成\n",id);
+    memset(rate, '#', sizeof(rate));
+    rate[0] = '[';
+    rate[COLS - 2] = '\0';
+    rate[COLS - 3] = ']';
+
+    usleep(rand() % 10);
+    wmove(sing, 1, 1);
+    wprintw(sing, "%s", rate);
+
+    usleep(rand() % 10);
+    wmove(sing, 2, 2);
+    wprintw(sing, "%s%%", "100");
+    wrefresh(sing);
+
     fclose(input);
     close(send_s);
     close(recv_s);
-    
-    done[id] = 1;
 
+    done[id] = 1;
+    // getchar();
+    endwin();
     pthread_exit(nullptr);
 }
 
 void *filetransfer::recv_fragment(void *fid)
 {
-    int id = *((int*)fid);
+    initscr();
+    int id = *((int *)fid);
+
+    char rate[COLS - 1];
+    memset(rate, '-', sizeof(rate));
+    rate[0] = '[';
+    rate[COLS - 2] = '\0';
+    rate[COLS - 3] = ']';
+
+    WINDOW *sing = newwin(3, COLS, 9 + id * 4, 0);
+    // box(sing, '|', '-');
+    usleep(rand() % 10);
+    wmove(sing, 0, 2);
+    wprintw(sing, "%s%d", "线程",id);
+    wrefresh(sing);
+    usleep(rand() % 10);
+    // getchar();
+
+    usleep(rand() % 10);
+    wmove(sing, 1, 1);
+    wprintw(sing, "%s", rate);
+    wrefresh(sing);
     int recv_s = 0;
     struct sockaddr_in recv_a;
-    
-    printf("%d: 开始初始化线程",id);
+
+    // printf("%d: 开始初始化线程",id);
     char tmpname[] = "t0";
     tmpname[1] += id;
-    FILE *output = fopen(tmpname,"wb+");
+    FILE *output = fopen(tmpname, "wb+");
 
     recv_a.sin_family = AF_INET;
-    recv_a.sin_port = htons(start+id);
+    recv_a.sin_port = htons(start + id);
     recv_a.sin_addr.s_addr = inet_addr(ip);
 
     Uint Ksize, Lsize, Fsize, loopctl;
@@ -388,59 +612,89 @@ void *filetransfer::recv_fragment(void *fid)
     Fsize = Ksize / slice * slice / slice;
     Lsize = size - Fsize * 1024 * (slice - 1);
 
-    printf("%d: 分配套接字{%s:%d}\n",id,ip,start+id);
+    usleep(rand() % 10);
+    wmove(sing, 0, 8);
+    wprintw(sing, "线程套接字:{%s:%d}", ip, start + id);
+    wrefresh(sing);
+    // printf("%d: 分配套接字{%s:%d}\n",id,ip,start+id);
 
-    recv_s = socket(AF_INET,SOCK_STREAM,0);
-    printf("%d: 创建套接字成功\n",id);
+    recv_s = socket(AF_INET, SOCK_STREAM, 0);
+    // printf("%d: 创建套接字成功\n",id);
 
-    printf("%d: 等待连接\n",id);
-    connect(recv_s,(struct sockaddr*)&recv_a,sizeof(recv_a));
-    printf("%d: 连接成功",id);
+    // printf("%d: 等待连接\n",id);
+    connect(recv_s, (struct sockaddr *)&recv_a, sizeof(recv_a));
+    // printf("%d: 连接成功",id);
 
     STD tmp;
-    tmp.flag &=0;
-    while(!(tmp.flag&4))
+    tmp.flag &= 0;
+    while (!(tmp.flag & 4))
     {
-        read(recv_s,(char*)&tmp,sizeof(tmp));
-        printf("\r%d: 等待开始",id);
+        read(recv_s, (char *)&tmp, sizeof(tmp));
+        // printf("\r%d: 等待开始",id);
     }
 
-    if(tmp.flag&3) printf("\n\n%s\n\n",tmp.data);
-    printf("\n%d: 开始传输",id);
+    // if (tmp.flag & 3)
+    // printf("\n\n%s\n\n", tmp.data);
+    // printf("\n%d: 开始传输",id);
 
-    while(tmp.flag&2)
+    int l = tmp.number;
+    while (tmp.flag & 2)
     {
-        if(!id) printf("\r");
+        // if (!id)
+        // printf("\r");
         memset(tmp.data, 0, sizeof(tmp.data));
         // std::cout << read(recv_s,(char*)&tmp,sizeof(tmp)) << "\t";
-        read(recv_s,(char*)&tmp,sizeof(tmp));
+        read(recv_s, (char *)&tmp, sizeof(tmp));
         // std::cout << fwrite(&tmp.data,tmp.offset,1,output) << "\t";
-        fwrite(&tmp.data,tmp.offset,1,output);
+        fwrite(&tmp.data, tmp.offset, 1, output);
         // printf("%d\t%d\t%d\t",tmp.offset,tmp.flag,tmp.number);
         // printf("%.2f%%", ftell(output)*1.0 / size*100);
-        if(tmp.flag&8) break;
+        for (int k = 0; k < (ftell(output) * 1.0 / l)*(COLS-4); k++)
+            rate[k] = '#';
+        usleep(rand() % 10);
+        wmove(sing, 1, 1);
+        wprintw(sing, "%s", rate);
+        wmove(sing, 2, 2);
+        wprintw(sing, "%d%%", (int)(ftell(output) * 1.0 / l));
+        wrefresh(sing);
+        if (tmp.flag & 8)
+            break;
     }
-    printf("%d: 接收完成\n",id);
+    printf("\n\n");
+    memset(rate, '#', sizeof(rate));
+    rate[0] = '[';
+    rate[COLS - 2] = '\0';
+    rate[COLS - 3] = ']';
+
+    usleep(rand() % 10);
+    wmove(sing, 1, 1);
+    // wprintw(sing, "%s", rate);
+
+    usleep(rand() % 10);
+    wmove(sing, 2, 2);
+    wprintw(sing, "%s%%", "100");
+    wrefresh(sing);
+    // printf("%d: 接收完成\n",id);
 
     fclose(output);
     close(recv_s);
 
     done[id] = 1;
-
+    // getchar();
+    endwin();
     pthread_exit(nullptr);
-
 }
 
 void filetransfer::merge_fragment()
 {
-    printf("\n开始合并分片\n");
+    // printf("\n开始合并分片\n");
     FILE *input;
     char tmpname[] = "t0";
     char buf[1024];
-    FILE *output = fopen(filename,"wb+");
+    FILE *output = fopen(filename, "wb+");
     Uint total = 0;
 
-    printf("文件名: %s, 分片数: %d, 文件总大小: %d\n",filename,slice,size);
+    // printf("文件名: %s, 分片数: %d, 文件总大小: %d\n", filename, slice, size);
     for (int i = 0; i < slice; i++)
     {
         int tsize = 0, Ksize = 0, Rsize = 0;
@@ -453,20 +707,21 @@ void filetransfer::merge_fragment()
         total += tsize;
 
         std::cout << tmpname << ":" << tsize << std::endl;
-        Ksize = tsize%1024 ? tsize/1024 + 1 : tsize/1024;
+        Ksize = tsize % 1024 ? tsize / 1024 + 1 : tsize / 1024;
         Rsize = 1024;
         for (int j = 0; j < Ksize; j++)
         {
-            if(i == slice - 1 && j == Ksize - 1 && tsize%1024) Rsize = tsize%1024;
+            if (i == slice - 1 && j == Ksize - 1 && tsize % 1024)
+                Rsize = tsize % 1024;
             memset(buf, 0, sizeof(buf));
 
-            fread(&buf,Rsize,1,input);
-            fwrite(&buf,Rsize,1,output);
+            fread(&buf, Rsize, 1, input);
+            fwrite(&buf, Rsize, 1, output);
         }
         fclose(input);
     }
     fclose(output);
-    printf("文件差值: %d - %d = %d\n",total,size,total-size);
+    // printf("文件差值: %d - %d = %d\n", total, size, total - size);
 }
 
 char *filetransfer::tochar(int a)
@@ -488,14 +743,13 @@ int filetransfer::toint(char *s)
     int tmp = 0;
     for (int i = 0; i < strlen(s); i++)
     {
-        tmp += pow(10,i)*(s[strlen(s)-i-1] - '0');
+        tmp += pow(10, i) * (s[strlen(s) - i - 1] - '0');
     }
     return tmp;
 }
 
 void filetransfer::scan()
 {
-
 }
 
 void filetransfer::setip(char *s)

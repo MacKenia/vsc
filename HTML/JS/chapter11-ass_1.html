@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>chapter11</title>
+  <style>
+    .banner {
+      position: relative;
+      overflow: hidden;
+      margin: 100px auto;
+      width: 958px;
+      height: 400px;
+    }
+
+    .banner ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .hot {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .hot li {
+      float: left;
+    }
+
+    .dot {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 0;
+    }
+
+    .dot li {
+      display: block;
+      display: inline-block;
+      margin: 0 5px;
+      width: 15px;
+      height: 15px;
+      border-radius: 100%;
+      background: rgba(145, 144, 144, .5);
+      cursor: pointer;
+    }
+
+    .dot .on {
+      background-color: #fff;
+    }
+
+    .arrow {
+      display: none;
+    }
+
+    .arrow span {
+      display: block;
+      width: 50px;
+      height: 100px;
+      background: rgba(0, 0, 0, .6);
+      color: #fff;
+      text-align: center;
+      font-size: 40px;
+      line-height: 100px;
+      cursor: pointer;
+    }
+
+    .arrow .prev {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      margin-top: -50px;
+    }
+
+    .arrow .next {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      margin-top: -50px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="banner">
+    <ul class="hot">
+      <!--轮播图片-->
+      <li><a href="#"><img src="https://api.ixiaowai.cn/api/api.php"></a></li>
+      <li><a href="#"><img src="https://api.ixiaowai.cn/api/api.php"></a></li>
+      <li><a href="#"><img src="https://api.ixiaowai.cn/api/api.php"></a></li>
+      <li><a href="#"><img src="https://api.ixiaowai.cn/api/api.php"></a></li>
+      <li><a href="#"><img src="https://api.ixiaowai.cn/api/api.php"></a></li>
+    </ul>
+    <!--小圆点-->
+    <ul class="dot">
+      <li class="on"></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <!-- 左右翻页箭头-->
+    <div class="arrow"><span class="prev">&lt;</span><span class="next">&gt;</span></div>
+  </div>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+  <script>
+    $(function () {
+      var i = 0;           // 当前显示的图片索引
+      var timer = null;    // 定时器
+      var delay = 1000;    // 图片自动切换的间隔时间
+      var width = 958;     // 每张图片的宽度
+      var speed = 400;     // 动画时间
+      // 复制列表中的第一个图片，追加到列表最后，设置ul的宽度为图片张数 * 图片宽度
+      var firstimg = $('.hot li').first().clone();
+      $('.hot').append(firstimg).width($('.hot li').length * width);
+      // 1. 设置周期计时器，实现图片自动切换
+      timer = setInterval(imgChange, delay);
+      // 2. 鼠标移入，暂停自动播放，移出，开始自动播放
+      $('.banner').hover(function () {
+        clearInterval(timer);
+      }, function () {
+        timer = setInterval(imgChange, delay);
+      });
+      // 3. 鼠标划入圆点
+      $('.dot li').mouseover(function () {
+        i = $(this).index();
+        $('.hot').stop().animate({ left: -i * width }, 200);
+        dotChange();
+      });
+      // 4. 设置左右切换的箭头显示和隐藏
+      $('.banner').hover(function () {
+        $('.arrow').show();
+      }, function () {
+        $('.arrow').hide();
+      });
+      // 5. 向右箭头
+      $('.next').click(function () {
+        imgChange()
+      });
+      // 6. 向左箭头
+      $('.prev').click(function () {
+        --i;
+        if (i == -1) {
+          i = $('.hot li').length - 2;
+          $('.hot').css({ left: -($('.hot li').length - 1) * width });
+        }
+        $('.hot').stop().animate({ left: -i * width }, speed);
+        dotChange();
+      });
+      // 自动切换图片
+      function imgChange() {
+        ++i;
+        isCrack();
+        dotChange();
+      }
+      // 无缝轮播
+      function isCrack() {
+        if (i == $('.hot li').length) {
+          i = 1;
+          $('.hot').css({ left: 0 });
+        }
+        $('.hot').stop().animate({ left: -i * width }, speed);
+      }
+      // 自动切换对应的圆点
+      function dotChange() {
+        if (i == $('.hot li').length - 1) {
+          $('.dot li').eq(0).addClass('on').siblings().removeClass('on');
+        } else {
+          $('.dot li').eq(i).addClass('on').siblings().removeClass('on');
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

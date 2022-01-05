@@ -163,7 +163,7 @@ void filetransfer::send()
         WINDOW *single = newwin(3, COLS, 9, 0);
         box(single, '|', '-');
         wmove(single, 0, 2);
-        wprintw(single, "%s", "线程1");
+        wprintw(single, "%s", "发送");
         wrefresh(single);
 
         wmove(single, 1, 1);
@@ -200,7 +200,7 @@ void filetransfer::send()
             wprintw(single, "%d%%", (int)(i * 100.0 / len));
             wrefresh(single);
             // if(!(i%100)) usleep(3);
-            usleep(2);
+            usleep(sqrt(len/1024));
             // printf("%d,",i);
         }
 
@@ -239,15 +239,15 @@ void filetransfer::send()
                 i -= 1;
         // pthread_exit(nullptr);
     }
-
-    WINDOW *tip = newwin(LINES/2, COLS/2, LINES/4, COLS/4);
+    endwin();
+    WINDOW *tip = newwin(LINES/3, COLS/3, LINES/3+3, COLS/3);
     refresh();
     box(tip,'|','-');
     
     wmove(tip,0,2);
     wprintw(tip,"提示");
 
-    wmove(tip,LINES/4-1,COLS/4-1);
+    wmove(tip,5,12);
     wprintw(tip,"%s","传输完成");
     wrefresh(tip);
 
@@ -324,7 +324,7 @@ void filetransfer::recv()
         WINDOW *single = newwin(3, COLS, 9, 0);
         box(single, '|', '-');
         wmove(single, 0, 2);
-        wprintw(single, "%s", "发送");
+        wprintw(single, "%s", "接收");
         wrefresh(single);
 
         wmove(single, 1, 1);
@@ -334,32 +334,30 @@ void filetransfer::recv()
         int l = 0;
         while (tmp.flag & 2)
         {
-            tmp.flag = 0;
+            memset(tmp.data, 0, sizeof(tmp.data));
+            read(recv_socket, (char *)&tmp, sizeof(tmp));
             if (tmp.offset < 0)
                 continue;
-            memset(tmp.data, 0, sizeof(tmp.data));
             // std::cout << "\r";
             // std::cout << read(recv_socket,(char*)&tmp,sizeof(tmp)) << "\t";
-            read(recv_socket, (char *)&tmp, sizeof(tmp));
             // std::cout << fwrite(&tmp.data,tmp.offset,1,output) << "\t";
             fwrite(&tmp.data, tmp.offset, 1, output);
             // printf("%d\t%d\t%d\t",tmp.offset,tmp.flag,tmp.number);
             // printf("%.2f%%\n", ftell(output)*1.0 / size*100);
 
             // rate[(int)(ftell(output)*1.0/size*(COLS-4))+1] = '#';
-            for (int k = l; k < ftell(output) / size * (COLS - 4) + 1; k++)
+            for (int k = l; k < ftell(output)*1.0 / size * (COLS - 4) + 1; k++)
                 rate[k] = '#';
-            l = ftell(output) / size * (COLS - 4) + 1;
+            l = ftell(output)*1.0 / size * (COLS - 4) + 1;
             wmove(single, 1, 1);
             wprintw(single, "%s", rate);
             wmove(single, 2, 2);
             wprintw(single, "%d%%", (int)(ftell(output) * 100.0 / size));
             wrefresh(single);
-
-            if (tmp.flag & 8 || ftell(output) > size)
+            if (tmp.flag & 8)
                 break;
+            // tmp.flag = 0;
         }
-
         memset(rate, '#', sizeof(rate));
         rate[0] = '[';
         rate[COLS - 2] = '\0';
@@ -367,7 +365,10 @@ void filetransfer::recv()
 
         wmove(single, 2, 2);
         wprintw(single, "%s%%", "100");
+        wmove(single,1,1);
+        wprintw(single,"%s",rate);
         wrefresh(single);
+        usleep(10);
         // printf("接收完成\n");
         // getchar();
         fclose(output);
@@ -395,14 +396,15 @@ void filetransfer::recv()
         // pthread_exit(nullptr);
         merge_fragment();
     }
-    WINDOW *tip = newwin(LINES/2, COLS/2, LINES/4, COLS/4);
+    endwin();
+    WINDOW *tip = newwin(LINES/3, COLS/3, LINES/3+3, COLS/3);
     refresh();
     box(tip,'|','-');
     
     wmove(tip,0,2);
     wprintw(tip,"提示");
 
-    wmove(tip,LINES/4-1,COLS/4-1);
+    wmove(tip,5,12);
     wprintw(tip,"%s","传输完成");
     wrefresh(tip);
 
@@ -685,7 +687,7 @@ void filetransfer::merge_fragment()
     wmove(tip, 0, 2);
     wprintw(tip, "%s", "合并分片");
 
-    wmove(tip, 2, 1);
+    wmove(tip, 2, 2);
     wprintw(tip, "%s", rate);
     wrefresh(tip);
     // printf("\n开始合并分片\n");
@@ -696,7 +698,7 @@ void filetransfer::merge_fragment()
     FILE *output = fopen(filename, "wb+");
     Uint total = 0;
 
-    wmove(tip, 1, 1);
+    wmove(tip, 1, 2);
     wprintw(tip, "文件名: %s, 分片数: %d, 文件总大小: %d\n", filename, slice, size);
     wrefresh(tip);
 
@@ -736,7 +738,7 @@ void filetransfer::merge_fragment()
     }
     fclose(output);
 
-    wmove(tip, 3, 1);
+    wmove(tip, 3, 2);
     wprintw(tip, "文件差值: %d - %d = %d\n", total, size, total - size);
     wmove(tip, 4, COLS / 2 - 1);
     wprintw(tip, "OK");

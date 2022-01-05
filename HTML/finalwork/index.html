@@ -12,7 +12,7 @@
 <body id="body">
 	<div id="logo">
 	</div>
-	<div id="fz">
+	<div id="fz" class="shadow">
 		<ul id="navigate">
 			<li><a href="#">首页</a></li>
 			<li><a href="#">清明上河园</a></li>
@@ -27,84 +27,97 @@
 
 	<div id="banner"></div>
 
-	<div id="center">
-		<div id="iconshop">
-			<div id="shop1" onclick="shop('1')">
-				<ul>
-					<li>
-						<a href="">
-							<p>门票预定</p>
-							<p>可凭身份证直接入园</p>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div id="shop2" onclick="shop('2')">
-				<ul>
-					<li>
-						<a href="">
-							<p> 住宿预定</p>
-							<p>自营满亭芳酒店和官驿</p>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div id="shop3" onclick="shop('3')">
-				<ul>
-					<li>
-						<a href="">
-							<p>美食预订</p>
-							<p>团体宴会和个人包间</p>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div id="shop4" onclick="shop('4')">
-				<ul>
-					<li>
-						<a href="">
-							<p>周边产品</p>
-							<p>官方纪念品馈赠亲友</p>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div id="shop5" onclick="shop('5')">
-				<ul>
-					<li>
-						<a href="">
-							<p>定制服务</p>
-							<p>量身定制的个性化服务</p>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div id="shop6" onclick="shop('6')">
-				<ul>
-					<li>
-						<a href="">
-							<p>我的订单</p>
-							<p>登陆查看我的历史订单</p>
-						</a>
-					</li>
-				</ul>
-			</div>
+	<div id="iconshop">
+		<div id="shop1" onclick="shop('1')">
+			<ul>
+				<li>
+					<a href="#">
+						<p>门票预定</p>
+						<p>可凭身份证直接入园</p>
+					</a>
+				</li>
+			</ul>
 		</div>
+		<div id="shop2" onclick="shop('2')">
+			<ul>
+				<li>
+					<a href="#">
+						<p> 住宿预定</p>
+						<p>自营满亭芳酒店和官驿</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div id="shop3" onclick="shop('3')">
+			<ul>
+				<li>
+					<a href="#">
+						<p>美食预订</p>
+						<p>团体宴会和个人包间</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div id="shop4" onclick="shop('4')">
+			<ul>
+				<li>
+					<a href="#">
+						<p>周边产品</p>
+						<p>官方纪念品馈赠亲友</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div id="shop5" onclick="shop('5')">
+			<ul>
+				<li>
+					<a href="#">
+						<p>定制服务</p>
+						<p>量身定制的个性化服务</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div id="shop6" onclick="shop('6')">
+			<ul>
+				<li>
+					<a href="#">
+						<p>我的订单</p>
+						<p>登陆查看我的历史订单</p>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
 
+	<div id="center">
 		<div id="content">
 			<div id="s1">
 				<div class="title">
-					<div class="head">门票预定
+					<div class="head">
+						<p>门票预定</p>
 						<div class="tips">门票购买成功后可直接在园区闸道刷身份证入园，或者通过付款二维码扫码入园。</div>
 					</div>
 					<a href="#" class="more">更多</a>
 				</div>
-				<div class="s"></div>
+				<div class="s">
+					<div class="box hide">
+						<div class="price">
+							<p>566</p>RMB
+						</div>
+						<img src="https://console.qmsyun.com/admin/uploadfile/mall/2/2-1553740968787.jpg" alt="">
+						<div class="name">
+							<h3>清明上河园</h3>
+							<a href="">立即购买</a>
+						</div>
+					</div>
+				</div>
 			</div>
 
-			<div id="s2">
+			<div id="s2" class="hide">
 				<div class="title">
-					<div class="head">住宿预定
+					<div class="head">
+						<p>住宿预定</p>
 						<div class="tips"></div>
 					</div>
 					<a href="#" class="more">更多</a>
@@ -112,9 +125,10 @@
 				<div class="s"></div>
 			</div>
 
-			<div id="s3">
+			<div id="s3" class="hide">
 				<div class="title">
-					<div class="head">美食预定
+					<div class="head">
+						<p>美食预定</p>
 						<div class="tips"></div>
 					</div>
 					<a href="#" class="more">更多</a>
@@ -122,9 +136,10 @@
 				<div class="s"></div>
 			</div>
 
-			<div id="s4">
+			<div id="s4" class="hide">
 				<div class="title">
-					<div class="head">周边产品预定
+					<div class="head">
+						<p>周边产品预定</p>
 						<div class="tips"></div>
 					</div>
 					<a href="#" class="more">更多</a>
@@ -132,9 +147,10 @@
 				<div class="s"></div>
 			</div>
 
-			<div id="s5">
+			<div id="s5" class="hide">
 				<div class="title">
-					<div class="head">定制服务预定
+					<div class="head">
+						<p>定制服务预定</p>
 						<div class="tips"></div>
 					</div>
 					<a href="#" class="more">更多</a>
@@ -142,16 +158,28 @@
 				<div class="s"></div>
 			</div>
 
-			<div id="s6">
+			<div id="s6" class="hide">
 				<div class="title">
-					<div class="head">我的订单
+					<div class="head">
+						<p>我的订单</p>
 						<div class="tips">查看你的手机号吗下的所有历史订单，未成功付款的订单，你可以选择取消或者继续支付</div>
 					</div>
 					<a href="#" class="more">更多</a>
 				</div>
-				<div class="s"></div>
+				<div class="s">
+					<div class="form">
+						<div class="ptip">你的手机号码</div>
+						<input type="text" class="pin">
+						<div class="cin">手机验证码</div>
+						<input type="text" class="ctip">
+						<div class="but">
+							<div class="chech">查看我的订单</div>
+							<div class="cmore">东京梦华订单</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			
+
 		</div>
 
 		<div id="bottom">
@@ -174,10 +202,10 @@
 	<div id="sign"><small>简体中文(中国)&nbsp;&nbsp;中国开封清明上河园股份有限公司版权所有 &nbsp;&nbsp;CopyRight 2009-2017 All Rights
 			reserved.&nbsp;&nbsp;<a href="http://beian.miit.gov.cn">备案许可证号 豫ICP备11006380号-1</a></small>
 	</div>
-	<script src="javascript.js"></script>
+	<script src="script.js"></script>
 	<script src="showup.js"></script>
 	<script>
-		addClass("bottom","hei");
+		// addClass("bottom","hei");
 	</script>
 </body>
 

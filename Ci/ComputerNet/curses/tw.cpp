@@ -9,14 +9,14 @@ int main()
 {
     setlocale(LC_ALL,"");
     initscr();
-    WINDOW *tip = newwin(LINES/2, COLS/2, LINES/4, COLS/4);
+    WINDOW *tip = newwin(LINES/3, COLS/3, LINES/3, COLS/3);
     refresh();
     box(tip,'|','-');
     
     wmove(tip,0,2);
     wprintw(tip,"提示");
 
-    wmove(tip,LINES/4-1,COLS/4-1);
+    wmove(tip,5,12);
     wprintw(tip,"%s","传输完成");
     wrefresh(tip);
 

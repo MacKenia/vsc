@@ -6,7 +6,7 @@ int mrecv()
     initscr();
     char ip[15];
     WINDOW *info;
-    info = newwin(20,60,LINES/4,COLS/4);
+    info = newwin(LINES/2,COLS/2,LINES/4,COLS/4);
     refresh();
     box(info,'|','-');
     wrefresh(info);
@@ -30,7 +30,7 @@ int msend()
     char ip[15];
     char file[80];
     WINDOW *info;
-    info = newwin(20,60,LINES/4,COLS/4);
+    info = newwin(LINES/2,COLS/2,LINES/4,COLS/4);
     refresh();
     box(info,'|','-');
     wrefresh(info);
@@ -59,9 +59,10 @@ int msend()
     wprintw(info,"%d\n",filetransfer::toint(piece));
     // wrefresh(info);
     // getchar();
-    endwin();
+    // endwin();
     
     filetransfer video(ip,file,filetransfer::toint(piece));
+    video.send();
     endwin();
     return 0;
 }
@@ -69,11 +70,12 @@ int msend()
 int main()
 {
     int i;
-    printf("请选择操作: \n1. 发送文件\n2.接受文件\n>");
+    printf("请选择操作: \n1. 发送文件\n2. 接收文件\n3. 退出> ");
     scanf("%d",&i);
     getchar();
     if(i==1)
         msend();
     if(i ==2) mrecv();
+    if(i==3) exit(0);
     return 0;
 }

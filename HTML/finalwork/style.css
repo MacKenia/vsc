@@ -1,7 +1,8 @@
 * {
-    font-family: 宋体, "Microsoft YaHei";
+    font-family: MiSans, 宋体, "Microsoft YaHei";
     padding: 0;
     margin: 0;
+    transition: .3s ease-in-out;
     /* border: 1px solid #000; */
 }
 
@@ -58,7 +59,7 @@ body {
     overflow: hidden;
 }
 
-ul {
+ul ,li{
     list-style: none;
 }
 
@@ -68,6 +69,7 @@ a {
 }
 
 a:hover {
+    transition: 0s;
     color: #ab8c40;
 }
 
@@ -76,6 +78,7 @@ a:hover {
 }
 
 #fz {
+    transition: 0s;
     position: fixed;
     border-top: 2px solid #ddd;
     width: 100vw;
@@ -94,10 +97,11 @@ a:hover {
 }
 
 #banner {
-    height: 28vh;
+    height: 28vw;
     background-image: url(http://www.qingmings.com/images/banner_sm.jpg);
     background-position: center center;
     background-repeat: no-repeat;
+    background-size:cover;
     width: 100vw;
     overflow: hidden;
 }
@@ -116,31 +120,32 @@ a:hover {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    padding-left: 80px;
+    /* padding-left: 80px; */
+    margin: 0 1vw;
 }
 
 #iconshop > div > ul {
-    background-image: url(http://www.qingmings.com/images/icon_menu.png);
+    /* background-image: url(http://www.qingmings.com/images/icon_menu.png); */
     background-repeat: no-repeat;
     background-position-x: 20px;
-    height: 72px;
+    height: 6vw;
 }
 
 #iconshop > div > ul p:first-child {
-    margin-top: 2vh;
+    margin-top: 2vw;
     white-space: nowrap;
-    line-height: 2vh;
-    height: 2vh;
-    font-size: 3vh;
+    line-height: 2vw;
+    height: 2vw;
+    font-size: 2vw;
     text-overflow: ellipsis;
 }
 
 #iconshop > div > ul p:last-child {
-    margin-top: 1vh;
+    margin-top: 1vw;
     white-space: nowrap;
-    height: 1vh;
-    line-height: 1vh;
-    font-size: 1vh;
+    height: 1vw;
+    line-height: 1vw;
+    font-size: 0.7vw;
     text-overflow: ellipsis;
 }
 
@@ -223,7 +228,7 @@ a:hover {
     flex-direction: row;
     justify-content: left;
     flex-wrap: wrap;
-    margin: 15px 0px;
+    margin: 30px 0px;
 }
 
 #content .s > .box {
@@ -237,6 +242,7 @@ a:hover {
     display: flex;
     position: relative;
     flex-direction: column;
+    overflow: hidden;
 }
 
 #content .s > .box .price {
@@ -306,6 +312,7 @@ a:hover {
     content: "商品是空的 看看其他的吧";
 }
 
+
 #s6 .s{
     width: 100%;
     display: flex;
@@ -328,13 +335,32 @@ a:hover {
 }
 
 #s6 input{
-    width: 200px;
+    width: 260px;
+    height: 30px;
+    padding: 2px;
+    border: none;
+    outline: none;
+    border: 1px solid #ab8c40;
+    border-radius: 5px;
+    padding-left: 3px;
 }
 
 #s6 .form .but{
     display: flex;
     flex-direction: row;
     white-space: nowrap;
+}
+
+#s6 .form .but .check, #s6 .form .cmore{
+    color: #ab8c40;
+    border: 1px solid #ab8c40;
+    border-radius: 6px;
+    padding: 1vw;
+    margin: 2vw;
+    height: 1.5vw;
+    line-height: 1.5vw;
+    white-space: nowrap;
+    margin-left: 0;
 }
 
 #bottom {
@@ -345,16 +371,16 @@ a:hover {
 }
 
 #contact {
-    font-size: 10px;
+    font-size: 1vw;
 }
 
 #sign {
-    padding-top: 1vh;
+    padding-top: 1vw;
     border-top: 2px solid #ddd;
     display: flex;
     justify-content: center;
     width: 100vw;
-    margin-bottom: 3vh;
+    margin-bottom: 3vw;
 }
 
 #sign::before {
@@ -371,11 +397,13 @@ a:hover {
 }
 
 #call {
-    font-size: 28px;
+    font-size: 2vw;
+    white-space: nowrap;
 }
 
 #wtime {
-    font-size: 13px;
+    white-space: nowrap;
+    font-size: 1vw;
     padding: 7px;
     border: 2px solid #000;
     border-radius: 6px;

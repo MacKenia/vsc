@@ -10,17 +10,15 @@ $("fz").style.top = $("logo").offsetHeight + "px";
 function stay(ss) {
     var objY = $("fz").offsetTop;
     var objS = $("fz").style;
-    if (ss >= $("logo").offsetHeight)
-    {
+    if (ss >= $("logo").offsetHeight) {
         objS.top = 0;
         objS.zIndex = 3;
         $("fz").classList.add("shadow");
-    }
-    else{
+    } else {
         objS.top = -1 * ss + $("logo").offsetHeight - 2 + "px";
         $("fz").classList.remove("shadow");
     }
-        
+
     // console.log(objY);
 }
 
@@ -40,7 +38,7 @@ var info = {
             url: "https://console.qmsyun.com/admin/uploadfile/mall/2/2-1553740968787.jpg",
         },
     },
-    2: {null:null},
+    2: { null: null },
     3: {
         1: {
             price: 298,
@@ -124,18 +122,11 @@ var info = {
     },
 };
 
-var b = function (obj) {
-    for (var key in obj) {
-        return false;
-    }
-    return true;
-};
-
 function addItem(box, page) {
     var str = "";
     for (var i in info[page]) {
         // console.log(info[page][i]);
-        
+
         if (i == "null") {
             box.innerHTML = "<div id='blank'></div>";
             return;
@@ -160,8 +151,20 @@ function addItem(box, page) {
     box.innerHTML = str;
 }
 
-addItem(document.querySelectorAll(".s")[0], 1);
-document.getElementById("shop1").classList.add("selected");
+var ani = ()=>{
+    var item = document.getElementsByClassName("box");
+    // window.requestAnimationFrame(()=>{
+    for(let i = 0; i < item.length; i++){
+        item[i].onmouseover = ()=>{
+            item[i].style.transform = "scale(1.1)";
+            item[i].style.borderRadius = "8px";
+        }
+        item[i].onmouseout = ()=>{
+            item[i].style.transform = "scale(1)";
+            item[i].style.borderRadius = "0px";
+        }
+    };
+}
 
 var visible = [1, 0, 0, 0, 0, 0];
 
@@ -188,10 +191,31 @@ function shop(op) {
     // console.log(visible);
 
     if (op == 6) {
-        document.querySelector(".s")[5].classList.remove("hide");
+        document.querySelector(".s").classList.remove("hide");
         for (let i = 0; i < visible.length; i++) {
             if (i == op - 1) visible[i] = 1;
             else visible[i] = 0;
         }
     } else addItem(document.querySelectorAll(".s")[op - 1], op);
+    ani();
 }
+
+addItem(document.querySelectorAll(".s")[0], 1);
+document.getElementById("shop1").classList.add("selected");
+ani();
+
+setInterval(() => {
+    if(window.innerWidth < 1184){
+        var uls = document.querySelectorAll("ul");
+        for(let i = 1; i < 7; i++){
+            uls[i].style.paddingLeft = 0 + "px";
+            uls[i].style.backgroundImage = "";
+        }
+    }else{
+        var uls = document.querySelectorAll("ul");
+        for(let i = 1; i < 7; i++){
+            uls[i].style.paddingLeft = 80 + "px";
+            uls[i].style.backgroundImage = "url(http://www.qingmings.com/images/icon_menu.png)";
+        }
+    }
+}, 100);

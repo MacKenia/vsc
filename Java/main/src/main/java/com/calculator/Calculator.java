@@ -128,6 +128,7 @@ public class Calculator extends JFrame {
         in1.setColumns(9);
         op.setColumns(3);
         in2.setColumns(9);
+        in1.setText("0");
         pan[FPan].add(in1);
         pan[FPan].add(op);
         pan[FPan].add(in2);

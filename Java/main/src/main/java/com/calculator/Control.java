@@ -3,20 +3,15 @@ package com.calculator;
 import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.sound.sampled.FloatControl;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import org.w3c.dom.Text;
 
@@ -31,6 +26,7 @@ public class Control implements ActionListener {
     private FileDialog fSave = new FileDialog(dialog, "Save File", FileDialog.SAVE);
     private File hisFile;
     private DecimalFormat df = new DecimalFormat("0.000");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh_mm");
 
     public Control(JButton[] b, JTextField[] f, JTextArea a) {
         but = b;
@@ -99,6 +95,12 @@ public class Control implements ActionListener {
                 if(text[1].getText().equals("") || text[2].getText().equals("")){
                     text[3].setText("Lack input!");
                     break;
+                } else if (text[0].getText().equals("0") || text[2].getText().equals("0")){
+                    text[3].setText("Error input!");
+                    for (int i = 0; i < 3; i++){
+                        text[i].setText("");
+                    }
+                    break;
                 }
                 Double in1 = Double.valueOf(text[0].getText());
                 Double in2 = Double.valueOf(text[2].getText());
@@ -122,37 +124,38 @@ public class Control implements ActionListener {
                     break;
                 }
                 history.append(
-                        text[0].getText() + text[1].getText() + text[2].getText() + "=" + text[3].getText() + "\n");
+                        text[0].getText() + text[1].getText() + text[2].getText() + text[3].getText() + "\n");
                 recordings.add(new Date().toString());
                 recordings.add(text[0].getText() + text[1].getText() + text[2].getText() + text[3].getText());
-                text[0].setText("0");
+                for(String i : recordings){
+                    System.out.println(i);
+                }
                 break;
             case "+/-":
                 if(text[flag % 3].getText().equals("")){
                     text[flag % 3].setText("-" + text[flag % 3].getText());
                     break;
                 }
-                if (text[flag % 3].getText().substring(0, 1).equals("-")) {
+                if (text[flag % 3].getText().charAt(0)=='-') {
                     text[flag % 3].setText(text[flag % 3].getText().substring(1));
                 } else {
                     text[flag % 3].setText("-" + text[flag % 3].getText());
                 }
                 break;
             case "保存":
-                fSave.setVisible(true);
                 try {
-                    fSave.setFile(new Date().toString()+".txt");
-                    hisFile = new File(fSave.getDirectory(), fSave.getFile());        
-                    // System.out.println(fSave.getDirectory() + fSave.getFile());
+                    hisFile = new File(sdf.format(new Date())+".txt");
+                    System.out.println(hisFile.getAbsoluteFile());
                     FileWriter fw = new FileWriter(hisFile);
-                    for(String i : recordings){
-                        fw.write(i+"\n");
+                    for(String i : recordings) {
+                        fw.write(i + "\n");
                         System.out.println(i);
                     }
                     fw.close();
                 } catch (Exception ei) {
                     ei.getStackTrace();
                 }
+                JOptionPane.showMessageDialog(null, "保存成功", "保存成功",JOptionPane.INFORMATION_MESSAGE);
                 break;
                 case "查看":
                 fload.setVisible(true);
@@ -161,7 +164,7 @@ public class Control implements ActionListener {
                 try{
                     hisFile = new File(fload.getDirectory(), fload.getFile());
                     BufferedReader fr = new BufferedReader(new FileReader(hisFile));
-                    String buffer = null;
+                    String buffer;
                     while((buffer = fr.readLine()) != null)
                     {
                         System.out.println(buffer);
@@ -176,7 +179,7 @@ public class Control implements ActionListener {
                 history.setText("");
                 break;
             case ".":
-                if(text[flag % 3].getText().indexOf(".")!=-1) break;
+                if(text[flag % 3].getText().contains(".")) break;
                 if(text[flag % 3].getText().equals("") || text[flag % 3].getText().equals("0")){
                     text[flag % 3].setText("0.");
                 } else {
@@ -185,7 +188,7 @@ public class Control implements ActionListener {
                 break;
             default:
                 if (text[3].getText().equals("")) {
-                    if(text[0].getText().equals("0")) text[0].setText("");
+                    if(flag == 0 && text[0].getText().equals("0")) text[0].setText("");
                     text[flag % 3].setText(text[flag % 3].getText() + command);
                 } else {
                     for (JTextField i : text) {

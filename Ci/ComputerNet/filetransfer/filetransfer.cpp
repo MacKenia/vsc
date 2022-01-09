@@ -198,9 +198,9 @@ void filetransfer::send()
             wprintw(single, "%s", rate);
             wmove(single, 2, 2);
             wprintw(single, "%d%%", (int)(i * 100.0 / len));
-            wrefresh(single);
+            if(!(i%1024)) wrefresh(single);
             // if(!(i%100)) usleep(3);
-            usleep(sqrt(len/1024));
+            usleep(sqrt(len/1024)*slice);
             // printf("%d,",i);
         }
 
@@ -353,7 +353,7 @@ void filetransfer::recv()
             wprintw(single, "%s", rate);
             wmove(single, 2, 2);
             wprintw(single, "%d%%", (int)(ftell(output) * 100.0 / size));
-            wrefresh(single);
+            if(!(ftell(output)%10240)) wrefresh(single);
             if (tmp.flag & 8)
                 break;
             // tmp.flag = 0;
@@ -556,7 +556,7 @@ void *filetransfer::send_fragment(void *fid)
             wprintw(sing, "%d%%", (int)(i * 100.0 / loopctl));
         wrefresh(sing);
         refresh();
-        usleep(rand() % (slice + 1));
+        usleep(sqrt(loopctl/1024)*slice);
     }
     // printf("%d: 发送完成\n",id);
 
@@ -647,9 +647,8 @@ void *filetransfer::recv_fragment(void *fid)
         // printf("%.2f%%", ftell(output)*1.0 / size*100);
         wmove(sing, 2, 2);
         usleep(rand() % 100);
-        if (!(i++ % 100))
-            wprintw(sing, "%d%%", (int)(ftell(output) * 1.0 / l));
-        wrefresh(sing);
+        wprintw(sing, "%d%%", (int)(ftell(output) * 1.0 / l));
+        if(!(ftell(output)%10240)) wrefresh(sing);
         if (tmp.flag & 8)
             break;
     }

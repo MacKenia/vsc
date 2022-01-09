@@ -27,13 +27,13 @@ public class Control implements ActionListener {
     private File hisFile;
     private DecimalFormat df = new DecimalFormat("0.000");
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-hh_mm");
-
+    // 构造函数
     public Control(JButton[] b, JTextField[] f, JTextArea a) {
         but = b;
         text = f;
         history = a;
     }
-
+    // 重写
     public void actionPerformed(ActionEvent e) {
         JButton active = (JButton) e.getSource();
         String command = active.getActionCommand();

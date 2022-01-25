@@ -16,9 +16,12 @@ import requests
 
 # 获取相关数据
 
-fi = open("passwd.txt","r")
-user = fi.readline()
-passwd = fi.readline()
+# fi = open("passwd.txt","r")
+# user = fi.readline()
+# passwd = fi.readline()
+
+user = "2020051615308"
+passwd = "11243913"
 
 user = user.rstrip()
 passwd = passwd.rstrip()
@@ -56,5 +59,5 @@ header = {
 response = requests.post(url, data=datas, headers=header).status_code
 print("{}".format(response))
 
-fi.close()
+# fi.close()
 

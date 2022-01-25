@@ -14,7 +14,6 @@ import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 
 import org.w3c.dom.Text;
-
 public class Control implements ActionListener {
     private JButton[] but;
     private JTextField[] text;

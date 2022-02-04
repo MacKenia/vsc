@@ -44,7 +44,7 @@ void filetransfer::inits()
     send_addr.sin_addr.s_addr = inet_addr(ip);
 }
 
-void filetransfer::initr()
+void filetransfer::initrecv()
 {
     // printf("初始化...");
     recv_addr.sin_family = AF_INET;
@@ -270,12 +270,12 @@ void filetransfer::recv()
 
     scrollok(info, true);
 
-    initr();
+    initrecv();
     wprintw(info, "%s", "  初始化成功\n");
     box(info, '|', '-');
     wrefresh(info);
 
-    // initr();
+    // initrecv();
     // printf("初始化成功\n");
 
     recv_socket = socket(AF_INET, SOCK_STREAM, 0);

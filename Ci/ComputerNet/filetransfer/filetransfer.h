@@ -58,7 +58,7 @@ protected:
     static void *recv_fragment(void *);
     void merge_fragment();
     void inits();
-    void initr();
+    void initrecv();
     void scan();
 };
 

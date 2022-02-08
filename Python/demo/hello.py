@@ -1,4 +1,6 @@
 import time
+import numpy
+
 print("hello world!")
 while True:
     date = time.localtime()

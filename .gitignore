@@ -1,8 +1,13 @@
+# Files
 *.class
 *.mp3
 *.mp4
 *.m4a
+*.cfg
+*.weights
+*.ttf
 
+# Floders
 **/.idea
 **/target
 **/.vscode

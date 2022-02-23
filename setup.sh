@@ -1,5 +1,24 @@
 # /bin/bash
 # my own archlinux setup bash
+lsblk
+echo -e "\033[31mPlease check your efi partion is mounted on /boot/efi(y/N):\033[0m"
+read confirm
+
+if [ $confirm ]
+then
+    case $confirm in
+        y)
+        ;;
+        n) exit
+        ;;
+        N) exit
+        ;;
+        *) echo "Wrong input!"
+            exit
+        ;;
+    esac
+fi
+
 if [ ! $1 ]
 then
     echo "Please enter a username!(sh setup.sh [username])"

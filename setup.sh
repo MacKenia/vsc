@@ -46,7 +46,7 @@ echo "127.0.0.1        localhost" >> /etc/hosts
 echo "::1               localhost" >> /etc/hosts
 echo "127.0.1.1        $1" >> /etc/hosts
 
-echo "Please enter passwd for root:\n"
+echo "Please enter passwd for \033[46;30mroot\033[0m:\n"
 
 passwd root
 
@@ -61,7 +61,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 useradd -m -G wheel -s /bin/zsh $1
 
-echo "Please enter passwd for $1\n"
+echo "Please enter passwd for \033[46;30m$1\033[0m:\n"
 
 passwd $1
 

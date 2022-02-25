@@ -1,0 +1,9 @@
+[Unit]
+Description=A web terminal
+After=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+ExecStart=/usr/local/bin/ttyd -p 5501 -u 1001 -w /home/code/CqoocAutoCompleteCourse zsh

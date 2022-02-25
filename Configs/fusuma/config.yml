@@ -1,0 +1,44 @@
+swipe:
+  3:
+    left:
+      command: 'xdotool key super+alt+Left'
+    right:
+      command: 'xdotool key super+alt+Right' # change between browser tabs
+    up:
+      command: 'xdotool key ctrl+F9'
+    down:
+      command: 'xdotool key super+d'
+  4:
+    left:
+      command: 'xdotool key super+ctrl+Right'
+    right:
+      command: 'xdotool key super+ctrl+Left' # change desktops
+    up:
+      command: 'xdotool key ctrl+F8'
+    down:
+      command: 'xdotool key ctrl+F8' # show all desktops
+
+pinch:
+  2:
+    in:
+      command: 'xdotool key super+equal' # zoom up
+    out:
+      command: 'xdotool key super+minus' # zomm dowc
+  3:
+    in:
+      command: 'xdotool key super+shift+B'
+    out:
+      command: 'xdotool key super+shift+B' # show all applications
+  4:
+    in:
+      command: 'xdotool key ctrl+F9' # show all windows on active desktop
+    out:
+      command: 'xdotool key ctrl+F9'
+
+threshold:
+  swipe: 0.5
+  pinch: 0.3
+
+interval:
+  swipe: 1
+  pinch: 3

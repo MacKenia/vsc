@@ -3,6 +3,7 @@
 *.mp3
 *.mp4
 *.mkv
+*.mov
 *.m4a
 *.cfg
 *.weights

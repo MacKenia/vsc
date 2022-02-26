@@ -2,6 +2,7 @@
 *.class
 *.mp3
 *.mp4
+*.mkv
 *.m4a
 *.cfg
 *.weights

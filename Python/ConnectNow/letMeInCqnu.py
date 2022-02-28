@@ -1,3 +1,4 @@
+from email import header
 import requests
 # import socket
 
@@ -16,12 +17,12 @@ import requests
 
 # 获取相关数据
 
-# fi = open("passwd.txt","r")
-# user = fi.readline()
-# passwd = fi.readline()
+fi = open("passwd.txt","r")
+user = fi.readline()
+passwd = fi.readline()
 
-user = "2020051615308"
-passwd = "11243913"
+# user = "2020051615308"
+# passwd = "11243913"
 
 user = user.rstrip()
 passwd = passwd.rstrip()
@@ -40,7 +41,7 @@ datas = {
     "0MKKey": "123456"
 }
 
-header = {
+header_desktop = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
     "Accept-Encoding": "gzip, deflate",
     "Accept-Language": "zh-CN,zh;q=0.9",
@@ -56,8 +57,21 @@ header = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36 Edg/94.0.992.31"
 }
 
-response = requests.post(url, data=datas, headers=header).status_code
+header_phone = {
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "zh-CN,zh;q=0.9",
+    "Cache-Control": "max-age=0",
+    "Connection": "keep-alive",
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Host": "10.0.251.18:801",
+    "Origin": "http://10.0.251.18",
+    "Referer": "http://10.0.251.18/",
+    "Upgrade-Insecure-Requests": "1",
+    "User-Agent": "Mozilla/5.0 (Linux; Android 12; MI 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Mobile Safari/537.36 EdgA/98.0.1108.62"
+}
+
+response = requests.post(url, data=datas, headers=header_phone).status_code
 print("{}".format(response))
 
-# fi.close()
+fi.close()
 

@@ -30,9 +30,7 @@ void sort(int N, int *p)
                 int t = p[i];
                 for (int k = i; k > j; k--)
                 {
-                    int tt = p[k];
                     p[k] = p[k-1];
-                    p[k-1] = tt;
                 }
                 p[j] = t;
                 break;

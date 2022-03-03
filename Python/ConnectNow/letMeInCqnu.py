@@ -17,12 +17,15 @@ import requests
 
 # 获取相关数据
 
-fi = open("passwd.txt","r")
-user = fi.readline()
-passwd = fi.readline()
+# fi = open("passwd.txt","r")
+# user = fi.readline()
+# passwd = fi.readline()
 
 # user = "2020051615308"
 # passwd = "11243913"
+
+user = "20130942"
+passwd = "031960"
 
 user = user.rstrip()
 passwd = passwd.rstrip()

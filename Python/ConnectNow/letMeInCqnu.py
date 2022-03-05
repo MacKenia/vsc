@@ -76,5 +76,3 @@ header_phone = {
 response = requests.post(url, data=datas, headers=header_phone).status_code
 print("{}".format(response))
 
-fi.close()
-

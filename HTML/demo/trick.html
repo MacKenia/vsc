@@ -10,26 +10,60 @@
         html, body {
             width: 100%;
             height: 100%;
+            overflow: hidden;
         }
 
         body {
+            background-size: contain;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
+        h1 {
+            text-align: center;
+        }
+
+        a {
+            text-align: center;
+            width: 30%;
+            background-color: #4dc86f;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #fff;
+            transform: scale(1.3);
+            box-shadow: 2px 2px 4px #4dc86f ;
+        }
+
+
+        #but {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+
     </style>
 </head>
 <body>
-    <h1>在？借点钱？</h1>
+    <div id="body">
+        <h1>在？借点钱?</h1>
+        <div id="but">
+            <a href="javascript:void(0);" onclick="bgc()">借!</a>
+            <a href="trick.html" target="_blank">不借!</a>
+        </div>
+    </div>
     <script>
-        function money(){
-            var r = true;
-            r = confirm("借点钱？");
-            if (r == true) ;
-            else if (r === false) window.open(window.location.href,"_blank",'width=200,height=100');
+        function bgc(){
+            body = document.getElementsByTagName("body")[0];
+            div = document.getElementById("body");
+            console.log(body);
+
+            body.style.backgroundImage = "url(money.jpg)"
+            
+            div.style.visibility = "hidden"
+
+            alert("阿里嘎多!");
         }
-        money();
     </script>
 </body>
 </html>

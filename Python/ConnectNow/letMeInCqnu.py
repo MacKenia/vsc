@@ -24,19 +24,21 @@ import requests
 # user = "2020051615308"
 # passwd = "11243913"
 
-user = "20130942"
-passwd = "031960"
+user = ["20130942","20200045","20130889","20148407","2020051615308",""]
+passwd = ["031960","013145","050044","ddm2018","11243913",""]
 
-user = user.rstrip()
-passwd = passwd.rstrip()
+choice = 4
+
+print(user[choice])
+print(passwd[choice])
 
 # url = "http://10.0.251.18:801/eportal/?c=ACSetting&a=Login&wlanuserip="+ str(get_host_ip()) +"&wlanacip=&lanacname=&redirect=&session=&vlanid=0&ssid=&port=&iTermType=1&protocol=http:&queryACIP=0"
 
 url = "http://10.0.251.18:801/eportal/?c=ACSetting&a=Login&wlanacip=&lanacname=&redirect=&session=&vlanid=0&ssid=&port=&iTermType=1&protocol=http:&queryACIP=0"
 
 datas = {
-    "DDDDD":",0,"+user+"@telecom",
-    "upass": passwd,
+    "DDDDD":",0,"+user[choice]+"@telecom",
+    "upass": passwd[choice],
     "R1":"0",
     "R2": "",
     "R6": "0",
@@ -52,7 +54,6 @@ header_desktop = {
     "Connection": "keep-alive",
     "Content-Length": "87",
     "Content-Type": "application/x-www-form-urlencoded",
-    "Cookie": "namevalue=,0," + str(user) + "@telecom; passvalue=" + str(passwd) + "; PHPSESSID=bu60f0l0g0cl6ank1uh5s1uvv3",
     "Host": "10.0.251.18:801",
     "Origin": "http://10.0.251.18",
     "Referer": "http://10.0.251.18/",
@@ -70,9 +71,8 @@ header_phone = {
     "Origin": "http://10.0.251.18",
     "Referer": "http://10.0.251.18/",
     "Upgrade-Insecure-Requests": "1",
-    "User-Agent": "Mozilla/5.0 (Linux; Android 12; MI 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Mobile Safari/537.36 EdgA/98.0.1108.62"
+    "User-Agent": "Mozilla/5.0 (Linux; Android 10; HuaWei Mate Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Mobile Safari/537.36 EdgA/98.0.1108.62"
 }
 
 response = requests.post(url, data=datas, headers=header_phone).status_code
 print("{}".format(response))
-

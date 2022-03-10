@@ -27,7 +27,7 @@ import requests
 user = ["20130942","20200045","20130889","20148407","2020051615308","2021051615296"]
 passwd = ["031960","013145","050044","ddm2018","11243913","727503"]
 
-choice = 5
+choice = 0
 
 print(user[choice])
 print(passwd[choice])

@@ -1,0 +1,16 @@
+.jp-CodeCell {
+    border: 1px solid #000;
+}
+
+.jp-Cell-inputArea {
+
+}
+
+.jp-Cell-outputArea {
+    /* border: 1px solid #000; */
+}
+
+pre {
+    font-family: "Cascadia Code";
+    font-size: 18px !important;
+}

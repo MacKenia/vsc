@@ -1,7 +1,11 @@
 #include <stdio.h>
+#include <string.h>
 
 void InsertSort(int, int*);
 void BubbleSort(int, int*);
+void SelectSort(int, int*);
+void HillSort(int, int*);
+
 
 int main()
 {
@@ -54,5 +58,26 @@ void InsertSort(int N, int *p)
         }
         
     }
+    
+}
+
+void SelectSort(int N, int *p)
+{
+    int f = 0;
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = i; j < N; j++)
+        {
+            if(p[f] > p[j]) f = j;
+        }
+        int t = p[f];
+        p[f] = p[i];
+        p[i] = t;
+    }
+    
+}
+
+void HillSort(int N, int *p)
+{
     
 }

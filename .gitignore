@@ -9,6 +9,8 @@
 *.weights
 *.ttf
 *.out
+*.exe
+*.out
 
 # Floders
 **/.idea

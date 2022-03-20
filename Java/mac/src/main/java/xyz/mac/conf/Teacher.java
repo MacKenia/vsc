@@ -8,9 +8,17 @@ import org.springframework.stereotype.Component;
 public class Teacher {
     private int number;
     private String name;
-    private String age;
+    private int age;
     private String position;
     private String wage;
+
+    public Teacher(int n, String na, int a) {
+        this.number = n;
+        this.name = na;
+        this.age = a;
+    }
+
+    public Teacher(){}
 
     public void setNumber(int number){
         this.number = number;
@@ -20,7 +28,7 @@ public class Teacher {
         this.name = name;
     }
 
-    public void setAge(String age){
+    public void setAge(int age){
         this.age = age;
     }
 
@@ -30,6 +38,26 @@ public class Teacher {
 
     public void setWage(String wage){
         this.wage = wage;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public String getWage() {
+        return wage;
     }
 
     @Override

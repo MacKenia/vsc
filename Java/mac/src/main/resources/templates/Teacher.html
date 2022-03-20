@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Teacher</title>
+    <!-- 新 Bootstrap5 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
+
+    <!--  popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <script src="https://cdn.staticfile.org/popper.js/2.9.3/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-$END$
+<div class="container-lg">
+    <header class="d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="../Student" class="nav-link" aria-current="page">学生</a></li>
+            <li class="nav-item"><a href="../Teacher" class="nav-link active">老师</a></li>
+        </ul>
+    </header>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <th>id</th>
+            <th>name</th>
+            <th>age</th>
+        </thead>
+        <tbody>
+            <tr th:each="t:${teaList}">
+                <td th:text="${t.getNumber()}"></td>
+                <td th:text="${t.getName()}"></td>
+                <td th:text="${t.getAge()}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

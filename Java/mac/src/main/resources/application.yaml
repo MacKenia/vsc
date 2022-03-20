@@ -5,14 +5,16 @@ student:
     number: 20200
     name: Putin
     gender: male
-    age: ???
+    age: 999
     grade: one
 
 teacher: 
     number: 2013
     name: Zelensky
-    age: ???
+    age: 999
     position: senior
     wage: 10k
 
-
+spring:
+  thymeleaf:
+    cache: false

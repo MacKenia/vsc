@@ -2,9 +2,7 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Front</title>
+    <title>Student</title>
     <!-- 新 Bootstrap5 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/css/bootstrap.min.css">
 
@@ -13,20 +11,29 @@
 
     <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
     <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
-
 </head>
 <body>
 <div class="container-lg">
     <header class="d-flex justify-content-center py-3">
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="../" class="nav-link active" aria-current="page">学生</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">老师</a></li>
+            <li class="nav-item"><a href="../Student" class="nav-link active" aria-current="page">学生</a></li>
+            <li class="nav-item"><a href="../Teacher" class="nav-link">老师</a></li>
         </ul>
     </header>
-    <table class="table">
-        <thead></thead>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <th>id</th>
+            <th>name</th>
+            <th>age</th>
+        </thead>
+        <tbody>
+            <tr th:each="s:${stuList}">
+                <td th:text="${s.getNumber()}"></td>
+                <td th:text="${s.getName()}"></td>
+                <td th:text="${s.getAge()}"></td>
+            </tr>
+        </tbody>
     </table>
-    <h1 th:text="${student.name}">OK</h1>
 </div>
 </body>
 </html>

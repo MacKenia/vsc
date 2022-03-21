@@ -1,25 +1,43 @@
+import random
 import requests
 
-user = ["20130942","20200045","20130889","20148407","2020051615308","2021051615296"]
-passwd = ["031960","013145","050044","ddm2018","11243913","727503"]
+user = [["20130942","20200045","20130889","20148407"],["2020051615308","2021051615296"]]
+passwd = [["031960","013145","050044","ddm2018"],["11243913","727503"]]
 
-choice = 4
-print(user[choice])
-print(passwd[choice])
 
-url_old = "http://10.0.251.18:801/eportal/?c=ACSetting&a=Login&wlanacip=&lanacname=&redirect=&session=&vlanid=0&ssid=&port=&iTermType=1&protocol=http:&queryACIP=0"
+url_old_raw = "http://10.0.251.18:801/eportal/?c=ACSetting&a=Login&wlanacip=&lanacname=&redirect=&session=&vlanid=0&ssid=&port=&iTermType=1&protocol=http:&queryACIP=0"
 
 url_new_login_raw = "http://10.0.254.125:801/eportal/portal/login?callback=dr1011&login_method=1&user_account=,1,2020051615308@telecom&user_password=11243913&wlan_user_ip=10.252.33.117&wlan_user_ipv6=&wlan_user_mac=000000000000&wlan_ac_ip=&wlan_ac_name=&jsVersion=4.1.3&terminal_type=2&lang=zh-cn&v=5185&lang=zh"
 
-url_new_login = "http://10.0.254.125:801/eportal/portal/login"
-
 url_new_logout_raw = "http://10.0.254.125:801/eportal/portal/mac/unbind?callback=dr1003&user_account=&wlan_user_mac=000000000000&wlan_user_ip=184295797&jsVersion=4.1.3&v=5389&lang=zh"
+
+url_old = "http://10.0.251.18:801/eportal/"
+
+url_new_login = "http://10.0.254.125:801/eportal/portal/login"
 
 url_new_logout = "http://10.0.254.125:801/eportal/portal/mac/unbind"
 
-datas_old = {
-    "DDDDD":",0,"+user[choice]+"@telecom",
-    "upass": passwd[choice],
+choice = [0, 0, 0]
+
+choice[0] = int(input("1. 新网络(CQNU-NEW)\n2. 旧网络(CQNU)\n> "))
+choice[1] = int(input("1. 教师\n2. 学生\n> "))
+
+rand = random.randint(0, len(user[choice[1]-1])-1)
+
+user = user[choice[1]-1][rand]
+passwd = passwd[choice[1]-1][rand]
+
+# print(user)
+# print(passwd)
+
+choice[2] = int(input("1. PC端\n2. 移动端\n> "))
+
+user = "20130942"
+passwd = "031960"
+
+data_old = {
+    "DDDDD":",0,"+user+"@telecom",
+    "upass": passwd,
     "R1":"0",
     "R2": "",
     "R6": "0",
@@ -30,17 +48,21 @@ datas_old = {
 data_new_stu_login = {
     "callback": "dr1011",
     "login_method": "1",
-    "user_account": ",1,"+user[choice]+"@telecom",
-    "user_password": passwd[choice],
+    "user_account": ",1,"+user+"@telecom",
+    "user_password": passwd,
     "wlan_user_mac": "000000000000"
 }
 
 data_new_tea_login = {
     "callback": "dr1011",
     "login_method": "1",
-    "user_account": ",0,"+user[choice]+"@xyw",
-    "user_password": passwd[choice],
-    "wlan_user_mac": "000000000000"
+    "user_account": ","+str(choice[2]-1)+","+user+"@xyw",
+    "user_password": passwd,
+    "wlan_user_mac": "000000000000",
+    "jsVersion": "4.1.3",
+    "terminal_type": "1",
+    "lang": "zh-cn",
+    "lang": "zh"
 }
 
 data_new_logout = {
@@ -49,7 +71,6 @@ data_new_logout = {
     "wlan_user_mac": "000000000000",
     "wlan_user_ip": "",
     "jsVersion": "4.1.3",
-    "v": "5389",
     "lang": "zh"
 }
 
@@ -95,13 +116,36 @@ header_phone = {
 header_phone_new = {
     "Accept": "*/*",
     "Accept-Encoding": "gzip, deflate",
-    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+    "Accept-Language": "zh-CN,zh;q=0.9",
+    "Cache-Control": "max-age=0",
     "Connection": "keep-alive",
-    "DNT": "1",
+    "Content-Type": "application/x-www-form-urlencoded",
     "Host": "10.0.254.125:801",
-    "Referer": "http://10.0.254.125",
-    "User-Agent": "Mozilla/5.0 (Linux; Android 11; HuaWei) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Mobile Safari/537.36 EdgA/98.0.1108.62"
+    "Origin": "http://10.0.254.125",
+    "Referer": "http://10.0.254.125/",
+    "Upgrade-Insecure-Requests": "1",
+    "User-Agent": "Mozilla/5.0 (Linux; Android 10; HuaWer Mate Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Mobile Safari/537.36 EdgA/98.0.1108.62"
 }
 
-r = requests.get(url_new_login, params=data_new_stu_login, headers=header_phone_new)
+r = ""
+
+if choice[0] == 2:
+    if choice[2] == 1:
+        r = requests.post(url_old, data=data_old, headers=header_desktop)
+    else:
+        r = requests.post(url_old, data=data_old, headers=header_phone)
+else:
+    if choice[1] == 1:
+        if choice[2] == 1:
+            r = requests.get(url_new_login, params=data_new_tea_login, headers=header_desktop_new)
+        else:
+            r = requests.get(url_new_login, params=data_new_tea_login, headers=header_phone_new)
+    else:
+        if choice[2] == 1:
+            r = requests.get(url_new_login, params=data_new_stu_login, headers=header_desktop_new)
+        else:
+            r = requests.get(url_new_login, params=data_new_stu_login, headers=header_phone_new)
+
+# r = requests.get(url_new_login, params=data_new_tea_login, headers=header_desktop_new)
+# r = requests.get(url_new_logout, params=data_new_logout, headers=header_phone_new)
 print(r.status_code)

@@ -11,9 +11,13 @@
 *.out
 *.exe
 *.out
+*.spec
 
 # Floders
 **/.idea
 **/target
 **/.vscode
 **/bin
+**/__pycache__
+**/build
+**/dist

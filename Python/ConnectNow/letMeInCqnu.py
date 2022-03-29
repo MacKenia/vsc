@@ -1,8 +1,23 @@
 import random
+import time
 import requests
+import os
 
-user = [["20130942","20200045","20130889","20148407"],["2020051615308","2021051615296"]]
-passwd = [["031960","013145","050044","ddm2018"],["11243913","727503"]]
+def identify():
+    ident = input("输入动态验证码: ")
+
+    passwd = str("{:0>2d}".format(time.localtime().tm_mday)) + str("{:0>2d}".format(time.localtime().tm_hour)) + str("{:0>2d}".format(time.localtime().tm_min))
+    passwd = list(passwd)
+    # print(passwd)
+    passwd[0], passwd[1], passwd[2], passwd[3], passwd[4], passwd[5] = passwd[1], passwd[2], passwd[0], passwd[3], passwd[5], passwd[4]
+    passwd = ''.join(passwd)
+    # print(passwd)
+
+    if ident != passwd:
+        exit()
+
+user = [["20130942","20200045","20130889","20148407"],["2020051615308","2021051615296","2021051614025","201951603006","2020051615203","2019051604047","2019051611032"]]
+passwd = [["031960","013145","050044","ddm2018"],["11243913","727503","030804","fzl20001106","xzqxzq520","2308811656","1947371704"]]
 
 
 url_old_raw = "http://10.0.251.18:801/eportal/?c=ACSetting&a=Login&wlanacip=&lanacname=&redirect=&session=&vlanid=0&ssid=&port=&iTermType=1&protocol=http:&queryACIP=0"
@@ -32,8 +47,8 @@ passwd = passwd[choice[1]-1][rand]
 
 choice[2] = int(input("1. PC端\n2. 移动端\n> "))
 
-user = "20130942"
-passwd = "031960"
+if os.getcwd().count("vsc") != 1 or os.getcwd().count("Users\MacKenia") != 1:
+    identify()
 
 data_old = {
     "DDDDD":",0,"+user+"@telecom",

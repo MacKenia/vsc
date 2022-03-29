@@ -12,7 +12,7 @@ public class Controller {
     @Autowired
     Student student = new Student();
 
-    @GetMapping("")
+    @GetMapping("test")
     public String index() {
         return student.toString();
     }

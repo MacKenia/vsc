@@ -29,4 +29,24 @@ public class FrontController {
         model.addAttribute("teaList",teaList);
         return "Teacher";
     }
+
+    @GetMapping("/commonToIndex")
+    public String index(Model model) {
+        ArrayList<Teacher> teaList = new ArrayList<Teacher>();
+        teaList.add(new Teacher(1, "TJohn", 20));
+        teaList.add(new Teacher(2, "TJane", 21));
+        teaList.add(new Teacher(3, "TJack", 22));
+        model.addAttribute("teaList",teaList);
+        return "index";
+    }
+
+    @GetMapping("/layoutToMain")
+    public String main(Model model) {
+        ArrayList<Student> stuList = new ArrayList<Student>();
+        stuList.add(new Student(1, "SJohn", 20));
+        stuList.add(new Student(2, "SJane", 21));
+        stuList.add(new Student(3, "SJack", 22));
+        model.addAttribute("stuList",stuList);
+        return "main";
+    }
 }

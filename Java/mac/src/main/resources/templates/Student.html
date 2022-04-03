@@ -28,7 +28,7 @@
         </thead>
         <tbody>
             <tr th:each="s:${stuList}">
-                <td th:text="${s.getNumber()}"></td>
+                <td th:text="${s.getId()}"></td>
                 <td th:text="${s.getName()}"></td>
                 <td th:text="${s.getAge()}"></td>
             </tr>

@@ -28,7 +28,7 @@
         </thead>
         <tbody>
             <tr th:each="t:${teaList}">
-                <td th:text="${t.getNumber()}"></td>
+                <td th:text="${t.getId()}"></td>
                 <td th:text="${t.getName()}"></td>
                 <td th:text="${t.getAge()}"></td>
             </tr>

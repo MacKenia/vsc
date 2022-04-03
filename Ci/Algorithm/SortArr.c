@@ -7,16 +7,18 @@ void BubbleSort(int, int*);
 void SelectSort(int, int*);
 void HillSort(int, int*);
 void MergeSort(int, int*);
+void QuickSort(int*, int, int);
 
 int main()
 {
-    int N, arr[10];
-    scanf("%d", &N);
-    for (int i = 0; i < N; i++)
-    {
-        scanf("%d", &arr[i]);
-    }
-    MergeSort(N, arr);
+    int N, arr[10]={9,8,6,6,5,4,3,2,1,0};
+    // scanf("%d", &N);
+    // for (int i = 0; i < N; i++)
+    // {
+    //     scanf("%d", &arr[i]);
+    // }
+    N = 10;
+    QuickSort(arr, 0, N-1);
     for (int i = 0; i < N; i++)
     {
         printf("%d, ", arr[i]);
@@ -116,4 +118,35 @@ void MergeSort(int N, int *p)
         
     }
     free(tmp);
+}
+
+void QuickSort(int *p, int start, int end)
+{
+    if(start >= end) return;
+    int i = start, j = end;
+    while (i < j)
+    {
+        while (p[i] <= p[start] && i < j)
+        {
+            i++;
+        }
+        while (p[j] > p[start] && i < j)
+        {
+            j--;
+        }
+        if(p[i] > p[j])
+        {
+            int t = p[i];
+            p[i] = p[j];
+            p[j] = t;
+        }
+    }
+    if(p[i] < p[start])
+    {
+        int t = p[start];
+        p[start] = p[i];
+        p[i] = t;
+    }
+    QuickSort(p, start, i-1);
+    QuickSort(p, i, end);
 }

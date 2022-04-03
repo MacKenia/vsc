@@ -1,27 +1,26 @@
-package xyz.mac.conf;
+package xyz.mac.model;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "student")
-public class Student {
-    private int number;
+@ConfigurationProperties(prefix = "teacher")
+public class Teacher {
+    private int id;
     private String name;
     private int age;
     private String gender;
-    private String grade;
 
-    public Student(int n, String na, int a) {
-        this.number = n;
+    public Teacher(int n, String na, int a) {
+        this.id = n;
         this.name = na;
         this.age = a;
     }
 
-    public Student(){}
+    public Teacher(){}
 
-    public void setNumber(int number){
-        this.number = number;
+    public void setId(int id){
+        this.id = id;
     }
 
     public void setName(String name){
@@ -36,12 +35,8 @@ public class Student {
         this.gender = gender;
     }
 
-    public void setGrade(String grade){
-        this.grade = grade;
-    }
-
-    public int getNumber() {
-        return number;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -56,18 +51,13 @@ public class Student {
         return gender;
     }
 
-    public String getGrade() {
-        return grade;
-    }
-
     @Override
-    public String toString(){
-        return "Student{" +
-                "number=" + number +
+    public String toString() {
+        return "Teacher{" +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", age='" + age + '\'' +
-                ", gender='" + gender + '\'' +
-                ", grade='" + grade + '\'' +
+                ", gender='" + gender + "'" +
                 '}';
     }
 

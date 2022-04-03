@@ -14,14 +14,38 @@
 
     <!-- 最新的 Bootstrap5 核心 JavaScript 文件 -->
     <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
+
+    <!-- Jquery 核心文件-->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
 </head>
 <body>
     <div th:insert="~{common::svg}" style="visibility: hidden; height: 0;"></div>
     <div th:replace="~{common::myHeader}"></div>
     <div style="display: flex; justify-content: space-between;">
         <div th:insert="~{common::leftBar}" style="display: inline-block;"></div>
-        <div th:insert="~{Teacher.html}" style="width: 100%; height: 100%;"></div>
+        <div style="width: 100%; height: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+            <header class="d-flex justify-content-center py-3">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a href="javascript:void(0);" onclick="stu()" class="nav-link stu" aria-current="page">学生</a></li>
+                    <li class="nav-item"><a href="javascript:void(0);" onclick="tea()" class="nav-link tea active">老师</a></li>
+                </ul>
+            </header>
+            <div class="content" th:insert="~{Teacher::teacher}" style="width: 60%;"></div>
+        </div>
     </div>
     <div th:replace="~{common::footer}"></div>
+    <script>
+        function stu() {
+            $(".content").load("../Student .table");
+            $(".tea").removeClass("active");
+            $(".stu").addClass("active");
+        }
+
+        function tea() {
+            $(".content").load("../Teacher .table");
+            $(".stu").removeClass("active");
+            $(".tea").addClass("active");
+        }
+    </script>
 </body>
 </html>

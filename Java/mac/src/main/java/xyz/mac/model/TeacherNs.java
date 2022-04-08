@@ -1,5 +1,7 @@
 package xyz.mac.model;
 
+import org.springframework.boot.autoconfigure.web.WebProperties.Resources.Chain.Strategy;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TeacherNA {
+public class TeacherNs {
+    private int id;
     private String name;
-    private Integer age;
+    private int age;
+    private String rank;
 }

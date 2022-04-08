@@ -5,9 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor  //无参构造函数
-@AllArgsConstructor  //全参构造函数
-public class StudentNA {
+@NoArgsConstructor
+@AllArgsConstructor
+public class StudentNs {
+    private int id;
     private String name;
     private int age;
 }

@@ -1,12 +1,10 @@
+
 package xyz.mac;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.doubleThat;
-
-import java.util.HashMap;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,11 @@ import xyz.mac.mapping.StudentMapper;
 import xyz.mac.mapping.StudentNsMapper;
 import xyz.mac.mapping.TeacherMapper;
 import xyz.mac.model.Student;
+import xyz.mac.model.StudentNs;
 import xyz.mac.model.Teacher;
+import xyz.mac.model.TeacherNs;
+import xyz.mac.services.impl.StudentNsServices;
+import xyz.mac.services.impl.TeacherNsServices;
 
 @SpringBootTest
 class MacApplicationTests {
@@ -29,6 +31,12 @@ class MacApplicationTests {
 
 	@Autowired
 	private StudentNsMapper studentNsMapper;
+
+	@Autowired
+	private StudentNsServices studentNsServices;
+
+	@Autowired
+	private TeacherNsServices teacherNsServices;
 
 	@Test
 	void student() {
@@ -57,21 +65,83 @@ class MacApplicationTests {
 
 	@Test
 	void MP_selectList() {
-		QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
-		queryWrapper.ge("id", 2);
-		List<Student> students = studentNsMapper.selectList(queryWrapper);
-		System.out.println(students);
+		QueryWrapper<StudentNs> queryWrapper = new QueryWrapper<>();
+		queryWrapper.le("id", 5);
+		List<StudentNs> students = studentNsMapper.selectList(queryWrapper);
+		for (StudentNs student : students) {
+			System.out.println(student);
+		}
 	}
 
 	@Test
 	void MP_update() {
-		Student student = new Student();
-		student.setId(1);
+		StudentNs student = new StudentNs();
+		student.setId(99);
 		student.setName("张三");
-		student.setAge(99);
-		HashMap<String, Object> map = new HashMap<>();
 		int stu1 = studentNsMapper.updateById(student);
 		System.out.println(stu1);
+	}
+
+	@Test
+	void MP_qu() {
+		QueryWrapper<StudentNs> qw = new QueryWrapper<>();
+		qw.lt("id", 4);
+		List<StudentNs> students =studentNsMapper.selectList(qw);
+		for (StudentNs student : students) {
+			System.out.println(student);
+		}
+	}
+
+	@Test
+	void MP_StuService() {
+		QueryWrapper<StudentNs> qw = new QueryWrapper<>();
+		qw.lt("age", 20);
+		List<StudentNs> students = studentNsServices.list(qw);
+		for (StudentNs student : students) {
+			System.out.println(student);
+		}
+	}
+
+
+	@Test
+	void testInsert() {
+		StudentNs student = new StudentNs();
+		student.setId(101);
+		student.setName("张三");
+		student.setAge(99);
+		if (studentNsServices.save(student)) {
+			System.out.println("插入成功");
+		} else {
+			System.out.println("插入失败");
+		}
+	}
+
+	@Test
+	void testTeaInsert() {
+		TeacherNs teacherNs = new TeacherNs();
+		teacherNs.setId(101);
+		teacherNs.setName("张三");
+		teacherNs.setAge(99);
+		teacherNs.setRanks("班主任");
+		if (teacherNsServices.save(teacherNs)) {
+			System.out.println("插入成功");
+		} else {
+			System.out.println("插入失败");
+		}
+	}
+
+	@Test
+	void testPage() {
+		Page<StudentNs> page = new Page<>(1, 2);
+		QueryWrapper<StudentNs> qw = new QueryWrapper<>();
+		qw.lt("age", 20);
+		studentNsServices.page(page, qw);
+        System.out.println(page.getCurrent());
+        System.out.println(page.getTotal());
+        System.out.println(page.getSize());
+        System.out.println(page.getRecords());
+        System.out.println(page.hasNext());
+        System.out.println(page.hasPrevious());
 	}
 
 	@Test

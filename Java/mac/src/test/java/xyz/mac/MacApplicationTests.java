@@ -13,10 +13,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import xyz.mac.mapping.StudentMapper;
 import xyz.mac.mapping.StudentNsMapper;
 import xyz.mac.mapping.TeacherMapper;
+import xyz.mac.model.CqnuStu;
 import xyz.mac.model.Student;
 import xyz.mac.model.StudentNs;
 import xyz.mac.model.Teacher;
 import xyz.mac.model.TeacherNs;
+import xyz.mac.services.impl.CqnuStuServices;
 import xyz.mac.services.impl.StudentNsServices;
 import xyz.mac.services.impl.TeacherNsServices;
 
@@ -37,6 +39,9 @@ class MacApplicationTests {
 
 	@Autowired
 	private TeacherNsServices teacherNsServices;
+
+	@Autowired
+	private CqnuStuServices cqnuStuServices;
 
 	@Test
 	void student() {
@@ -132,16 +137,30 @@ class MacApplicationTests {
 
 	@Test
 	void testPage() {
-		Page<StudentNs> page = new Page<>(1, 2);
+		Page<StudentNs> page = new Page<>(2, 10);
 		QueryWrapper<StudentNs> qw = new QueryWrapper<>();
 		qw.lt("age", 20);
-		studentNsServices.page(page, qw);
+		studentNsServices.page(page,qw);
         System.out.println(page.getCurrent());
         System.out.println(page.getTotal());
         System.out.println(page.getSize());
         System.out.println(page.getRecords());
         System.out.println(page.hasNext());
         System.out.println(page.hasPrevious());
+	}
+
+	@Test
+	void testCPage(){
+		Page<CqnuStu> page = new Page<>(1,5);
+		QueryWrapper<CqnuStu> qw = new QueryWrapper<>();
+		qw.eq("major", "计算机科学与技术");
+		cqnuStuServices.page(page,qw);
+		System.out.println(page.getCurrent());
+		System.out.println(page.getTotal());
+		System.out.println(page.getSize());
+		System.out.println(page.getRecords());
+		System.out.println(page.hasNext());
+		System.out.println(page.hasPrevious());
 	}
 
 	@Test

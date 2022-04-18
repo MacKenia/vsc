@@ -5,6 +5,9 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +15,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import xyz.mac.model.CqnuStu;
 import xyz.mac.model.Student;
 import xyz.mac.model.Teacher;
+import xyz.mac.services.impl.CqnuStuServices;
 import xyz.mac.services.impl.StudentServices;
 import xyz.mac.services.impl.TeacherServices;
+
 
 @Controller
 public class FrontController {
@@ -25,6 +32,9 @@ public class FrontController {
 
     @Autowired
     TeacherServices teacherServices;
+
+    @Autowired
+    CqnuStuServices cqnuStuServices;
 
     @PostMapping("/Student")
     public String stu(Model model,@RequestParam("stuName") String name, int age){
@@ -70,4 +80,25 @@ public class FrontController {
     public String infoT(@PathVariable String name, @PathVariable int age) {
         return "info";
     }
+
+    @PostMapping("/getData")
+    @ResponseBody
+    public List<CqnuStu> postMethodName(Integer pages) {
+        QueryWrapper<CqnuStu> queryWrapper = new QueryWrapper<>();
+        Page<CqnuStu> page = new Page<>(pages, 10);
+        queryWrapper.like("grade", "202");
+        cqnuStuServices.page(page, queryWrapper);
+        return page.getRecords();
+    }
+
+    @PostMapping("/getPages")
+    @ResponseBody
+    public long getPages() {
+        QueryWrapper<CqnuStu> queryWrapper = new QueryWrapper<>();
+        Page<CqnuStu> page = new Page<>(1, 10);
+        queryWrapper.like("grade", "202");
+        cqnuStuServices.page(page, queryWrapper);
+        return page.getTotal();
+    }
+    
 }

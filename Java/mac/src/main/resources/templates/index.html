@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,34 +19,150 @@
     <!-- Jquery 核心文件-->
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
 </head>
+
 <body>
     <div th:insert="~{common::svg}" style="visibility: hidden; height: 0;"></div>
     <div th:replace="~{common::myHeader}"></div>
     <div style="display: flex; justify-content: space-between;">
         <div th:insert="~{common::leftBar}" style="display: inline-block;"></div>
-        <div style="width: 100%; height: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+        <div
+            style="width: 100%; height: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
             <header class="d-flex justify-content-center py-3">
                 <ul class="nav nav-pills">
-                    <li class="nav-item"><a href="javascript:void(0);" onclick="stu()" class="nav-link stu" aria-current="page">学生</a></li>
-                    <li class="nav-item"><a href="javascript:void(0);" onclick="tea()" class="nav-link tea active">老师</a></li>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>年级</th>
+                            <th>学院</th>
+                            <th>专业</th>
+                        </thead>
+                        <tbody id="info">
+                        </tbody>
+                    </table>
+                    <nav aria-label="...">
+                        <ul class="pagination" id="buts">
+                        </ul>
+                    </nav>
                 </ul>
             </header>
-            <div class="content" th:insert="~{Teacher::teacher}" style="width: 60%;"></div>
         </div>
     </div>
-    <div th:replace="~{common::footer}"></div>
+    <div class="fixed-bottom" th:insert="~{common::footer}"></div>
     <script>
-        function stu() {
-            $(".content").load("../Student .table");
-            $(".tea").removeClass("active");
-            $(".stu").addClass("active");
+        var total = 0;
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.status < 200 || xhr.status >= 300 && xhr.status !== 304) {
+                console.log("服务器异常");
+            }
+            var table = ""
+            // console.log(xhr.responseText);
+            var sheet = JSON.parse(xhr.responseText);
+            console.log(sheet);
+            for (var i = 0; i < sheet.length; i++) {
+                table += "<tr><td>" + sheet[i].id + "</td><td>" + sheet[i].name + "</td><td>" + sheet[i].grade;
+                table += "</td><td>" + sheet[i].academy + "</td><td>" + sheet[i].major + "</td></tr>";
+                // console.log(sheet[i].id);
+            }
+            document.getElementById("info").innerHTML = table;
         }
 
-        function tea() {
-            $(".content").load("../Teacher .table");
-            $(".stu").removeClass("active");
-            $(".tea").addClass("active");
+        function dis(p) {
+            if (p == 1) { $(".prev").parent().addClass("disabled") }
+            else $(".prev").parent().removeClass("disabled");
+            if (p == total) { $(".next").parent().addClass("disabled") }
+            else $(".next").removeClass("disabled");
         }
+
+        function butts(p) {
+            var p = parseInt(p);
+
+            var but = ["<li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0)\" id=\"", "\" onclick=\"page('", "')\">", "</a></li>"]
+            var prevB = "<li class=\"page-item \"><a class=\"page-link prev\" href=\"javascript:void(0)\" onclick=\"prev()\">Previous</a></li>";
+            var nextB = "<li class=\"page-item \"><a class=\"page-link next\" href=\"javascript:void(0)\" onclick=\"next()\">Next</a></li>";
+
+            var pag = new XMLHttpRequest();
+            pag.onreadystatechange = function () {
+                if (pag.status < 200 || pag.status >= 300 && pag.status !== 304) {
+                    console.log("服务器异常");
+                }
+                console.log(pag.responseText);
+                total = parseInt(pag.responseText);
+                console.log("total page:" + total);
+
+                // total = 50;
+                loop = total > 7 ? 7 : total;
+                // $("#buts").append(prevB[0]+(p-1)+prevB[1]);
+                $("#buts").children().remove();
+                $("#buts").append(prevB);
+                for (let i = 0; i < loop; i++) {
+                    var str = "";
+                    if (i < 3) {
+                        str += but[0] + (p + i) + but[1] + (p + i) + but[2] + (p + i) + but[3];
+                    } else if (i == 3 && total > 7) {
+                        str += but[0] + "..." + but[1] + "..." + but[2] + "..." + but[3];
+                    } else if (i > 3 && total > 7) {
+                        str += but[0] + (total - loop + 1 + i) + but[1] + (total - loop + 1 + i) + but[2] + (total - loop + 1 + i) + but[3];
+                    } else {
+                        str += but[0] + (p + i) + but[1] + (p + i) + but[2] + (p + i) + but[3];
+                    }
+                    $("#buts").append(str);
+                    // console.log(str);
+                }
+                // $("#buts").append((nextB[0]+(p+1)+nextB[1]));
+                $("#buts").append(nextB);
+                $("#" + p).parent().addClass("active");
+                dis(p);
+            }
+            pag.open("post", "http://localhost:11451/getPages");
+            pag.send();
+        }
+
+        function prev() {
+            var p = $(".active").text();
+            var p = parseInt(p);
+            console.log("上一页:" + (p - 1));
+            if (p > 1) {
+                p--;
+                $(".active").removeClass("active");
+                $("#" + p).parent().addClass("active");
+                xhr.open("post", ("http://localhost:11451/getData?pages=" + p));
+                xhr.send();
+                dis(p);
+            }
+        }
+
+        function next() {
+            var p = $(".active").text();
+            var p = parseInt(p);
+            console.log("下一页" + (p + 1));
+            if (p < total) {
+                p++;
+                $(".active").removeClass("active");
+                $("#" + p).parent().addClass("active");
+                xhr.open("post", ("http://localhost:11451/getData?pages=" + p));
+                xhr.send();
+                dis(p);
+            }
+        }
+
+        function page(p) {
+            var p = parseInt(p);
+            xhr.open("post", ("http://localhost:11451/getData?pages=" + p));
+            xhr.send();
+            $(".active").removeClass("active");
+            $("#" + p).parent().addClass("active");
+            dis(p);
+            console.log("页：" + p);
+        }
+
+        xhr.open("post", "http://localhost:11451/getData?pages=1");
+        xhr.send();
+        butts("1");
+
     </script>
 </body>
+
 </html>

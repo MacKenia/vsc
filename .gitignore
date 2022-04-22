@@ -12,6 +12,7 @@
 *.exe
 *.out
 *.spec
+threekingdoms.txt
 
 # Floders
 **/.idea

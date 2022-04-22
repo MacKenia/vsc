@@ -8,7 +8,7 @@ G = 1
 B = 0
 
 def sZoom(num):
-    return (mt.sqrt(num*100/255)*10)*255/100
+    return ((mt.sqrt(num*100/255)*10)*255/100)
 
 def numToColor(num):
     num = int(num)
@@ -26,7 +26,7 @@ def numToColor(num):
 def lineToPic(depth_img ,img):
     for indexI, i in enumerate(img):
         for indexJ, j in enumerate(i):
-            j[R], j[G], j[B] = numToColor(depth_img[indexI][indexJ])
+            j[R], j[G], j[B] = numToColor(indexJ)
     return img
             
 

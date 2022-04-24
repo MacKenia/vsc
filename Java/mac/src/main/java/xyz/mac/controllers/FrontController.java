@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import xyz.mac.model.CqnuStu;
 import xyz.mac.model.Result;
 import xyz.mac.model.Student;
@@ -33,6 +36,7 @@ import xyz.mac.services.impl.TeacherServices;
 
 
 @Controller
+// @Api(tags = "所有信息接口")
 public class FrontController {
     @Autowired
     StudentServices studentServices;
@@ -114,12 +118,14 @@ public class FrontController {
     
     @GetMapping("teacher")
     @ResponseBody
+    // @ApiOperation(value = "获取所有教师信息", notes = "获取所有教师信息")
     public Result<List<TeacherNs>> teachers() {
         return new Result<>(200, "success", teacherNsServices.list());
     }
 
     @GetMapping("teacher/{id}")
     @ResponseBody
+    // @ApiOperation(value = "获取单个教师信息", notes = "获取单个教师信息")
     public Result<TeacherNs> teacherId(@PathVariable int id) {
         QueryWrapper<TeacherNs> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
@@ -129,6 +135,7 @@ public class FrontController {
 
     @PostMapping("teacher/{id}")
     @ResponseBody
+    // @ApiOperation(value = "更新教师信息", notes = "更新教师信息")
     public Result<Boolean> teacherAdd(@PathVariable int id, @RequestBody TeacherNs teacherNs) {
         QueryWrapper<TeacherNs> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
@@ -139,6 +146,7 @@ public class FrontController {
 
     @PutMapping("teacher/{id}")
     @ResponseBody
+    // @ApiOperation(value = "更新教师信息", notes = "更新教师信息")
     public Result<Boolean> teacherUpdate(@PathVariable int id, @RequestBody TeacherNs teacherNs) {
         QueryWrapper<TeacherNs> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
@@ -148,6 +156,7 @@ public class FrontController {
 
     @DeleteMapping("teacher/{id}")
     @ResponseBody
+    // @ApiOperation(value = "删除教师信息", notes = "删除教师信息")
     public Result<Boolean> teacherDelete(@PathVariable int id) {
         QueryWrapper<TeacherNs> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);

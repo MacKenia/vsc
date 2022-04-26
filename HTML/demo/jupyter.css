@@ -1,5 +1,7 @@
 .jp-CodeCell {
     border: 1px solid #000;
+    overflow: visible;
+    word-wrap: break-word;
 }
 
 .jp-Cell-inputArea {
@@ -13,4 +15,6 @@
 pre {
     font-family: "Cascadia Code";
     font-size: 18px !important;
+    overflow: visible;
+    word-wrap: break-word;
 }

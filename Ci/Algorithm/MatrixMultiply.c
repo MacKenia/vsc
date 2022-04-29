@@ -29,19 +29,19 @@ void matrix_chain(int *p, int n, int **m, int **s)
     }
 }
 
-void pp(void *m)
+void pp(int **m)
 {
-    void **M = (void **)M;
-    printf("%p\n", *M);
+    printf("%p\n", m);
+    // int *M = (int *)m;
+    int (*[3])M = m;
+    // printf("%d\n", *M);
     for (int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 3; j++)
-        {
-            // printf("%d\t", m[i][j]);
-        }
+            // printf("%d\t", *(M + i*3 + j));
+            printf("%d\t", m[i][j]);
         printf("\n");
     }
-    
 }
 
 void trace_back(int i, int j, int **s)
@@ -63,8 +63,24 @@ int main()
     }
     // matrix_chain(p, N, (int **)m, (int **)s);
     // trace_back(0, N, (int **)s);
+
     int j[3][3] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-    printf("%p ", pp);
-    pp((void *)j);
+    printf("%p\n", j);
+    for (int i = 0; i < 3; i++)
+    {
+        for (int k = 0; k < 3; k++)
+        {
+            // printf("%d\t", j[i][k]);
+            printf("%d\t", *(*(j + i) + k));
+        }
+        printf("\n");
+    }
+
+    int * J[3];
+    J[0] = j[0];
+    J[1] = j[1];
+    J[2] = j[2];
+
+    pp((int **)j);
     return 0;
 }

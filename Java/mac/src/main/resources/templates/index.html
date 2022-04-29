@@ -36,6 +36,7 @@
                             <th>年级</th>
                             <th>学院</th>
                             <th>专业</th>
+                            <th>操作</th>
                         </thead>
                         <tbody id="info">
                         </tbody>
@@ -82,7 +83,7 @@
             var but = ["<li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0)\" id=\"", "\" onclick=\"page('", "')\">", "</a></li>"]
             var prevB = "<li class=\"page-item \"><a class=\"page-link prev\" href=\"javascript:void(0)\" onclick=\"prev()\">Previous</a></li>";
             var nextB = "<li class=\"page-item \"><a class=\"page-link next\" href=\"javascript:void(0)\" onclick=\"next()\">Next</a></li>";
-
+            var operate = ["<a id=\"","\" href=\"javascript::void(0)\" onclick=\"","\">","</a>"];
             var pag = new XMLHttpRequest();
             pag.onreadystatechange = function () {
                 if (pag.readyState === pag.DONE)

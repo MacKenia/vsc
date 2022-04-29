@@ -3,13 +3,26 @@ server:
 
 spring:
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://mackenia.xyz:3306/springboot
     username: sql
     password: mysql
   thymeleaf:
     cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+
+  web:
+    resources:
+      static-locations:
+        - classpath:resources/static
+        - classpath:file:${photo.file.dir}
 
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+photo:
+  file:
+    dir: resources/static/photo

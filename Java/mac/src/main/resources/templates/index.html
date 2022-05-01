@@ -3,8 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>common to index</title>
 
     <!-- 新 Bootstrap5 核心 CSS 文件 -->
@@ -23,13 +21,12 @@
 <body>
     <div th:insert="~{common::svg}" style="visibility: hidden; height: 0;"></div>
     <div th:replace="~{common::myHeader}"></div>
-    <div style="display: flex; justify-content: space-between;">
-        <div th:insert="~{common::leftBar}" style="display: inline-block;"></div>
-        <div
-            style="width: 100%; height: 100%; display: flex; justify-content: center; flex-direction: column; align-items: center;">
+    <div class="container position-relative d-flex justify-content-around">
+        <div class="" th:insert="~{common::leftBar}"></div>
+        <div class="container">
             <header class="d-flex justify-content-center py-3">
                 <ul class="nav nav-pills">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover align-middle">
                         <thead>
                             <th>学号</th>
                             <th>姓名</th>
@@ -41,15 +38,63 @@
                         <tbody id="info">
                         </tbody>
                     </table>
-                    <nav aria-label="...">
-                        <ul class="pagination" id="buts">
-                        </ul>
-                    </nav>
+                    <div class="w-100">
+                        <button type="button" class="btn btn-success d-inline-flex justiky-content-start"
+                            data-bs-toggle="modal" data-bs-target="#InfoModal" data-bs-action="add">添加信息</button>
+                        <nav aria-label="..." class="d-inline-flex justify-content-center">
+                            <ul class="pagination" id="buts"></ul>
+                        </nav>
+                    </div>
                 </ul>
             </header>
         </div>
     </div>
     <div class="fixed-bottom" th:insert="~{common::footer}"></div>
+
+    <div class="modal fade" id="InfoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="input-group flex-nowrap mb-3">
+                            <span class="input-group-text col-form-label" >学号:</span>
+                            <input type="text" class="form-control" placeholder="xxxxxxxxxxxxx" id="id"
+                                aria-describedby="addon-wrapping">
+                        </div>
+                        <div class="input-group flex-nowrap mb-3">
+                            <span class="input-group-text col-form-label" >姓名:</span>
+                            <input type="text" class="form-control" placeholder="张三" id="name"
+                                aria-describedby="addon-wrapping">
+                        </div>
+                        <div class="input-group flex-nowrap mb-3">
+                            <span class="input-group-text col-form-label" >年级:</span>
+                            <input type="text" class="form-control" placeholder="年级" id="grade"
+                                aria-describedby="addon-wrapping">
+                        </div>
+                        <div class="input-group flex-nowrap mb-3">
+                            <span class="input-group-text col-form-label" >学院:</span>
+                            <input type="text" class="form-control" placeholder="学院" id="academy"
+                                aria-describedby="addon-wrapping">
+                        </div>
+                        <div class="input-group flex-nowrap mb-3">
+                            <span class="input-group-text col-form-label" >专业:</span>
+                            <input type="text" class="form-control" placeholder="专业" id="major"
+                                aria-describedby="addon-wrapping">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">确认</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         var total = 0;
 
@@ -63,11 +108,54 @@
                     console.log(sheet);
                     for (var i = 0; i < sheet.length; i++) {
                         table += "<tr><td>" + sheet[i].id + "</td><td>" + sheet[i].name + "</td><td>" + sheet[i].grade;
-                        table += "</td><td>" + sheet[i].academy + "</td><td>" + sheet[i].major + "</td></tr>";
-                        // console.log(sheet[i].id);
+                        table += "</td><td>" + sheet[i].academy + "</td><td>" + sheet[i].major + "</td>";
+                        table += "<td class=\"d-flex justify-content-evenly\">" + op(sheet[i].id, "编辑") + op(sheet[i].id, "删除") + "</td></tr>";
                     }
                     document.getElementById("info").innerHTML = table;
                 }
+        }
+
+        var infoModal = document.getElementById('InfoModal')
+        infoModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            var recipient = button.getAttribute('data-bs-action')
+            // Update the modal's content.
+            var modalTitle = infoModal.querySelector('.modal-title')
+            var modalBodyInput = infoModal.querySelector('.modal-body input')
+
+            if (recipient == 'add') {
+                modalTitle.innerHTML = '添加信息'
+                modalBodyInput.value = ''
+            } else {
+                modalTitle.innerHTML = '编辑信息'
+                modalBodyInput.value = recipient
+            }
+        })
+
+        function Operate_fun(a, b) {
+            alert(a + b);
+        }
+
+
+        function op(ia, a) {
+            var html = "";
+            var operate = ["<button id=\"", "\" onclickS=\"", "\" data-bs-action=\"edit\">", "</button>"];
+            switch (a) {
+                case "编辑":
+                    html += operate[0] + ia;
+                    html += operate[1] + "Operate_fun(" + ia + ",'edit')\"";
+                    html += "class=\"btn btn-primary\"";
+                    break;
+                case "删除":
+                    html += operate[0] + ia;
+                    html += operate[1] + "Operate_fun(" + ia + ",'delete')\"";
+                    html += "class=\"btn btn-danger\"";
+                    break;
+            }
+            html += operate[2] + a + operate[3];
+            return html;
         }
 
         function dis(p) {
@@ -83,7 +171,6 @@
             var but = ["<li class=\"page-item\"><a class=\"page-link\" href=\"javascript:void(0)\" id=\"", "\" onclick=\"page('", "')\">", "</a></li>"]
             var prevB = "<li class=\"page-item \"><a class=\"page-link prev\" href=\"javascript:void(0)\" onclick=\"prev()\">Previous</a></li>";
             var nextB = "<li class=\"page-item \"><a class=\"page-link next\" href=\"javascript:void(0)\" onclick=\"next()\">Next</a></li>";
-            var operate = ["<a id=\"","\" href=\"javascript::void(0)\" onclick=\"","\">","</a>"];
             var pag = new XMLHttpRequest();
             pag.onreadystatechange = function () {
                 if (pag.readyState === pag.DONE)
@@ -150,6 +237,10 @@
         }
 
         function page(p) {
+            if (p == "...") {
+                p = parseInt($(".active").text()) + 1;
+                butts(p);
+            }
             var p = parseInt(p);
             xhr.open("post", ("http://localhost:11451/getData?pages=" + p));
             xhr.send();

@@ -21,9 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import xyz.mac.model.CqnuStu;
 import xyz.mac.model.Result;
 import xyz.mac.model.Student;
@@ -50,7 +47,12 @@ public class FrontController {
     @Autowired
     CqnuStuServices cqnuStuServices;
 
-    @PostMapping("/Student")
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
+
+    @GetMapping("/Student")
     public String stu(Model model,@RequestParam("stuName") String name, int age){
         List<Student> stuList = studentServices.getAllStudents();
         System.out.println(stuList);
@@ -59,7 +61,7 @@ public class FrontController {
         return "Student";
     }
     
-    @PostMapping("/Teacher")
+    @GetMapping("/Teacher")
     public String tea(Model model, Teacher tea) {
         List<Teacher> teaList = teacherServices.getAllTeachers();
         System.out.println(teaList);
@@ -75,11 +77,6 @@ public class FrontController {
     @GetMapping("/layoutToMain")
     public String main(Model model) {
         return "main";
-    }
-
-    @GetMapping("index")
-    public String infoO(Model model) {
-        return "index";
     }
 
     @PostMapping("info")
@@ -101,6 +98,7 @@ public class FrontController {
     public List<CqnuStu> postMethodName(Integer pages) {
         QueryWrapper<CqnuStu> queryWrapper = new QueryWrapper<>();
         Page<CqnuStu> page = new Page<>(pages, 10);
+        System.out.println("------------------"+pages+"------------------");
         queryWrapper.like("grade", "202");
         cqnuStuServices.page(page, queryWrapper);
         return page.getRecords();
@@ -113,19 +111,17 @@ public class FrontController {
         Page<CqnuStu> page = new Page<>(1, 10);
         queryWrapper.like("grade", "202");
         cqnuStuServices.page(page, queryWrapper);
-        return page.getTotal();
+        return page.getPages();
     }
     
     @GetMapping("teacher")
     @ResponseBody
-    // @ApiOperation(value = "获取所有教师信息", notes = "获取所有教师信息")
     public Result<List<TeacherNs>> teachers() {
         return new Result<>(200, "success", teacherNsServices.list());
     }
 
     @GetMapping("teacher/{id}")
     @ResponseBody
-    // @ApiOperation(value = "获取单个教师信息", notes = "获取单个教师信息")
     public Result<TeacherNs> teacherId(@PathVariable int id) {
         QueryWrapper<TeacherNs> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
@@ -135,7 +131,6 @@ public class FrontController {
 
     @PostMapping("teacher/{id}")
     @ResponseBody
-    // @ApiOperation(value = "更新教师信息", notes = "更新教师信息")
     public Result<Boolean> teacherAdd(@PathVariable int id, @RequestBody TeacherNs teacherNs) {
         QueryWrapper<TeacherNs> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
@@ -146,7 +141,6 @@ public class FrontController {
 
     @PutMapping("teacher/{id}")
     @ResponseBody
-    // @ApiOperation(value = "更新教师信息", notes = "更新教师信息")
     public Result<Boolean> teacherUpdate(@PathVariable int id, @RequestBody TeacherNs teacherNs) {
         QueryWrapper<TeacherNs> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
@@ -156,7 +150,6 @@ public class FrontController {
 
     @DeleteMapping("teacher/{id}")
     @ResponseBody
-    // @ApiOperation(value = "删除教师信息", notes = "删除教师信息")
     public Result<Boolean> teacherDelete(@PathVariable int id) {
         QueryWrapper<TeacherNs> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);

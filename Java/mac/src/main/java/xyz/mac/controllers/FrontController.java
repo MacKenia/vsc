@@ -157,4 +157,33 @@ public class FrontController {
         return new Result<>(200, "delete", teacherNsServices.remove(queryWrapper));
     }
 
+    @PostMapping("CqnuStu/{id}")
+    @ResponseBody
+    public Result<Boolean> studentAdd(@PathVariable long id, @RequestBody CqnuStu student) {
+        System.out.println("添加的id为: " + id);
+        System.out.println("添加的学生为: " + student);
+        QueryWrapper<CqnuStu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        cqnuStuServices.remove(queryWrapper);
+        return new Result<>(200, "add", cqnuStuServices.save(student));
+    }
+
+    @PutMapping("CqnuStu/{id}")
+    @ResponseBody
+    public Result<Boolean> studentUpdate(@PathVariable long id, @RequestBody CqnuStu student) {
+        System.out.println("添加的id为: " + id);
+        System.out.println("添加的学生为: " + student);
+        QueryWrapper<CqnuStu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        return new Result<>(200, "update", cqnuStuServices.update(student, queryWrapper));
+    }
+
+    @DeleteMapping("CqnuStu/{id}")
+    @ResponseBody
+    public Result<Boolean> studentDelete(@PathVariable long id){
+        System.out.println("删除的学生id为: " + id);
+        QueryWrapper<CqnuStu> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("id", id);
+        return new Result<>(200, "delete", cqnuStuServices.remove(queryWrapper));
+    }
 }

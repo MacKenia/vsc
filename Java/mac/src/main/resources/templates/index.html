@@ -15,7 +15,8 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/5.1.1/js/bootstrap.min.js"></script>
 
     <!-- Jquery 核心文件-->
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script> -->
 </head>
 
 <body>
@@ -49,7 +50,7 @@
             </header>
         </div>
     </div>
-    <div class="fixed-bottom" th:insert="~{common::footer}"></div>
+    <!-- <div class="fixed-bottom" th:insert="~{common::footer}"></div> -->
 
     <div class="modal fade" id="InfoModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
@@ -61,34 +62,34 @@
                 <div class="modal-body">
                     <form>
                         <div class="input-group flex-nowrap mb-3">
-                            <span class="input-group-text col-form-label" >学号:</span>
+                            <span class="input-group-text col-form-label">学号:</span>
                             <input type="text" class="form-control" placeholder="xxxxxxxxxxxxx" id="id"
                                 aria-describedby="addon-wrapping">
                         </div>
                         <div class="input-group flex-nowrap mb-3">
-                            <span class="input-group-text col-form-label" >姓名:</span>
+                            <span class="input-group-text col-form-label">姓名:</span>
                             <input type="text" class="form-control" placeholder="张三" id="name"
                                 aria-describedby="addon-wrapping">
                         </div>
                         <div class="input-group flex-nowrap mb-3">
-                            <span class="input-group-text col-form-label" >年级:</span>
+                            <span class="input-group-text col-form-label">年级:</span>
                             <input type="text" class="form-control" placeholder="年级" id="grade"
                                 aria-describedby="addon-wrapping">
                         </div>
                         <div class="input-group flex-nowrap mb-3">
-                            <span class="input-group-text col-form-label" >学院:</span>
+                            <span class="input-group-text col-form-label">学院:</span>
                             <input type="text" class="form-control" placeholder="学院" id="academy"
                                 aria-describedby="addon-wrapping">
                         </div>
                         <div class="input-group flex-nowrap mb-3">
-                            <span class="input-group-text col-form-label" >专业:</span>
+                            <span class="input-group-text col-form-label">专业:</span>
                             <input type="text" class="form-control" placeholder="专业" id="major"
                                 aria-describedby="addon-wrapping">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">确认</button>
+                    <button type="button" class="btn btn-primary" id="upload">确认</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
                 </div>
             </div>
@@ -107,51 +108,113 @@
                     var sheet = JSON.parse(xhr.responseText);
                     console.log(sheet);
                     for (var i = 0; i < sheet.length; i++) {
-                        table += "<tr><td>" + sheet[i].id + "</td><td>" + sheet[i].name + "</td><td>" + sheet[i].grade;
+                        table += "<tr class=\"" + sheet[i].id + "\">";
+                        table += "<td>" + sheet[i].id + "</td><td>" + sheet[i].name + "</td><td>" + sheet[i].grade;
                         table += "</td><td>" + sheet[i].academy + "</td><td>" + sheet[i].major + "</td>";
                         table += "<td class=\"d-flex justify-content-evenly\">" + op(sheet[i].id, "编辑") + op(sheet[i].id, "删除") + "</td></tr>";
                     }
                     document.getElementById("info").innerHTML = table;
+                    $('[data-bs-toggle="popover"]').popover({ trigger: "focus" })
+                    for (let i = 0; i < sheet.length; i++) {
+                        $("#" + sheet[i].id + "d").click(function () {
+                            bootstrap.Popover.getInstance(document.getElementById(sheet[i].id + "d")).show();
+                            var f = $(this);
+                            if (f.attr("confirming") == "waiting") {
+                                console.log("delete");
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("delete", "http://localhost:11451/CqnuStu/" + sheet[i].id, true);
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === xhr.DONE)
+                                        if (xhr.status === 200) {
+                                            location.reload();
+                                        }
+                                }
+                                xhr.send();
+                            } else {
+                                f.text("确认");
+                                f.attr("confirming", "waiting");
+                            }
+                        }).mouseout(function () {
+                            $(this).attr("confirming", "");
+                            $(this).text("删除");
+                            bootstrap.Popover.getInstance(document.getElementById(sheet[i].id + "d")).hide();
+                        })
+                    }
                 }
         }
 
-        var infoModal = document.getElementById('InfoModal')
+        var infoModal = document.getElementById('InfoModal');
         infoModal.addEventListener('show.bs.modal', function (event) {
             // Button that triggered the modal
-            var button = event.relatedTarget
+            var button = event.relatedTarget;
             // Extract info from data-bs-* attributes
-            var recipient = button.getAttribute('data-bs-action')
+            var recipient = button.getAttribute('data-bs-action');
             // Update the modal's content.
-            var modalTitle = infoModal.querySelector('.modal-title')
-            var modalBodyInput = infoModal.querySelector('.modal-body input')
-
+            var modalTitle = infoModal.querySelector('.modal-title');
+            var modalBodyInputs = infoModal.querySelectorAll(".modal-body input");
+            var buttonUpload = infoModal.querySelector('#upload');
             if (recipient == 'add') {
-                modalTitle.innerHTML = '添加信息'
-                modalBodyInput.value = ''
-            } else {
-                modalTitle.innerHTML = '编辑信息'
-                modalBodyInput.value = recipient
+                buttonUpload.setAttribute('action', 'add');
+                modalTitle.innerHTML = '添加信息';
+                for (var i = 0; i < modalBodyInputs.length; i++) {
+                    modalBodyInputs[i].value = '';
+                }
+                modalBodyInputs[0].removeAttribute('readonly');
+            } else if (recipient == 'edit') {
+                var id = parseInt(button.getAttribute("id"));
+                $("." + id).children().each(function (index, element) {
+                    if (index > 4) return;
+                    modalBodyInputs[index].value = element.textContent;
+                });
+                buttonUpload.setAttribute('action', 'edit');
+                modalTitle.innerHTML = '编辑信息';
+                modalBodyInputs[0].setAttribute('readonly', 'readonly');
             }
         })
 
-        function Operate_fun(a, b) {
-            alert(a + b);
-        }
+        var submit = document.getElementById('upload');
+        submit.addEventListener("click", function (event) {
+            var action = submit.getAttribute('action');
+            var id = document.getElementById('id').value;
+            var name = document.getElementById('name').value;
+            var grade = document.getElementById('grade').value;
+            var academy = document.getElementById('academy').value;
+            var major = document.getElementById('major').value;
+            var data = "{\"id\":" + id + ",\"name\":\"" + name + "\",\"grade\":\"" + grade + "\",\"academy\":\"" + academy + "\",\"major\":\"" + major + "\"}";
+
+            if (action == 'add') {
+                var method = 'POST';
+            } else if (action == 'edit') {
+                var method = 'PUT';
+            }
+            var xhr = new XMLHttpRequest();
+            xhr.open(method, ("http://localhost:11451/CqnuStu/" + id), true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(data);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === xhr.DONE)
+                    if (xhr.status === 200) {
+                        location.reload();
+                    }
+            }
+        })
 
 
         function op(ia, a) {
             var html = "";
-            var operate = ["<button id=\"", "\" onclickS=\"", "\" data-bs-action=\"edit\">", "</button>"];
+            var operate = ["<button type=\"button\" id=\"", "\"class=\"", " >", "</button>"];
             switch (a) {
                 case "编辑":
-                    html += operate[0] + ia;
-                    html += operate[1] + "Operate_fun(" + ia + ",'edit')\"";
-                    html += "class=\"btn btn-primary\"";
+                    html += operate[0] + ia + "e";
+                    html += operate[1];
+                    html += "btn btn-primary\"";
+                    html += "data-bs-toggle=\"modal\" data-bs-target=\"#InfoModal\" data-bs-action=\"edit\""
                     break;
                 case "删除":
-                    html += operate[0] + ia;
-                    html += operate[1] + "Operate_fun(" + ia + ",'delete')\"";
-                    html += "class=\"btn btn-danger\"";
+                    html += operate[0] + ia + "d";
+                    html += operate[1];
+                    html += "btn btn-danger\"";
+                    html += "data-bs-container=\"body\" data-bs-toggle=\"popover\" data-bs-placement=\"top\" data-bs-title=\"确认删除吗？\"";
                     break;
             }
             html += operate[2] + a + operate[3];
@@ -253,7 +316,6 @@
         xhr.open("post", "http://localhost:11451/getData?pages=1");
         xhr.send();
         butts("1");
-
     </script>
 </body>
 

@@ -273,7 +273,10 @@
 
         function prev() {
             var p = $(".active").text();
-            var p = parseInt(p);
+            if(p == "...")
+                var p = parseInt(p);
+            else
+                
             console.log("上一页:" + (p - 1));
             if (p > 1) {
                 p--;

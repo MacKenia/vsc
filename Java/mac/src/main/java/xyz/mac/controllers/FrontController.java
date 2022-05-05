@@ -37,7 +37,7 @@ import xyz.mac.services.impl.TeacherServices;
 public class FrontController {
     @Autowired
     StudentServices studentServices;
-
+ 
     @Autowired
     TeacherNsServices teacherNsServices;
 

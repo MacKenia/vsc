@@ -184,10 +184,6 @@ def TestFunc():
 
 
 
-
-
-
-
 def encrypt_des(cipher,key):
     if cipher is None:
         return ""

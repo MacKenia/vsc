@@ -155,13 +155,11 @@ class BookYourDream:
 if __name__ == "__main__":
     y = BookYourDream()
     y.login("2020051615308","")
-    r = y.inquire(y.D_ONE, "2022-05-14", True)
+    r = y.inquire(y.D_ONE, "", True)
     y.book(r)
 
     cy = BookYourDream()
 
     cy.login("201800605010","")
-    r = cy.inquire(cy.D_ONE, "2022-05-15", True)
-    cy.book(r)
-    r = cy.inquire(cy.D_ONE, "2022-05-14", True)
+    r = cy.inquire(cy.D_ONE, "", True)
     cy.book(r)

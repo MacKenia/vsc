@@ -258,7 +258,7 @@ if __name__ == '__main__':
                      headers=login_headers)
 
     #新版本登录进去没有提示 直接预定
-    json_data = {"stock": {"20417": "1", }, "extend": {}}
+    json_data = {"stock": {"23966": "1", }, "extend": {}}
     json_data = json.dumps(json_data)
     data = {"param": json_data, "json": True}
     print(data)

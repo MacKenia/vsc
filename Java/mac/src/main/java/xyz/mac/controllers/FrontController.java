@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import xyz.mac.mapping.MessageMapper;
 import xyz.mac.model.CqnuStu;
+import xyz.mac.model.Message;
 import xyz.mac.model.Result;
 import xyz.mac.model.Student;
 import xyz.mac.model.Teacher;
@@ -46,6 +48,9 @@ public class FrontController {
 
     @Autowired
     CqnuStuServices cqnuStuServices;
+
+    @Autowired
+    MessageMapper messageMapper;
 
     @GetMapping("/")
     public String index() {
@@ -185,5 +190,16 @@ public class FrontController {
         QueryWrapper<CqnuStu> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
         return new Result<>(200, "delete", cqnuStuServices.remove(queryWrapper));
+    }
+
+    @GetMapping("/ping")
+    @ResponseBody
+    @CrossOrigin
+    public String ping() {
+        QueryWrapper<Message> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("read_flag", 0);
+        String message = messageMapper.selectOne(queryWrapper).getContent();
+        messageMapper.update(new Message(message, 1), queryWrapper);    
+        return message;
     }
 }

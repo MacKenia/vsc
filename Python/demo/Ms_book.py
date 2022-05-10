@@ -1,31 +1,167 @@
-import urllib
-import urllib2
-import sys
-import ssl
+# pip install requests beautifulsoup4 pyDes
+import requests as rts
+import base64 as bs
+import time
+from pyDes import des, ECB, PAD_PKCS5
+import bs4 as Bss
+import json
+
+class BookYourDream:
+    def __init__(self):
+        self.D_ONE = 141 # 梦一厅
+        self.D_TWO = 142 # 梦二厅
+        self.D_THREE = 261 # 梦三厅
+
+        self.main_se = rts.session()
+
+        self.index_url = "http://202.202.209.15:8081/index.html"
+
+        self.ver_image = "https://csxrz.cqnu.edu.cn:443/cas/verCode?random=="
+
+        self.login_url = "https://csxrz.cqnu.edu.cn/cas/login?service=https://csxmh.cqnu.edu.cn/PersonalApplications/viewPage?active_nav_num=1"
+        self.login_url = "https://csxrz.cqnu.edu.cn/cas/login?service=http%3A%2F%2F202.202.209.15%3A8081%2Findex.html"
+
+        self.inquire_url = "http://202.202.209.15:8081/product/findtime.html"
+
+        self.double_url = "http://202.202.209.15:8081/product/doublingTimeVer.html?stockid="
+
+        self.book_url = "http://202.202.209.15:8081/order/tobook.html"
+
+        self.normal_headers = {
+            "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
+        }
 
 
-host = 'https://302307.market.alicloudapi.com'
-path = '/ocr/captcha'
-method = 'POST'
-appcode = 'cad56c434d124a17a7d990ae746ffa07'
-querys = ''
-bodys = {}
-url = host + path
+    def deVer(self, ver):
+        """
+        验证码解析接口
+        https://market.aliyun.com/products/57124001/cmapi027426.html?spm=5176.2020520132.101.1.45ab72185BHAcX#sku=yuncode2142600000
+        注册成功后 复制APPCODE
+        粘贴到headers 中
+        示例：注意空格
+        "Authorization":"APPCODE 你的APPCODE" 
+        """
+        ascii_ver = bs.b64encode(ver).decode('ascii')
+        headers = {
+            "image":ascii_ver,
+            "type":"1001",
+            "Authorization":"APPCODE cad56c434d124a17a7d990ae746ffa07"
+        }
+        url = "https://302307.market.alicloudapi.com/ocr/captcha"
+        res = rts.post(url, headers=headers)
+        if res and res.json()["code"] == 0:
+            return res.json()["data"]["captcha"]
+        else:
+            return False
 
-bodys['image'] = '''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'''
-bodys['maxlength'] = '''maxlength'''
-bodys['minlength'] = '''minlength'''
-bodys['type'] = '''1001'''
-post_data = urllib.urlencode(bodys)
-request = urllib2.Request(url, post_data)
-request.add_header('Authorization', 'APPCODE ' + appcode)
-# 根据API的要求，定义相对应的Content-Type
-request.add_header(
-    'Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
-ctx = ssl.create_default_context()
-ctx.check_hostname = False
-ctx.verify_mode = ssl.CERT_NONE
-response = urllib2.urlopen(request, context=ctx)
-content = response.read()
-if (content):
-    print(content)
+
+    def encrypt_des(self, data, key):
+        k = des(key, ECB, key, pad=None, padmode=PAD_PKCS5)
+        en = k.encrypt(data.encode('utf-8'), padmode=PAD_PKCS5)
+        return str(bs.b64encode(en), 'utf-8')
+        
+
+    def login(self, user, passwd):
+        ping = self.main_se.get(self.index_url, headers=self.normal_headers)
+
+        pings = Bss.BeautifulSoup(ping.text, "html.parser")
+
+        # print(type(pings))
+
+        ping_inputs = pings.find_all("input")
+
+        ver_img = self.main_se.get(self.ver_image + str(int(time.time()*100)), headers=self.normal_headers)
+
+        ver_code = self.deVer(ver_img.content)
+        
+        # ver_code = False
+
+        if not ver_code:
+            with open("验证码.jpg", "wb") as f:
+                f.write(ver_img.content)
+            ver_code = input("验证码解析失败\n请手动输入:")
+        print(ver_code)
+            
+
+        key = ping_inputs[4].get("value")[:8]
+        execution = ping_inputs[5].get("value")
+
+        password = self.encrypt_des(passwd, key)
+
+        data = {
+            "username":user,
+            "password":password,
+            "authCode":ver_code,
+            "lt": ping_inputs[4].get("value"),
+            "execution":execution,
+            "_eventId":"submit",
+            "isQrSubmit":"false",
+            "isMobileLogin":"false",
+            "qrValue":""
+        }
+
+        login_res = self.main_se.post(self.login_url, data=data, headers=self.normal_headers)
+        # print(login_res.text)
+        if login_res.content.decode('utf-8').find("梦厅") != login_res.content.decode("utf-8").find("场地"):
+            print("登录成功")
+            return True
+        else:
+            print("登录失败")
+            return False
+
+    def inquire(self, room, date, allday=False):
+        params = {
+            "type":"day",
+            "s_dates":date,
+            "serviceid":room
+        }
+        r = self.main_se.get(self.inquire_url, params=params)
+        print(r.json()["object"])
+
+        reserve = {}
+
+        for i in r.json()["object"]:
+            if not allday:
+                print(f"{i['TIME_NO']}\n剩余数量 {i['SURPLUS']}")
+                c = input("是否预定?(y/n)").strip()
+            if allday or c == "y" or c == "Y" or c == "":
+                reserve[str(i['ID'])] = "1"
+        return reserve
+
+    def book(self, table):
+        data = {
+            "param": json.dumps({
+                "stock": table,
+                "extend": {}
+            }),
+            "json": True
+        }
+
+        r = self.main_se.post(self.book_url, data=data)
+        print(r.text)
+
+    def main(self):
+        room = [self.D_ONE, self.D_TWO, self.D_THREE]
+        user = input("账号:")
+        passwd = input("密码:")
+        cRoom = int(input("1. 梦一厅\n2. 梦二厅\n3. 梦三厅\n场地:"))
+        date = input("日期(yyyy-mm-dd):")
+        if self.login(user, passwd):
+            reserve = self.inquire(room[cRoom], date)
+            if reserve:
+                self.book(reserve)
+
+
+if __name__ == "__main__":
+    y = BookYourDream()
+    y.login("2020051615308","yanghongqiang:a1")
+    r = y.inquire(y.D_ONE, "2022-05-14", True)
+    y.book(r)
+
+    cy = BookYourDream()
+
+    cy.login("201800605010","zcy111zcy")
+    r = cy.inquire(cy.D_ONE, "2022-05-15", True)
+    cy.book(r)
+    r = cy.inquire(cy.D_ONE, "2022-05-14", True)
+    cy.book(r)

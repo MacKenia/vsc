@@ -12,6 +12,7 @@
 *.exe
 *.out
 *.spec
+passwd.txt
 threekingdoms.txt
 redfloordream.txt
 tempCodeRunnerFile.*

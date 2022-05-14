@@ -1,5 +1,6 @@
 package xyz.mac.services.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -12,12 +13,12 @@ import xyz.mac.model.CqnuStu;
 import xyz.mac.services.CqnuStuService;
 
 @Service
-public class CqnuStuServices extends ServiceImpl<CqnuStuMapper, CqnuStu> implements CqnuStuService {
+public class CqnuStuServices extends ServiceImpl<CqnuStuMapper, CqnuStu> implements CqnuStuService, Serializable {
     @Override
     @Cacheable(cacheNames = "cqnuStu")
     public List<CqnuStu> list() {
         return super.list();
     }
-
     
 }
+

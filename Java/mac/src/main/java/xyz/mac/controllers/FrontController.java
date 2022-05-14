@@ -1,5 +1,9 @@
 package xyz.mac.controllers;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -9,6 +13,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +25,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import xyz.mac.mapping.MessageMapper;
 import xyz.mac.model.CqnuStu;
@@ -51,6 +57,9 @@ public class FrontController {
 
     @Autowired
     MessageMapper messageMapper;
+
+    @Value("${photo.file.dir}")
+    public String realPath;
 
     @GetMapping("/")
     public String index() {
@@ -201,5 +210,13 @@ public class FrontController {
         String message = messageMapper.selectOne(queryWrapper).getContent();
         messageMapper.update(new Message(message, 1), queryWrapper);    
         return message;
+    }
+
+    private String upLoadFileString(MultipartFile img, String origin) throws IOException{
+        String fileName = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSSS").format(new Date());
+        String ext = origin.substring(origin.lastIndexOf("."));
+        String newFile = fileName + ext;
+        img.transferTo(new File(realPath, newFile));
+        return newFile;
     }
 }

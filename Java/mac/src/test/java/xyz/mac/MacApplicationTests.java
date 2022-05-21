@@ -164,6 +164,12 @@ class MacApplicationTests {
 	}
 
 	@Test
+	void crypto() {
+		// BCryptPasswordEncoder encode = new BCryptPasswordEncoder();
+		// System.out.println(encode.encode("123456"));
+	}
+
+	@Test
 	void Inversion() {
 		// 求矩阵的逆矩阵
 		double[][] matrix = { { 3, 2, 1 }, { 1, 1, 1 }, { 1, 0, 1 } };

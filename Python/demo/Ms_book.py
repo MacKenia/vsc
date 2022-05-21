@@ -2,7 +2,9 @@
 """
 date 格式 yyyy-mm-dd 示例 2022-05-10
 """
+from ast import Param
 from secrets import choice
+from matplotlib.ft2font import BOLD
 import requests as rts
 import base64 as bs
 import time
@@ -121,6 +123,21 @@ class BookYourDream:
             print("登录失败")
             return False
 
+    def just_inquire(self, room, date):
+        params = {
+            "type": "day",
+            "s_dates": date,
+            "serviceid": room
+        }
+        r = self.main_se.get(self.inquire_url, params=params)
+        if not r:
+            print("网络错误")
+            return
+        for i in r.json()["object"]:
+            print(f"{i['TIME_NO']} 剩余: {i['SURPLUS']}")
+        print()
+
+
     def inquire(self, room, date, allday=False):
         params = {
             "type": "day",
@@ -128,6 +145,9 @@ class BookYourDream:
             "serviceid": room
         }
         r = self.main_se.get(self.inquire_url, params=params)
+        if not r:
+            print("网络错误")
+            return
         for i in r.json()["object"]:
             print(i)
 
@@ -144,8 +164,12 @@ class BookYourDream:
     def booked(self):
         booked_list = []
         r = self.main_se.get(self.search_url, headers=self.normal_headers)
+        if not r:
+            print("网络错误")
+            return
         for i in r.json():
-            booked_list.append({'orderid': i['orderid'],
+            booked_list.append({'stockDate': i['stockDate'],
+                                'orderid': i['orderid'],
                                 'servicenames': i['servicenames'],
                                 'remark1': i['remark1'],
                                 'remark': i['remark']
@@ -162,6 +186,9 @@ class BookYourDream:
         }
 
         r = self.main_se.post(self.book_url, data=data)
+        if not r:
+            print("网络错误")
+            return
         print(r.text)
 
     def book_time(self, room, date, time):
@@ -238,7 +265,7 @@ class BookYourDream:
                 "json": True
             }
             print(
-                f"已取消 {i['servicenames']} 的 {i['remark1']} 时间段的 {i['remark']}")
+                f"已取消 {i['stockDate']} 的 {i['servicenames']} 的 {i['remark1']} 时间段的 {i['remark']}")
             self.main_se.post(self.cancel_url, data=data,
                               headers=self.normal_headers)
         print(f"已取消 {len(self.booked())} 个订单")
@@ -301,10 +328,26 @@ class BookYourDream:
 
 if __name__ == "__main__":
     y = BookYourDream()
+    # y.login("2020051615298","b13968654137") # tey
+    y.login("2020051615297","wh19990921") # wh
     # y.book(y.inquire(y.D_ONE, "2022-05-14", True))
+    # cy = BookYourDream()
+    # cy.login("2018050605010", "zcy111zcy")
+    # cy.book(cy.inquire(cy.D_ONE, "2022-05-14", True))
+    r = y.booked()
+    print("已预定:")
+    for i in r:
+        print(f"{i['servicenames']} 的 {i['remark1']} 时间段的 {i['remark']}")
+    # by = BookYourDream()
+    # by.login("2020051615308", "yanghongqiang:a1")
+    # by.book(by.inquire(by.D_ONE, "2022-05-14", True))
+    # r = by.booked()
     # y.cancel_all()
     # r = y.booked()
     # print("已预定:")
     # for i in r:
     #     print(f"{i['servicenames']} 的 {i['remark1']} 时间段的 {i['remark']}")
-    y.main()
+    # while True:
+    #     y.just_inquire(y.D_ONE, "2022-05-14")
+    #     time.sleep(1)
+    # y.main()

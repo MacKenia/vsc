@@ -27,14 +27,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import xyz.mac.mapping.MessageMapper;
 import xyz.mac.model.CqnuStu;
-import xyz.mac.model.Message;
 import xyz.mac.model.Result;
 import xyz.mac.model.Student;
 import xyz.mac.model.Teacher;
 import xyz.mac.model.TeacherNs;
-import xyz.mac.services.impl.CqnuStuServices;
+import xyz.mac.services.CqnuStuService;
 import xyz.mac.services.impl.StudentServices;
 import xyz.mac.services.impl.TeacherNsServices;
 import xyz.mac.services.impl.TeacherServices;
@@ -53,10 +51,7 @@ public class FrontController {
     TeacherServices teacherServices;
 
     @Autowired
-    CqnuStuServices cqnuStuServices;
-
-    @Autowired
-    MessageMapper messageMapper;
+    CqnuStuService cqnuStuServices;
 
     @Value("${photo.file.dir}")
     public String realPath;
@@ -115,6 +110,7 @@ public class FrontController {
         System.out.println("------------------"+pages+"------------------");
         queryWrapper.like("grade", "202");
         cqnuStuServices.page(page, queryWrapper);
+        System.out.println(page.getRecords());
         return page.getRecords();
     }
 
@@ -139,6 +135,7 @@ public class FrontController {
     public Result<TeacherNs> teacherId(@PathVariable int id) {
         QueryWrapper<TeacherNs> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", id);
+        queryWrapper.getSqlSelect();
         System.out.println("查询的id为: " + id);
         return new Result<TeacherNs>(200, "select", teacherNsServices.getOne(queryWrapper));
     }
@@ -201,17 +198,6 @@ public class FrontController {
         return new Result<>(200, "delete", cqnuStuServices.remove(queryWrapper));
     }
 
-    @GetMapping("/ping")
-    @ResponseBody
-    @CrossOrigin
-    public String ping() {
-        QueryWrapper<Message> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("read_flag", 0);
-        String message = messageMapper.selectOne(queryWrapper).getContent();
-        messageMapper.update(new Message(message, 1), queryWrapper);    
-        return message;
-    }
-
     private String upLoadFileString(MultipartFile img, String origin) throws IOException{
         String fileName = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSSS").format(new Date());
         String ext = origin.substring(origin.lastIndexOf("."));
@@ -219,4 +205,12 @@ public class FrontController {
         img.transferTo(new File(realPath, newFile));
         return newFile;
     }
+
+    @PostMapping("/upload")
+    @ResponseBody
+    public Result<String> upload(@RequestParam("file") MultipartFile file) throws IOException {
+        String newFile = upLoadFileString(file, file.getOriginalFilename());
+        return new Result<>(200, "success", newFile);
+    }
+
 }

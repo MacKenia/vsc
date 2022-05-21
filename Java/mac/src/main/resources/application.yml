@@ -1,5 +1,5 @@
 server:
-  port: 11451
+  port: 11452
 
 spring:
   datasource:
@@ -20,14 +20,8 @@ spring:
         - classpath:file:${photo.file.dir}
 
   redis:
-    host: cqnu.mackenia.xyz
+    host: localhost
     port: 6379
-    lettuce:
-      pool:
-        max-active: 10
-        max-wait: 10000
-        max-idle: 10
-        min-idle: 1
     password:
 
 mybatis-plus:

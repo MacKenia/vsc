@@ -47,7 +47,7 @@ passwd = passwd[choice[1]-1][rand]
 
 choice[2] = int(input("1. PC端\n2. 移动端\n> "))
 
-if os.getcwd().count("vsc") != 1 or os.getcwd().count("Users\MacKenia") != 1:
+if os.getcwd().count("vsc") != 1:
     identify()
 
 data_old = {

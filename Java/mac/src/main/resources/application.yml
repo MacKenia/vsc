@@ -20,7 +20,8 @@ spring:
         - classpath:file:${photo.file.dir}
 
   redis:
-    host: localhost
+    # host: localhost
+    host: 10.253.25.181
     port: 6379
     password:
 

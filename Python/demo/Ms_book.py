@@ -2,16 +2,14 @@
 """
 date 格式 yyyy-mm-dd 示例 2022-05-10
 """
-from ast import Param
-from secrets import choice
-from matplotlib.ft2font import BOLD
-import requests as rts
 import base64 as bs
-import time
-from pyDes import des, ECB, PAD_PKCS5
-import bs4 as Bss
 import json
 import re
+import time
+
+import bs4 as Bss
+import requests as rts
+from pyDes import ECB, PAD_PKCS5, des
 
 
 class BookYourDream:
@@ -41,6 +39,10 @@ class BookYourDream:
         self.search_url = "http://202.202.209.15:8081/yyuser/searchorder.html?page=1&rows=8&status=1&iscomment="
 
         self.cancel_url = "http://202.202.209.15:8081/order/delorder.html"
+
+        self.cancel_detail_url = "http://202.202.209.15:8081/order/delorderdetail.html"
+
+        self.order_url = "http://202.202.209.15:8081/order/myorder_view.html?id="
 
         self.normal_headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
@@ -259,15 +261,19 @@ class BookYourDream:
 
     def cancel_all(self):
         for i in self.booked():
-            id = i["orderid"]
-            data = {
-                "orderid": id,
-                "json": True
-            }
-            print(
-                f"已取消 {i['stockDate']} 的 {i['servicenames']} 的 {i['remark1']} 时间段的 {i['remark']}")
-            self.main_se.post(self.cancel_url, data=data,
-                              headers=self.normal_headers)
+            r = self.main_se.get(str(self.order_url + i["orderid"]))
+            if not r:
+                continue
+            rr = re.findall("onclick=\"cencelDetail\('(\d*)'\)\"", r.text)
+            for j in rr:
+                print(j)
+                data = {
+                    "orderid": j,
+                    "json": True
+                }
+                self.main_se.post(self.cancel_detail_url, data=data,
+                                headers=self.normal_headers)
+            print(f"已取消 {i['stockDate']} 的 {i['servicenames']} 的 {i['remark1']} 时间段的 {i['remark']}")
         print(f"已取消 {len(self.booked())} 个订单")
 
     def main(self):
@@ -329,15 +335,24 @@ class BookYourDream:
 if __name__ == "__main__":
     y = BookYourDream()
     # y.login("2020051615298","b13968654137") # tey
-    y.login("2020051615297","wh19990921") # wh
-    # y.book(y.inquire(y.D_ONE, "2022-05-14", True))
-    # cy = BookYourDream()
-    # cy.login("2018050605010", "zcy111zcy")
-    # cy.book(cy.inquire(cy.D_ONE, "2022-05-14", True))
-    r = y.booked()
-    print("已预定:")
-    for i in r:
-        print(f"{i['servicenames']} 的 {i['remark1']} 时间段的 {i['remark']}")
+    # y.login("2020051615297","wh19990921") # wh
+    y.login("2020051615308", "yanghongqiang:a1")
+    y.book(y.inquire(y.D_ONE, "2022-05-29", True))
+
+    wh = BookYourDream()
+    wh.login("2020051615297", "wh19990921")
+    wh.book(wh.inquire(wh.D_ONE, "2022-05-29", True))
+
+    cy = BookYourDream()
+    cy.login("2018050605010", "zcy111zcy")
+    cy.book(cy.inquire(cy.D_ONE, "2022-05-29", True))
+
+    wh.cancel_all()
+
+    # r = y.booked()
+    # print("已预定:")
+    # for i in r:
+    #     print(f"{i['servicenames']} 的 {i['remark1']} 时间段的 {i['remark']}")
     # by = BookYourDream()
     # by.login("2020051615308", "yanghongqiang:a1")
     # by.book(by.inquire(by.D_ONE, "2022-05-14", True))
@@ -348,6 +363,6 @@ if __name__ == "__main__":
     # for i in r:
     #     print(f"{i['servicenames']} 的 {i['remark1']} 时间段的 {i['remark']}")
     # while True:
-    #     y.just_inquire(y.D_ONE, "2022-05-14")
+    #     y.just_inquire(y.D_ONE, "2022-05-29")
     #     time.sleep(1)
     # y.main()

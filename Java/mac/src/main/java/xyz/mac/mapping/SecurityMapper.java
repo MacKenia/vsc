@@ -1,5 +1,12 @@
 package xyz.mac.mapping;
 
-public interface SecurityMapper {
-    
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import xyz.mac.model.Security;
+
+@Mapper
+public interface SecurityMapper extends BaseMapper<Security> {
+
 }

@@ -213,4 +213,8 @@ public class FrontController {
         return new Result<>(200, "success", newFile);
     }
 
+    @GetMapping("/log_in")
+    public String login() {
+        return "login";
+    }
 }

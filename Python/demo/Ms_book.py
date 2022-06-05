@@ -336,15 +336,12 @@ if __name__ == "__main__":
     y = BookYourDream()
     # y.login("2020051615298","b13968654137") # tey
     # y.login("2020051615297","wh19990921") # wh
-    y.login("2020051615308", "yanghongqiang:a1")
     y.book(y.inquire(y.D_ONE, "2022-05-29", True))
 
     wh = BookYourDream()
-    wh.login("2020051615297", "wh19990921")
     wh.book(wh.inquire(wh.D_ONE, "2022-05-29", True))
 
     cy = BookYourDream()
-    cy.login("2018050605010", "zcy111zcy")
     cy.book(cy.inquire(cy.D_ONE, "2022-05-29", True))
 
     wh.cancel_all()

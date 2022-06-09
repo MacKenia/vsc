@@ -3,13 +3,13 @@
 
 #define N 10
 
-int w[N], m[N], s[N];
+int w[N*N], m[N*N], s[N*N];
 
 void Dp_BestSearchBinaryTree(int n, double *a, double *b, double *w, double *m, int *s)
 {
-    memset(w, 0, sizeof(int)*n);
-    memset(m, 0, sizeof(int)*n);
-    memset(s, 0, sizeof(int)*n);
+    memset(w, 0, sizeof(double)*n*n);
+    memset(m, 0, sizeof(double)*n*n);
+    memset(s, 0, sizeof(int)*n*n);
     // 初始化表格
     for (int i = 0; i < n; i++)
     {
@@ -37,11 +37,43 @@ void Dp_BestSearchBinaryTree(int n, double *a, double *b, double *w, double *m, 
     }
 }
 
+void printI(int *m, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            printf("%d\t",m[i*n+j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+
+void printD(double *m, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            printf("%.2f\t",m[i*n+j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
 int main()
 {
     double a[] = {0.16, 0.02, 0.02, 0.05, 0.06, 0.01};
     double b[] = {0.1, 0.3, 0.1, 0.2, 0.1};
 
+    Dp_BestSearchBinaryTree(N,a,b,w,m,s);
+
+    printD(w,N);
+    printD(m,N);
+    printI(s,N);
     
     return 0;
 }

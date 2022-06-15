@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void QuickSort(int *p, int start, int end)
+void QuickSortS(int *p, int beg, int end, int tar)
 {
-    if(start >= end) return;
-    int i = start, j = end;
+    if(beg >= end) return;
+    int i = tar, j = end;
     while (i < j)
     {
-        while (p[i] <= p[start] && i < j)
+        while (p[i] <= p[beg] && i < j)
         {
             i++;
         }
-        while (p[j] > p[start] && i < j)
+        while (p[j] > p[beg] && i < j)
         {
             j--;
         }
@@ -22,14 +22,13 @@ void QuickSort(int *p, int start, int end)
             p[j] = t;
         }
     }
-    if(p[i] < p[start])
+    if(p[i] < p[beg])
     {
-        int t = p[start];
-        p[start] = p[i];
+        int t = p[beg];
+        p[beg] = p[i];
         p[i] = t;
     }
-    QuickSort(p, start, i-1);
-    QuickSort(p, i, end);
+    QuickSort(p, beg, i-1);
 }
 
 void QuickSortS(int *p, int beg, int end, int tar)

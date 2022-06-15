@@ -17,16 +17,6 @@ struct Disk
     int direction;            // 磁头方向
 } D;
 
-// 快排
-void sort(int n, int *p)
-{
-    for (int i = 0; i < n; i++)
-    {
-        
-    }
-    
-}
-
 int abs(int a)
 {
     return a < 0x00 ? -0x01 * a : a;
@@ -53,10 +43,20 @@ void FCFS()
 // 最短寻道时间优先
 void SSTF()
 {
-    sort(D.TrackNum, D.TrackOrder);
     for (int i = 0; i < D.TrackNum; i++)
     {
-        D.VisitOrder[i] = D.TrackOrder[i];
+        int t;
+        for (int j = 0; j < D.TrackNum; j++)
+        {
+            int tmp;
+            if (!i)
+                tmp = abs(D.StartTrack - D.TrackOrder[j]);
+            tmp = D.VisitOrder[i-1] - D.TrackOrder[i];
+            if(tmp < t)
+                t = j;
+        }
+        
+        D.VisitOrder[i] = D.TrackOrder[t];
     }
     for (int i = 0x00; i < D.TrackNum; i++)
     {

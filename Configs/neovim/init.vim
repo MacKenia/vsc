@@ -3,6 +3,7 @@ let mapleader=" "
 syntax on
 
 set mouse=a
+set clipboard=unnamed
 set expandtab
 set number
 set cursorline
@@ -10,7 +11,6 @@ set wrap
 set wildmenu
 set showcmd
 set sw=4
-set clipboard+=unnamedplus
 
 set hlsearch
 exec "nohlsearch"
@@ -23,10 +23,12 @@ filetype indent on
 filetype plugin on
 filetype plugin indent on
 
-map E :e .<CR>
+map ee :e .<CR>
 map Q :q!<CR>
 map S :w<CR>
 map R :source $MYVIMRC<CR>
+
+noremap <LEADER><CR> :nohlsearch<CR>
 
 map sk :set nosplitbelow<CR>:split<CR>
 map sj :set splitbelow<CR>:split<CR>
@@ -42,10 +44,7 @@ map tt :tabe<CR>
 map tn :tabn<CR>
 map tp :tabp<CR>
 
-map <LEADER>p :"+p
-map <LEADER>y :"+y
-
-noremap <LEADER><CR> :nohlsearch<CR>
+map <C-c> y
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -54,7 +53,7 @@ Plug 'connorholyday/vim-snazzy'
 Plug 'neoclide/coc.nvim',{'branch':'release'}
 Plug 'eluum/vim-autopair'
 Plug '907th/vim-auto-save'
-" Plug 'cdelledonne/vim-cmake'
+Plug 'cdelledonne/vim-cmake'
 
 call plug#end()
 
@@ -94,8 +93,5 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
-
-
-
 
 

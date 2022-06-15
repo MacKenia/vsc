@@ -6,20 +6,39 @@
 struct activity
 {
     int start;
-    int end
+    int end;
 }A[N];
 
-void sort(int n, struct activity *a)
+void sort(struct activity *a, int s, int e)
 {
-    for (int i = 0; i < n; i++)
+    if (s <= e + 1)
     {
-        for (int j = 0; j < n; j++)
+        if(a[s].start > a[e].start)
         {
-            
+            struct activity t = a[s];
+            a[s] = a[e];
+            a[e] = t;
         }
-        
+        return;
     }
     
+    int base = s, low = s + 1;
+    for (int i = s; i < e; i++)
+    {
+        if (a[base].start < a[i].start)
+        {
+            struct activity t = a[low];
+            a[low] = a[i];
+            a[i] = a[low++];
+        }
+    }
+    {
+        struct activity t = a[low];
+        a[low++] = a[base];
+        a[base] = t;
+    }
+    sort(a, s, low-1);
+    sort(a, low, e);
 }
 
 void GS(int n,int *s, struct activity *a)
@@ -34,6 +53,6 @@ void GS(int n,int *s, struct activity *a)
 
 int main()
 {
-    
+    sort(A, 0, N);
     return 0;
 }

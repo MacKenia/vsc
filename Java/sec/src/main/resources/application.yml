@@ -1,0 +1,25 @@
+server:
+  port: 11451
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mackenia.xyz:3306/springboot
+    username: sql
+    password: mysql
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+
+  rabbitmq:
+    host: luketebo.top
+    port: 5672
+    username: admin
+    password: admin
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

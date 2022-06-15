@@ -5,7 +5,7 @@ void dispose(const char *s, int n)
 {
     if(n==1)
     {
-        printf("%s ", s);
+        printf("%s\n", s);
         return;
     }
     char ss[10];
@@ -22,7 +22,9 @@ void dispose(const char *s, int n)
 
 int main()
 {
-    char *s = "ABCD";
+    char s[80];
+    printf("输入字符串: ");
+    scanf("%s", s);
     dispose(s, strlen(s));
     return 0;
 }

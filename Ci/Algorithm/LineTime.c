@@ -90,10 +90,10 @@ int liner_select(int *p, int n, int nth)
     }
 
     // sort the mid array
-    QuickSort(mid, 0, group - 1);
+    QuickSort(mid, 0, group);
 
     // get the mid number
-    mid[group] = midN(mid, 0, group - 1);
+    mid[group] = midN(mid, 0, group);
 
     // sort half array
     QuickSortS(p, 0, n - 1, mid[group]);

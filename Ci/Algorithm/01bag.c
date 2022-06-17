@@ -36,7 +36,7 @@ int main()
         }
         printf("\n");
     }
-    
+
     printf("最优值为：%d\n", arr[4][8]);
 
     // 回溯
@@ -50,9 +50,7 @@ int main()
                 j -= goods[0][i];
             }
         }
-        
     }
-    
-    
+
     return 0;
 }

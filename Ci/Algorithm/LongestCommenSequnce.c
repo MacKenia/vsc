@@ -3,15 +3,14 @@
 
 void reverse(int **m, char *s, int r, int c)
 {
-    printf("%s\n", &s[1]);
     int i = r - 1;
         for (int j = c - 1; j > 0; j--)
             if (m[i][j] == m[i - 1][j - 1] + 1 && (m[i][j] != m[i - 1][j] || m[i][j] != m[j][j - 1]))
             {
+                reverse(m, s, i, j);
                 printf("%c", s[j]);
-                if(!--i) break;
+                return;
             }
-    printf("\n");
 }
 
 int main()
@@ -42,7 +41,6 @@ int main()
             else
                 dp[i][j] = dp[i - 1][j] > dp[i][j - 1] ? dp[i - 1][j] : dp[i][j - 1];
                 
-    printf("%d\n", dp[l1 - 1][l2 - 1]);
     reverse(dp, s2, l1, l2);
     return 0;
 }

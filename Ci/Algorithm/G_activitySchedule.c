@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define N 10
+#define N 11
 
 struct activity
 {
@@ -16,7 +16,8 @@ struct activity
           {6, 10},
           {8, 11},
           {8, 12},
-          {2, 13}};
+          {2, 13},
+          {12, 14}};
 
 void sort(struct activity a[], int s, int e)
 {
@@ -25,7 +26,7 @@ void sort(struct activity a[], int s, int e)
     int low = s, high = e - 1;
     while (low < high)
     {
-        while (a[low].start < a[s].start && low < high)
+        while (a[low].start <= a[s].start && low < high)
             low++;
         while (a[high].start > a[s].start && low < high)
             high--;
@@ -37,7 +38,7 @@ void sort(struct activity a[], int s, int e)
         }
     }
     {
-        struct activity t = a[low];
+        struct activity t = a[--low];
         a[low++] = a[s];
         a[s] = t;
     }
@@ -47,12 +48,13 @@ void sort(struct activity a[], int s, int e)
 
 void GS(int n, int *s, struct activity *a)
 {
-    *s = 0;
+    memset(s, 0, sizeof(int) * n);
     for (int i = 1; i < n; i++)
     {
         if (a[s[i - 1]].end > a[i].start)
-            continue;
-        s[i] = i;
+            s[i] = s[i - 1];
+        else
+            s[i] = i;
     }
 }
 
@@ -61,6 +63,12 @@ int main()
     sort(A, 0, N);
     for (int i = 0; i < N; i++)
         printf("{%d,%d}\n", A[i].start, A[i].end);
+    int s[N];
+    GS(N, s, A);
+    for (int i = 0; i < N; i++)
+    {
+        printf("%d ", s[i]);
+    }
 
     return 0;
 }

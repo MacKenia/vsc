@@ -22,7 +22,8 @@ int main()
     // SelectSort(N, arr);
     // BubbleSort(N, arr);
     // MergeSort(N, arr);
-    QuickSort(arr, 0, N);
+    // QuickSort(arr, 0, N);
+    InsertSort(N, arr);
 
     printf("\n排序后: \n");
     for (int i = 0; i < N; i++)

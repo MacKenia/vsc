@@ -42,9 +42,9 @@ int main()
 {
     int m[N][N], s[N][N];
     int p[] = {30, 35, 15, 5, 10, 20, 25};
-    for (int i = 0; i < 0; i++)
+    for (int i = 0; i < 7; i++)
     {
-        // scanf("%d",&p[i]);
+        scanf("%d",&p[i]);
     }
     matrix_chain(p, N, (int*)m, (int*)s);
     trace_back(0, N, (int *)s, N);

@@ -16,7 +16,7 @@ void track(int *ar, int *a, int tar, int len)
     }
     for (int i = s; i <= e; i++)
     {
-        printf("%d, ", ar[i]);
+        printf("%d ", ar[i]);
     }
     printf("\n");
 }
@@ -31,7 +31,7 @@ int main()
         S = dp[i] > dp[i - 1] ? i - 1 : i - 2;
 
     for (int i = 0; i < N; i++)
-        printf("%d, ", dp[i + 1]);
+        printf("%d ", dp[i + 1]);
 
     printf("\n%d\n", S);
 

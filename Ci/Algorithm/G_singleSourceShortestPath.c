@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #define I 65536
 
 int n = 5;
@@ -23,7 +24,7 @@ void Dijkstra(int *o)
         for (int i = 0; i < n - 1; i++)
             if (o[(count-1) * n + i] < o[(count-1) * n + i + 1])
                 best = i;
-        o[(count+1)*n+best] = I;
+        o[(count)*n+best] = I;
         for (int i = 0; i < n; i++)
         {
             // 到下一个点的距离 上一个之前累计的距离 上一次计算的距离
@@ -52,7 +53,8 @@ void init()
 int main()
 {
     int o[n*n];
-    Dijkstra(s);
+    memset(o, 0, sizeof(o));    
+    Dijkstra(o);
 
     for (int i = 0; i < n; i++)
     {

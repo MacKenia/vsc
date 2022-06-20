@@ -1,15 +1,47 @@
-import sys
 import random
-from PySide6.QtWidgets import (QApplication, QPushButton, QHBoxLayout, QVBoxLayout,
-        QWidget, QLineEdit, QLabel, QListWidget)
-from PySide6.QtCore import Qt
+import sys
 
-class randYourSelf(QWidget):
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QLineEdit,
+                               QListWidget, QPushButton, QVBoxLayout, QWidget,
+                               QMenu, QMainWindow)
+
+from PySide6.QtGui import (QAction)
+
+
+class randYourSelf(QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle("做尼玛")
 
+        self.Menu()
+        self.Quiz()
+
+        self.show()
+
+    def Menu(self):
+        self.file = QMenu("文件")
+        self.quiz = QMenu("题目")
+
+        self.open = QAction("打开", self)
+        self.save = QAction("保存", self)
+        self.exit = QAction("退出", self)
+        self.about = QAction("关于", self)
+
+        self.single = QAction("专项训练", self)
+
+        self.file.addAction(self.open)
+        self.file.addAction(self.save)
+        self.file.addAction(self.exit)
+        self.file.addAction(self.about)
+
+        self.quiz.addAction(self.single)
+
+        self.menuBar().addMenu(self.file)
+        self.menuBar().addMenu(self.quiz)
+
+    def Quiz(self):
         self.sum = [0,0]
 
         self.quiz = []
@@ -36,24 +68,26 @@ class randYourSelf(QWidget):
         self.history = QListWidget()
         self.pl2 = QVBoxLayout()
 
-        self.s = QLabel(f"总题数: {self.sum[0] + self.sum[1]}  🟢: {self.sum[0]}\t🔴: {self.sum[1]}\t正确率: 0%")
+        self.s = QLabel(f"总题数: {self.sum[0] + self.sum[1]}  🟢: {self.sum[0]}  🔴: {self.sum[1]}  正确率: 0%")
 
         self.pl2.addLayout(self.pl1)
         self.pl2.addWidget(self.button)
         self.pl2.addWidget(self.history)
         self.pl2.addWidget(self.s)
 
-        self.setLayout(self.pl2)
+        self.dia = QWidget()
+        self.dia.setLayout(self.pl2)
+
+        self.setCentralWidget(self.dia)
         self.update()
-        self.show()
 
     def confirm(self):
         if self.t[3] == int(self.quiz[4].text()):
             self.sum[0] += 1
-            self.history.addItem("{} {} {} = {}\t✔".format(self.t[0], self.t[1], self.t[2], self.t[3]))
+            self.history.addItem("{} {} {} = {}\t✅".format(self.t[0], self.t[1], self.t[2], self.t[3]))
         else:
             self.sum[1] += 1
-            self.history.addItem("{} {} {} = {}\t✘".format(self.t[0], self.t[1], self.t[2], self.quiz[4].text()))
+            self.history.addItem("{} {} {} = {}\t❌".format(self.t[0], self.t[1], self.t[2], self.quiz[4].text()))
         self.s.setText(f"总题数: {self.sum[0] + self.sum[1]}  🟢: {self.sum[0]}\t🔴: {self.sum[1]}\t正确率: {self.sum[0] / (self.sum[0] + self.sum[1]) * 100:.0f}%")
         self.update()
         self.quiz[4].setText("")
@@ -69,9 +103,8 @@ class randYourSelf(QWidget):
 
     def gen(self):
         # 随机出题系统 10以内四则运算 并统计正确率
-        a = b = n = 0
+        a = b =  0
         op = ["+", "-", "*", "/"]
-        sum = [0, 0]
 
         o = random.randint(0, 3)
         a = random.randint(1, 10)

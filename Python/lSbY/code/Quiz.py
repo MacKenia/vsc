@@ -3,7 +3,8 @@ import random, sys, time
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QLineEdit,
                                QListWidget, QPushButton, QVBoxLayout, QWidget,
-                               QMenu, QMainWindow, QMessageBox, QComboBox)
+                               QMenu, QMainWindow, QMessageBox, QComboBox,
+                               QFileDialog)
 
 from PySide6.QtGui import (QAction)
 
@@ -12,8 +13,9 @@ class randYourSelf(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("做尼玛")
+        self.setWindowTitle("随机出题程序")
 
+        self.op_list = ["+", "-", "*", "/"]
         self.plus_mode = False
 
         self.Menu()
@@ -91,32 +93,28 @@ class randYourSelf(QMainWindow):
     def confirm(self):
         if self.plus_mode:
             quiz_t = self.quiz_p
+            self.t[1] = self.op.currentIndex()
         else:
             quiz_t = self.quiz
 
-        o = self.gen()
-        a = o[0]
-        b = o[2]
-        o = o[1]
-
         ans = 0
 
-        if o == 0:
-            ans = a + b
-        elif o == 1:
-            ans = a - b
-        elif o == 2:
-            ans = a * b
-        elif o == 3:
-            ans = a / b
+        if self.t[1] == 0:
+            ans = self.t[0] + self.t[2]
+        elif self.t[1] == 1:
+            ans = self.t[0] - self.t[2]
+        elif self.t[1] == 2:
+            ans = self.t[0] * self.t[2]
+        elif self.t[1] == 3:
+            ans = self.t[0] / self.t[2]
 
         if ans == int(quiz_t[4].text()):
             self.sum[0] += 1
-            self.history.addItem("{} {} {} = {}\t✅".format(self.t[0], self.t[1], self.t[2], self.t[3]))
+            self.history.insertItem(0,"{} {} {} = {}\t✅".format(self.t[0], self.op_list[self.t[1]], self.t[2], quiz_t[4].text()))
         else:
             self.sum[1] += 1
-            self.history.addItem("{} {} {} = {}\t❌".format(self.t[0], self.t[1], self.t[2], quiz_t[4].text()))
-        self.s.setText(f"总题数: {self.sum[0] + self.sum[1]}  🟢: {self.sum[0]}\t🔴: {self.sum[1]}\t正确率: {self.sum[0] / (self.sum[0] + self.sum[1]) * 100:.0f}%")
+            self.history.insertItem(0,"{} {} {} = {}\t❌".format(self.t[0], self.op_list[self.t[1]], self.t[2], quiz_t[4].text()))
+        self.s.setText(f"总题数: {self.sum[0] + self.sum[1]}  🟢: {self.sum[0]}  🔴: {self.sum[1]}  正确率: {self.sum[0] / (self.sum[0] + self.sum[1]) * 100:.0f}%")
         self.update()
         quiz_t[4].setText("")
         return
@@ -130,8 +128,12 @@ class randYourSelf(QMainWindow):
         for i, x in enumerate(self.t):
             if i == 1 and self.plus_mode:
                 continue
+            elif i == 1 and not self.plus_mode:
+                quiz_t[i].setText(self.op_list[x])
+                continue
             if i == 3:
                 break
+            
             quiz_t[i].setText(str(x))
 
 
@@ -155,7 +157,7 @@ class randYourSelf(QMainWindow):
         if self.plus_mode:
             o = self.op.currentIndex()
 
-        return (a, o, b)
+        return [a, o, b]
 
     def single_f(self):
         self.plus_mode = True
@@ -163,7 +165,7 @@ class randYourSelf(QMainWindow):
             self.pl1.itemAt(i).widget().deleteLater()
 
         self.op = QComboBox()
-        self.op.addItems(["+", "-", "*", "/"])
+        self.op.addItems(self.op_list)
 
         self.quiz_p = []
         self.quiz_p.append(QLabel())
@@ -182,21 +184,33 @@ class randYourSelf(QMainWindow):
         self.quiz_p[4].returnPressed.connect(self.confirm)
         
         self.update()
-        print("专项训练")
 
     def openFile(self):
-        print("打开文件")
+        fname = QFileDialog.getOpenFileName(self, 'Open file', './')
+        print(fname)
+        if fname[0]:
+            self.file = fname[0]
+            # read file and strip \n
+            with open(self.file, "r", encoding="utf-8") as f:
+                for i in f.readlines():
+                    self.history.addItem(i.strip())
+            for i in range(self.history.count()):
+                if self.history.item(i).text().count("✅") > 0:
+                    self.sum[0] += 1
+                elif self.history.item(i).text().count("❌") > 0:
+                    self.sum[1] += 1
+        if self.sum[0] + self.sum[1] != 0:
+            self.s.setText(f"总题数: {self.sum[0] + self.sum[1]}  🟢: {self.sum[0]}  🔴: {self.sum[1]}  正确率: {self.sum[0] / (self.sum[0] + self.sum[1]) * 100:.0f}%")
 
     def saveFile(self):
         list = self.history
-
         with open (("history_"+ str(time.asctime()).replace(":", "").replace(" ","") +".txt"), "w", encoding="utf-8") as f:
             for i in range(list.count()):
                 f.write(list.item(i).text() + "\n")
 
 
     def about_f(self):
-        QMessageBox.about(self, "关于", "这是由PyQt6编写的随机出题系统！")
+        QMessageBox.about(self, "关于", "这是由PySide6编写的随机出题系统!")
 
     def close(self):
         exit()

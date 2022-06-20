@@ -18,6 +18,17 @@ spring:
     port: 5672
     username: admin
     password: admin
+  mail:
+    host: smtp.exmail.qq.com
+    port: 465
+    
+    username: 2020051615308@stu.cqnu.edu.cn
+    password: 
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
 
 mybatis-plus:
   configuration:

@@ -5,9 +5,8 @@ import org.springframework.amqp.rabbit.annotation.Exchange;
 import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.stereotype.Service;
 
-@Service
+// @Service
 public class RabbitMQService {
     @RabbitListener(queues = "fanout_queue_email")
     public void psubConsumerEmail(Message message) {

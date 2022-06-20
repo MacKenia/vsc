@@ -1,6 +1,10 @@
 package xyz.mac.sec;
 
+import java.io.File;
 import java.util.Date;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.AmqpAdmin;
@@ -11,7 +15,10 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
 import xyz.mac.model.User;
 
@@ -22,6 +29,12 @@ class SecApplicationTests {
 
 	@Autowired
 	AmqpAdmin amqpAdmin;
+
+	@Autowired
+	private JavaMailSender javaMailSender;
+
+	@Value("${spring.mail.username}")
+	private String from;
 
 	@Test
 	void contextLoads() {
@@ -97,5 +110,36 @@ class SecApplicationTests {
 				"info.email.sms",
 				"topics send  email and sms message");
 	}
+
+    /**
+     * 发送邮件并携带附件.
+     * 请注意 from 、 to 邮件服务器是否限制邮件大小
+     *
+     * @param to       目标email 地址
+     * @param subject  邮件主题
+     * @param text     纯文本内容
+     * @param filePath 附件的路径 当然你可以改写传入文件
+     * @throws javax.mail.MessagingException
+     * @throws javax.mail.MessagingException
+     */
+	@Test
+	public void sendMail() throws MessagingException {
+		sendMailWithAttachment("maikenqi@outlook.com", "Test", "这是一封垃圾邮件", "C:\\Users\\MacKenia\\Pictures\\2022-06-19-142928.jpg");
+	}
+
+
+    public void sendMailWithAttachment(String to, String subject, String text, String filePath) throws MessagingException {
+
+        File attachment = new File(filePath);
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper=new MimeMessageHelper(mimeMessage,true);
+        helper.setFrom(from);
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(text);
+        helper.addAttachment(attachment.getName(),attachment);
+        javaMailSender.send(mimeMessage);
+
+    }
 
 }

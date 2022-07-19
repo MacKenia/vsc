@@ -334,24 +334,24 @@ class BookYourDream:
 
 if __name__ == "__main__":
     y = BookYourDream()
+    y.main()
     # y.login("2020051615298","b13968654137") # tey
     # y.login("2020051615297","wh19990921") # wh
-    y.book(y.inquire(y.D_ONE, "2022-05-29", True))
+    # y.book(y.inquire(y.D_ONE, "2022-05-29", True))
 
-    wh = BookYourDream()
-    wh.book(wh.inquire(wh.D_ONE, "2022-05-29", True))
+    # wh = BookYourDream()
+    # wh.book(wh.inquire(wh.D_ONE, "2022-05-29", True))
 
-    cy = BookYourDream()
-    cy.book(cy.inquire(cy.D_ONE, "2022-05-29", True))
+    # cy = BookYourDream()
+    # cy.book(cy.inquire(cy.D_ONE, "2022-05-29", True))
 
-    wh.cancel_all()
+    # wh.cancel_all()
 
     # r = y.booked()
     # print("已预定:")
     # for i in r:
     #     print(f"{i['servicenames']} 的 {i['remark1']} 时间段的 {i['remark']}")
     # by = BookYourDream()
-    # by.login("2020051615308", "yanghongqiang:a1")
     # by.book(by.inquire(by.D_ONE, "2022-05-14", True))
     # r = by.booked()
     # y.cancel_all()

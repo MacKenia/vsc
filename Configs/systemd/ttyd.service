@@ -7,4 +7,4 @@ WantedBy=multi-user.target
 
 [Service]
 WorkingDirectory=/home/
-ExecStart=/usr/local/bin/ttyd -p 5501 -u 1001 -w /home/code/CqoocAutoCompleteCourse zsh
+ExecStart=/usr/local/bin/ttyd -p 5501 -u 1001 -w /home/code zsh

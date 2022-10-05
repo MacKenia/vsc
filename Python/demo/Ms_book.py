@@ -335,8 +335,6 @@ class BookYourDream:
 if __name__ == "__main__":
     y = BookYourDream()
     y.main()
-    # y.login("2020051615298","b13968654137") # tey
-    # y.login("2020051615297","wh19990921") # wh
     # y.book(y.inquire(y.D_ONE, "2022-05-29", True))
 
     # wh = BookYourDream()

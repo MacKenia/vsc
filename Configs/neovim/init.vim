@@ -23,7 +23,7 @@ filetype indent on
 filetype plugin on
 filetype plugin indent on
 
-map ee :e .<CR>
+map E :e .<CR>
 map Q :q!<CR>
 map S :w<CR>
 map R :source $MYVIMRC<CR>

@@ -3,7 +3,7 @@ let mapleader=" "
 syntax on
 
 set mouse=a
-set clipboard=unnamed
+set clipboard+=unnamedplus
 set expandtab
 set number
 set cursorline
@@ -48,8 +48,9 @@ map <C-c> y
 
 call plug#begin('~/.config/nvim/plugged')
 
+Plug 'arcticicestudio/nord-vim'
 Plug 'vim-airline/vim-airline'
-Plug 'connorholyday/vim-snazzy'
+" Plug 'connorholyday/vim-snazzy'
 Plug 'neoclide/coc.nvim',{'branch':'release'}
 Plug 'eluum/vim-autopair'
 Plug '907th/vim-auto-save'
@@ -60,21 +61,40 @@ call plug#end()
 " make background transparent
 let g:SnazzyTransparent = 1
 
-color snazzy
+" color nord
+colorscheme nord
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
+let g:nord_underline = 1
+let g:nord_cursor_line_number_background = 1
+
+""autocmd CursorMoved * exec 'match Error /\%' . line('.') . 'ada#Comment'
 
 let g:auto_save = 1 " enble Autosave on vim startup
 
 let g:coc_global_extensions = [
 	\ 'coc-json',
-	\ 'coc-vimlsp',
-	\ 'coc-clangd']
+	\ 'coc-vimlsp']
+
+" verbose imap <TAB>
 
 " use <TAB> to complete code
+
+function! CheckBackSpace() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction
+
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+	\ coc#pum#visible() ? coc#pum#next(1):
+	\ CheckBackSpace() ? "\<Tab>" :
+	\ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+inoremap <silent><expr> <C-j> coc#pum#visible() ? coc#pum#next(1) : "\<C-j>"
+inoremap <silent><expr> <C-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-k>"
+inoremap <silent><expr> <down> coc#pum#visible() ? coc#pum#next(0) : "\<down>"
+inoremap <silent><expr> <up> coc#pum#visible() ? coc#pum#prev(0) : "\<up>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -93,5 +113,3 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
-
-
